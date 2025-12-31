@@ -1,0 +1,155 @@
+.footer {
+  background: #000;
+  border-top: 1px solid #333;
+  color: #e0e0e0;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+/* ===== GRID ===== */
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.5rem;
+}
+
+.footer-col h4 {
+  font-size: 1rem;
+  color: #fff;
+  margin-bottom: 0.75rem;
+}
+
+.footer-logo {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-logo:hover {
+  color: #FF5E00;
+}
+
+.footer-text {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: #b0b0b0;
+  line-height: 1.6;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 0.4rem;
+}
+
+.footer-col ul li a,
+.footer-link {
+  font-size: 0.85rem;
+  color: #b0b0b0;
+  text-decoration: none;
+}
+
+.footer-col ul li a:hover,
+.footer-link:hover {
+  color: #FF5E00;
+}
+
+/* ===== SOCIAL ===== */
+.footer-social {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #b0b0b0;
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+}
+
+.footer-social:hover {
+  color: #FF5E00;
+}
+
+.external {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.footer-social:hover .external {
+  opacity: 1;
+}
+
+/* ===== BOTTOM ===== */
+.footer-bottom {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #333;
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-size: 0.85rem;
+}
+
+.footer-bottom-link {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.footer-bottom-link:hover {
+  color: #FF5E00;
+}
+
+.footer-bottom span {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  color: #888;
+}
+
+/* ===== MOBILE ===== */
+.footer-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .footer-grid {
+    display: none;
+  }
+
+  .footer-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .footer-mobile-text {
+    font-size: 0.75rem;
+    color: #9a9a9a;
+    max-width: 260px;
+  }
+
+  .footer-mobile-icons {
+    display: flex;
+    gap: 1.2rem;
+  }
+
+  .footer-mobile-icons a {
+    color: #b0b0b0;
+    text-decoration: none;
+    font-size: 0.85rem;
+  }
+
+  .footer-mobile-icons a:hover {
+    color: #FF5E00;
+  }
+}

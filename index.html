@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Josimar Soares</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/globals.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+
+</head>
+
+<body class="bg-black text-white">
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="/" class="logo">
+        <img src="assets/logos/Logo1.png" alt="Logo Josimar Soares">
+      </a>
+      <nav class="nav-desktop" id="navDesktop"></nav>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+    </div>
+    <div class="menu-mobile" id="menuMobile"></div>
+  </header>
+
+  <div class="navbar-spacer"></div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+
+    <div class="hero-face">
+      <img src="assets/images/Rosto.png" alt="Josimar Soares">
+    </div>
+
+    <div class="hero-content">
+      <h1 id="hero-title"></h1>
+      <p id="hero-subtitle"></p>
+
+      <div class="hero-product">
+        <img id="hero-image" src="" alt="">
+      </div>
+
+      <a id="hero-button" class="hero-button" href="#">Veja Mais</a>
+    </div>
+  </section>
+
+  <!-- CONTEÚDO DA HOME -->
+  <main id="homeContent"></main>
+
+  <!-- FOOTER -->
+  <div id="footerContainer"></div>
+
+  <!-- UTILS -->
+  <script src="js/utils.js" defer></script>
+
+  <!-- DADOS -->
+  <script src="js/categories.js" defer></script>
+  <script src="js/products_data.js" defer></script>
+
+  <!-- COMPORTAMENTO -->
+  <script src="js/navbar.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/hero.js" defer></script>
+
+  <!-- RENDERIZAÇÃO -->
+  <script src="js/render.carousel.js" defer></script>
+  <script src="js/render.products.js" defer></script>
+  <script src="js/render.footer.js" defer></script>
+
+  <!-- INICIALIZAÇÃO FINAL -->
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      const home = document.getElementById("homeContent");
+      if (!home) return;
+
+      /* ===== VÍDEO ===== */
+      const video = document.createElement("section");
+      video.className = "video-section";
+      video.innerHTML = `
+        <h2 class="video-title">
+          <span class="orange">PARE DE DESPERDIÇAR DINHEIRO!</span><br>
+          <span>CONFIRA OS MELHORES PATINS POR ATÉ</span><br>
+          <span class="orange">R$ 1500</span>
+        </h2>
+
+        <div class="video-container">
+          <iframe
+            src="https://www.youtube.com/embed/Dgm-0HwMKK4?autoplay=1&mute=1&rel=0"
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <p class="video-hint">🔊 Clique no vídeo para ativar o som</p>
+      `;
+      home.appendChild(video);
+
+      /* ===== DESTAQUES ===== */
+      renderFeaturedProducts("homeContent", PRODUCTS);
+
+      /* ===== PRODUTOS ===== */
+      renderAllProducts("homeContent");
+
+      /* ===== FOOTER ===== */
+      renderFooter("footerContainer");
+    });
+  </script>
+
+</body>
+</html>
