@@ -114,6 +114,35 @@
   color: #888;
 }
 
+.footer-icon {
+  width: 18px;
+  height: 18px;
+  stroke: #b0b0b0;
+  fill: none;
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+
+.footer-social .footer-icon {
+  margin-right: 0.4rem;
+}
+
+.footer-social:hover .footer-icon {
+  stroke: #FF5E00;
+}
+
+.footer-icon.small {
+  width: 14px;
+  height: 14px;
+  margin-left: auto;
+  opacity: 0;
+}
+
+.footer-social:hover .footer-icon.small {
+  opacity: 1;
+}
+
+
 /* ===== MOBILE ===== */
 .footer-mobile {
   display: none;

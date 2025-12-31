@@ -8,7 +8,7 @@ function renderFooter(containerId) {
     <footer class="footer">
       <div class="footer-inner">
 
-        <!-- DESKTOP / TABLET -->
+        <!-- GRID DESKTOP -->
         <div class="footer-grid">
 
           <!-- COLUNA 1 -->
@@ -39,7 +39,8 @@ function renderFooter(containerId) {
             <h4>Contato</h4>
 
             <a href="mailto:josimarsilvasoares2015@gmail.com" class="footer-link">
-              ✉ josimarsilvasoares2015@gmail.com
+              ${mailIcon()}
+              josimarsilvasoares2015@gmail.com
             </a>
 
             <a
@@ -47,7 +48,8 @@ function renderFooter(containerId) {
               target="_blank"
               class="footer-link"
             >
-              📍 Montes Claros, MG – Brasil
+              ${mapIcon()}
+              Montes Claros, MG – Brasil
             </a>
           </div>
 
@@ -56,23 +58,27 @@ function renderFooter(containerId) {
             <h4>Comunidade</h4>
 
             <a href="https://www.instagram.com/josimarssoares/" target="_blank" class="footer-social">
+              ${instagramIcon()}
               <span>Instagram</span>
-              <span class="external">↗</span>
+              ${externalIcon()}
             </a>
 
             <a href="https://www.facebook.com/chocolatemegastyle" target="_blank" class="footer-social">
+              ${facebookIcon()}
               <span>Facebook</span>
-              <span class="external">↗</span>
+              ${externalIcon()}
             </a>
 
             <a href="https://www.threads.net/@josimarssoares" target="_blank" class="footer-social">
+              ${linkIcon()}
               <span>Threads</span>
-              <span class="external">↗</span>
+              ${externalIcon()}
             </a>
 
             <a href="https://www.josimarsoares.com.br/" target="_blank" class="footer-social">
+              ${penIcon()}
               <span>Blog</span>
-              <span class="external">↗</span>
+              ${externalIcon()}
             </a>
           </div>
 
@@ -88,9 +94,15 @@ function renderFooter(containerId) {
           </p>
 
           <div class="footer-mobile-icons">
-            <a href="https://www.instagram.com/josimarssoares/" target="_blank">IG</a>
-            <a href="https://www.facebook.com/chocolatemegastyle" target="_blank">FB</a>
-            <a href="https://www.threads.net/@josimarssoares" target="_blank">TH</a>
+            <a href="https://www.instagram.com/josimarssoares/" target="_blank">
+              ${instagramIcon()}
+            </a>
+            <a href="https://www.facebook.com/chocolatemegastyle" target="_blank">
+              ${facebookIcon()}
+            </a>
+            <a href="https://www.threads.net/@josimarssoares" target="_blank">
+              ${linkIcon()}
+            </a>
           </div>
         </div>
 
@@ -108,5 +120,71 @@ function renderFooter(containerId) {
 
       </div>
     </footer>
+  `;
+}
+
+/* ===== SVG ICONS (INLINE COM XMLNS) ===== */
+
+function instagramIcon() {
+  return `
+    <svg class="footer-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="2" width="20" height="20" rx="5"/>
+      <circle cx="12" cy="12" r="4"/>
+      <circle cx="17.5" cy="6.5" r="1"/>
+    </svg>
+  `;
+}
+
+function facebookIcon() {
+  return `
+    <svg class="footer-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+    </svg>
+  `;
+}
+
+function linkIcon() {
+  return `
+    <svg class="footer-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 13a5 5 0 0 1 0-7l2-2a5 5 0 0 1 7 7l-1 1"/>
+      <path d="M14 11a5 5 0 0 1 0 7l-2 2a5 5 0 0 1-7-7l1-1"/>
+    </svg>
+  `;
+}
+
+function penIcon() {
+  return `
+    <svg class="footer-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 20h9"/>
+      <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+    </svg>
+  `;
+}
+
+function mailIcon() {
+  return `
+    <svg class="footer-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <rect x="2" y="4" width="20" height="16" rx="2"/>
+      <path d="M22 6 12 13 2 6"/>
+    </svg>
+  `;
+}
+
+function mapIcon() {
+  return `
+    <svg class="footer-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 21s8-4.5 8-11a8 8 0 1 0-16 0c0 6.5 8 11 8 11z"/>
+      <circle cx="12" cy="10" r="3"/>
+    </svg>
+  `;
+}
+
+function externalIcon() {
+  return `
+    <svg class="footer-icon small" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 3h3v3"/>
+      <path d="M10 14 21 3"/>
+      <path d="M21 14v7H3V3h7"/>
+    </svg>
   `;
 }

@@ -6,7 +6,8 @@ function getSortedProducts(products) {
 
   if (sortBy === "asc") return arr.sort((a, b) => a.price - b.price);
   if (sortBy === "desc") return arr.sort((a, b) => b.price - a.price);
-  if (sortBy === "newest") return arr.sort((a, b) => (b.id || 0) - (a.id || 0));
+  if (sortBy === "newest")
+    return arr.sort((a, b) => (b.id || 0) - (a.id || 0));
 
   return arr;
 }
@@ -21,13 +22,18 @@ function renderAllProducts(containerId, products = PRODUCTS) {
   const section = document.createElement("section");
   section.className = "grid-products-container";
 
+  /* ===== TÍTULO ===== */
+  const title = document.createElement("h2");
+  title.className = "section-title"; // mesma classe do "Destaques"
+  title.textContent = "Todos os produtos";
+  section.appendChild(title);
+
   /* ===== FILTRO ===== */
-  section.innerHTML = `
+  section.innerHTML += `
     <div class="filter-wrapper">
       <div class="filter-dropdown" id="filterDropdown">
         <button class="filter-button" id="filterButton">
           <div class="filter-left">
-            <!-- SVG INLINE (CORRETO) -->
             <svg
               class="filter-icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -70,26 +76,26 @@ function renderAllProducts(containerId, products = PRODUCTS) {
   grid.innerHTML = visible
     .map(
       (product) => `
-      <a href="${product.link}" target="_blank" class="product-card">
-        <div class="product-image-wrapper">
-          <img
-            src="${product.image}"
-            alt="${product.title}"
-            class="product-image"
-            onerror="this.src='assets/images/placeholder.jpg'"
-          />
-        </div>
-        <div class="product-content">
-          <h3 class="product-title">${product.title}</h3>
-          <p class="product-price">
-            ${product.price.toLocaleString("pt-BR", {
-              style: "currency",
-              currency: "BRL",
-            })}
-          </p>
-        </div>
-      </a>
-    `
+        <a href="${product.link}" target="_blank" class="product-card">
+          <div class="product-image-wrapper">
+            <img
+              src="${product.image}"
+              alt="${product.title}"
+              class="product-image"
+              onerror="this.src='assets/images/placeholder.jpg'"
+            />
+          </div>
+          <div class="product-content">
+            <h3 class="product-title">${product.title}</h3>
+            <p class="product-price">
+              ${product.price.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })}
+            </p>
+          </div>
+        </a>
+      `
     )
     .join("");
 

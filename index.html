@@ -79,7 +79,8 @@
     document.addEventListener("DOMContentLoaded", () => {
       const home = document.getElementById("homeContent");
       if (!home) return;
-
+    /* ===== DESTAQUES ===== */
+      renderFeaturedProducts("homeContent", PRODUCTS);
       /* ===== VÍDEO ===== */
       const video = document.createElement("section");
       video.className = "video-section";
@@ -101,8 +102,7 @@
       `;
       home.appendChild(video);
 
-      /* ===== DESTAQUES ===== */
-      renderFeaturedProducts("homeContent", PRODUCTS);
+  
 
       /* ===== PRODUTOS ===== */
       renderAllProducts("homeContent");
