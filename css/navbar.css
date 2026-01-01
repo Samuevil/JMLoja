@@ -15,6 +15,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  
 }
 
 .logo img {
@@ -39,7 +40,7 @@
 
 .nav-link {
   color: #d0d0d0;
-  font-weight: 500;
+  font-weight: bold;
   padding: 4px 0;
   text-decoration: none;
 }

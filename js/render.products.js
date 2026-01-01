@@ -1,4 +1,4 @@
-let visibleCount = 12;
+let visibleCount = 15;
 let sortBy = "asc";
 
 function getSortedProducts(products) {
@@ -144,7 +144,7 @@ function renderAllProducts(containerId, products = PRODUCTS) {
   const loadMoreBtn = section.querySelector("#loadMoreButton");
   if (loadMoreBtn) {
     loadMoreBtn.onclick = () => {
-      visibleCount += 12;
+      visibleCount += 15;
       container.querySelector("section:last-of-type")?.remove();
       renderAllProducts(containerId, products);
     };

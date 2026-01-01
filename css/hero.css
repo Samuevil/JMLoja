@@ -63,6 +63,7 @@
 }
 
 .hero-content {
+  margin-top: 290px;
   position: relative;
   z-index: 3;
   height: 100%;
@@ -97,7 +98,7 @@
 }
 
 .hero-button {
-  margin-top: 18px;
+  margin-top: 38px;
   padding: 14px 28px;
   background: transparent;
   color: #FF5E00;
