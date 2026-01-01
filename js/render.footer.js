@@ -8,10 +8,8 @@ function renderFooter(containerId) {
     <footer class="footer">
       <div class="footer-inner">
 
-        <!-- GRID DESKTOP -->
         <div class="footer-grid">
 
-          <!-- COLUNA 1 -->
           <div class="footer-col">
             <a href="/" class="footer-logo">Josimar Soares</a>
             <p class="footer-text">
@@ -21,7 +19,6 @@ function renderFooter(containerId) {
             </p>
           </div>
 
-          <!-- COLUNA 2 -->
           <div class="footer-col">
             <h4>Categorias</h4>
             <ul>
@@ -34,15 +31,12 @@ function renderFooter(containerId) {
             </ul>
           </div>
 
-          <!-- COLUNA 3 -->
           <div class="footer-col">
             <h4>Contato</h4>
-
             <a href="mailto:josimarsilvasoares2015@gmail.com" class="footer-link">
               ${mailIcon()}
               josimarsilvasoares2015@gmail.com
             </a>
-
             <a
               href="https://www.google.com/maps/place/Montes+Claros,+MG,+Brasil"
               target="_blank"
@@ -53,64 +47,31 @@ function renderFooter(containerId) {
             </a>
           </div>
 
-          <!-- COLUNA 4 -->
           <div class="footer-col">
             <h4>Comunidade</h4>
 
             <a href="https://www.instagram.com/josimarssoares/" target="_blank" class="footer-social">
-              ${instagramIcon()}
-              <span>Instagram</span>
-              ${externalIcon()}
+              ${instagramIcon()} <span>Instagram</span> ${externalIcon()}
             </a>
 
             <a href="https://www.facebook.com/chocolatemegastyle" target="_blank" class="footer-social">
-              ${facebookIcon()}
-              <span>Facebook</span>
-              ${externalIcon()}
+              ${facebookIcon()} <span>Facebook</span> ${externalIcon()}
             </a>
 
             <a href="https://www.threads.net/@josimarssoares" target="_blank" class="footer-social">
-              ${linkIcon()}
-              <span>Threads</span>
-              ${externalIcon()}
+              ${linkIcon()} <span>Threads</span> ${externalIcon()}
             </a>
 
             <a href="https://www.josimarsoares.com.br/" target="_blank" class="footer-social">
-              ${penIcon()}
-              <span>Blog</span>
-              ${externalIcon()}
+              ${penIcon()} <span>Blog</span> ${externalIcon()}
             </a>
           </div>
 
         </div>
 
-        <!-- MOBILE -->
-        <div class="footer-mobile">
-          <a href="/" class="footer-logo">Josimar Soares</a>
-
-          <p class="footer-mobile-text">
-            Cultura urbana sobre rodas. Street, wizard e setups reais —
-            autenticidade em movimento.
-          </p>
-
-          <div class="footer-mobile-icons">
-            <a href="https://www.instagram.com/josimarssoares/" target="_blank">
-              ${instagramIcon()}
-            </a>
-            <a href="https://www.facebook.com/chocolatemegastyle" target="_blank">
-              ${facebookIcon()}
-            </a>
-            <a href="https://www.threads.net/@josimarssoares" target="_blank">
-              ${linkIcon()}
-            </a>
-          </div>
-        </div>
-
-        <!-- COPYRIGHT -->
         <div class="footer-bottom">
           <p>
-            © ${year}
-            <a href="/" class="footer-bottom-link">Josimar Soares</a>.
+            © ${year} <a href="/" class="footer-bottom-link">Josimar Soares</a>.
             Todos os direitos reservados.
           </p>
           <span>
@@ -123,65 +84,79 @@ function renderFooter(containerId) {
   `;
 }
 
-/* ===== SVG ICONS (INLINE COM XMLNS) ===== */
+/* ===== SVG ICONS (100% compatível com GitHub Pages) ===== */
 
-function instagramIcon() {
+function baseSvg(content) {
   return `
-    <svg class="footer-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <rect x="2" y="2" width="20" height="20" rx="5"/>
-      <circle cx="12" cy="12" r="4"/>
-      <circle cx="17.5" cy="6.5" r="1"/>
+    <svg
+      class="footer-icon"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      ${content}
     </svg>
   `;
+}
+
+function instagramIcon() {
+  return baseSvg(`
+    <rect x="2" y="2" width="20" height="20" rx="5"/>
+    <circle cx="12" cy="12" r="4"/>
+    <circle cx="17.5" cy="6.5" r="1"/>
+  `);
 }
 
 function facebookIcon() {
-  return `
-    <svg class="footer-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-    </svg>
-  `;
+  return baseSvg(`
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  `);
 }
 
 function linkIcon() {
-  return `
-    <svg class="footer-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M10 13a5 5 0 0 1 0-7l2-2a5 5 0 0 1 7 7l-1 1"/>
-      <path d="M14 11a5 5 0 0 1 0 7l-2 2a5 5 0 0 1-7-7l1-1"/>
-    </svg>
-  `;
+  return baseSvg(`
+    <path d="M10 13a5 5 0 0 1 0-7l2-2a5 5 0 0 1 7 7l-1 1"/>
+    <path d="M14 11a5 5 0 0 1 0 7l-2 2a5 5 0 0 1-7-7l1-1"/>
+  `);
 }
 
 function penIcon() {
-  return `
-    <svg class="footer-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 20h9"/>
-      <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>
-    </svg>
-  `;
+  return baseSvg(`
+    <path d="M12 20h9"/>
+    <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+  `);
 }
 
 function mailIcon() {
-  return `
-    <svg class="footer-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <rect x="2" y="4" width="20" height="16" rx="2"/>
-      <path d="M22 6 12 13 2 6"/>
-    </svg>
-  `;
+  return baseSvg(`
+    <rect x="2" y="4" width="20" height="16" rx="2"/>
+    <path d="M22 6 12 13 2 6"/>
+  `);
 }
 
 function mapIcon() {
-  return `
-    <svg class="footer-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 21s8-4.5 8-11a8 8 0 1 0-16 0c0 6.5 8 11 8 11z"/>
-      <circle cx="12" cy="10" r="3"/>
-    </svg>
-  `;
+  return baseSvg(`
+    <path d="M12 21s8-4.5 8-11a8 8 0 1 0-16 0c0 6.5 8 11 8 11z"/>
+    <circle cx="12" cy="10" r="3"/>
+  `);
 }
 
 function externalIcon() {
   return `
-    <svg class="footer-icon small" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      class="footer-icon small"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
       <path d="M18 3h3v3"/>
       <path d="M10 14 21 3"/>
       <path d="M21 14v7H3V3h7"/>
