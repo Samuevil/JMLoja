@@ -15,7 +15,7 @@ categoryGroups.forEach((group, index) => {
   header.className = "mobile-header";
 
   const link = document.createElement("a");
-  link.href = `/categories/${group.slug}`;
+  link.href = `/?category=${group.slug}`;
   link.textContent = group.title;
   link.addEventListener("click", () => {
     menuMobile.classList.remove("open");
@@ -43,7 +43,7 @@ categoryGroups.forEach((group, index) => {
 
     col.items.forEach(item => {
       const a = document.createElement("a");
-      a.href = `/categories/${item.slug}`;
+      a.href = `/?category=${item.slug}`;
       a.textContent = item.name;
       a.addEventListener("click", () => {
         menuMobile.classList.remove("open");

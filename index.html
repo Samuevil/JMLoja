@@ -13,6 +13,23 @@
   <link rel="stylesheet" href="css/home.css" />
   <link rel="stylesheet" href="css/footer.css" />
 
+  <!-- ANIMAÇÕES DE SLIDE HORIZONTAL (opcional, só se usar hero.js com animação) -->
+<style>
+  @keyframes slideOutToLeft {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(-20%); opacity: 0; }
+  }
+  @keyframes slideInFromRight {
+    from { transform: translateX(20%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  .slide-out {
+    animation: slideOutToLeft 0.6s ease forwards;
+  }
+  .slide-in {
+    animation: slideInFromRight 0.6s ease forwards;
+  }
+</style>
 </head>
 
 <body class="bg-black text-white">
@@ -31,27 +48,23 @@
 
   <div class="navbar-spacer"></div>
 
-  <!-- HERO -->
+  <!-- HERO (estrutura original restaurada) -->
   <section id="hero">
     <div class="hero-bg"></div>
-
     <div class="hero-face">
       <img src="assets/images/Rosto.png" alt="Josimar Soares">
     </div>
-
     <div class="hero-content">
       <h1 id="hero-title"></h1>
       <p id="hero-subtitle"></p>
-
       <div class="hero-product">
         <img id="hero-image" src="" alt="">
       </div>
-
       <a id="hero-button" class="hero-button" href="#">Veja Mais</a>
     </div>
   </section>
 
-  <!-- CONTEÚDO DA HOME -->
+  <!-- CONTEÚDO -->
   <main id="homeContent"></main>
 
   <!-- FOOTER -->
@@ -74,40 +87,113 @@
   <script src="js/render.products.js" defer></script>
   <script src="js/render.footer.js" defer></script>
 
+  <!-- FUNÇÕES DE APOIO -->
+  <script>
+    // Função para obter todos os slugs filhos de um grupo
+    function getAllChildSlugs(targetSlug) {
+      const slugs = new Set();
+      for (const group of categoryGroups) {
+        if (group.slug === targetSlug) {
+          group.columns?.forEach(col => {
+            col.items?.forEach(item => slugs.add(item.slug));
+          });
+          return Array.from(slugs);
+        }
+        for (const col of group.columns || []) {
+          if (col.slug === targetSlug) {
+            col.items?.forEach(item => slugs.add(item.slug));
+            return Array.from(slugs);
+          }
+        }
+      }
+      return null;
+    }
+
+    // Função para obter o nome amigável real da categoria
+    function getCategoryNameBySlug(slug) {
+      for (const group of categoryGroups) {
+        for (const col of group.columns || []) {
+          for (const item of col.items || []) {
+            if (item.slug === slug) {
+              return item.name;
+            }
+          }
+        }
+      }
+      for (const group of categoryGroups) {
+        for (const col of group.columns || []) {
+          if (col.slug === slug) {
+            return col.title;
+          }
+        }
+      }
+      for (const group of categoryGroups) {
+        if (group.slug === slug) {
+          return group.title;
+        }
+      }
+      return slug.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase());
+    }
+  </script>
+
   <!-- INICIALIZAÇÃO FINAL -->
   <script defer>
     document.addEventListener("DOMContentLoaded", () => {
       const home = document.getElementById("homeContent");
+      const hero = document.getElementById("hero");
       if (!home) return;
-    /* ===== DESTAQUES ===== */
-      renderFeaturedProducts("homeContent", PRODUCTS);
-      /* ===== VÍDEO ===== */
-      const video = document.createElement("section");
-      video.className = "video-section";
-      video.innerHTML = `
-        <h2 class="video-title">
-          <span class="orange">PARE DE DESPERDIÇAR DINHEIRO!</span><br>
-          <span>CONFIRA OS MELHORES PATINS POR ATÉ</span><br>
-          <span class="orange">R$ 1500</span>
-        </h2>
 
-        <div class="video-container">
-          <iframe
-            src="https://www.youtube.com/embed/Dgm-0HwMKK4?autoplay=1&mute=1&rel=0"
-            allowfullscreen>
-          </iframe>
-        </div>
+      home.innerHTML = "";
 
-        <p class="video-hint">🔊 Clique no vídeo para ativar o som</p>
-      `;
-      home.appendChild(video);
+      const urlParams = new URLSearchParams(window.location.search);
+      const categorySlug = urlParams.get("category");
 
-  
+      if (hero) {
+        hero.style.display = categorySlug ? "none" : "block";
+      }
 
-      /* ===== PRODUTOS ===== */
-      renderAllProducts("homeContent");
+      let productsToShow = PRODUCTS;
+      let sectionTitle = "Todos os produtos";
 
-      /* ===== FOOTER ===== */
+      if (categorySlug) {
+        const isLeaf = PRODUCTS.some(p => p.category === categorySlug);
+
+        if (isLeaf) {
+          productsToShow = PRODUCTS.filter(p => p.category === categorySlug);
+          sectionTitle = getCategoryNameBySlug(categorySlug);
+        } else {
+          const childSlugs = getAllChildSlugs(categorySlug);
+          if (childSlugs && childSlugs.length > 0) {
+            productsToShow = PRODUCTS.filter(p => childSlugs.includes(p.category));
+            sectionTitle = getCategoryNameBySlug(categorySlug);
+          } else {
+            productsToShow = [];
+            sectionTitle = "Categoria não encontrada";
+          }
+        }
+      }
+
+      // Só mostra destaques e vídeo na home
+      if (!categorySlug) {
+        renderFeaturedProducts("homeContent", PRODUCTS);
+
+        const video = document.createElement("section");
+        video.className = "video-section";
+        video.innerHTML = `
+          <h2 class="video-title">
+            <span class="orange">PARE DE DESPERDIÇAR DINHEIRO!</span><br>
+            <span>CONFIRA OS MELHORES PATINS POR ATÉ</span><br>
+            <span class="orange">R$ 1500</span>
+          </h2>
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/Dgm-0HwMKK4?autoplay=1&mute=1&rel=0" allowfullscreen></iframe>
+          </div>
+          <p class="video-hint">🔊 Clique no vídeo para ativar o som</p>
+        `;
+        home.appendChild(video);
+      }
+
+      renderAllProducts("homeContent", productsToShow, sectionTitle);
       renderFooter("footerContainer");
     });
   </script>

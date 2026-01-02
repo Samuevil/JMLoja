@@ -13,7 +13,7 @@ categoryGroups.forEach((group) => {
 
   const link = document.createElement("a");
   link.className = "nav-link";
-  link.href = `/categories/${group.slug}`;
+  link.href = `/?category=${group.slug}`;
   link.textContent = group.title;
   link.style.textDecoration = "none";
   navItem.appendChild(link);
@@ -32,7 +32,7 @@ categoryGroups.forEach((group) => {
     group.columns.forEach((col) => {
       const colDiv = document.createElement("div");
       const titleLink = document.createElement("a");
-      titleLink.href = `/categories/${col.slug}`;
+      titleLink.href = `/?category=${col.slug}`;
       titleLink.textContent = col.title;
       titleLink.style.display = "block";
       titleLink.style.marginBottom = "8px";
@@ -45,7 +45,7 @@ categoryGroups.forEach((group) => {
 
       col.items.forEach((item) => {
         const a = document.createElement("a");
-        a.href = `/categories/${item.slug}`;
+        a.href = `/?category=${item.slug}`;
         a.textContent = item.name;
         a.style.display = "block";
         a.style.color = "#b0b0b0";

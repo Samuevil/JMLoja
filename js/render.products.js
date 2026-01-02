@@ -1,3 +1,4 @@
+// js/render.products.js
 let visibleCount = 15;
 let sortBy = "asc";
 
@@ -12,7 +13,7 @@ function getSortedProducts(products) {
   return arr;
 }
 
-function renderAllProducts(containerId, products = PRODUCTS) {
+function renderAllProducts(containerId, products = PRODUCTS, sectionTitle = "Todos os produtos") {
   const container = document.getElementById(containerId);
   if (!container) return;
 
@@ -22,10 +23,10 @@ function renderAllProducts(containerId, products = PRODUCTS) {
   const section = document.createElement("section");
   section.className = "grid-products-container";
 
-  /* ===== TÍTULO ===== */
+  /* ===== TÍTULO DINÂMICO ===== */
   const title = document.createElement("h2");
-  title.className = "section-title"; // mesma classe do "Destaques"
-  title.textContent = "Todos os produtos";
+  title.className = "section-title";
+  title.textContent = sectionTitle; // ← Usa o título passado
   section.appendChild(title);
 
   /* ===== FILTRO ===== */
@@ -46,7 +47,6 @@ function renderAllProducts(containerId, products = PRODUCTS) {
             >
               <path d="M3 4h18l-7 8v6l-4 2v-8L3 4z" />
             </svg>
-
             <span id="filterLabel">
               ${
                 sortBy === "asc"
@@ -59,7 +59,6 @@ function renderAllProducts(containerId, products = PRODUCTS) {
           </div>
           <span class="filter-arrow">▼</span>
         </button>
-
         <div class="filter-menu">
           <button data-value="asc">Menor preço</button>
           <button data-value="desc">Maior preço</button>
@@ -133,7 +132,7 @@ function renderAllProducts(containerId, products = PRODUCTS) {
       filterLabel.textContent = btn.textContent;
 
       container.querySelector("section:last-of-type")?.remove();
-      renderAllProducts(containerId, products);
+      renderAllProducts(containerId, products, sectionTitle); // ← passa o título novamente
     });
   });
 
@@ -146,7 +145,7 @@ function renderAllProducts(containerId, products = PRODUCTS) {
     loadMoreBtn.onclick = () => {
       visibleCount += 15;
       container.querySelector("section:last-of-type")?.remove();
-      renderAllProducts(containerId, products);
+      renderAllProducts(containerId, products, sectionTitle); // ← passa o título novamente
     };
   }
 }
