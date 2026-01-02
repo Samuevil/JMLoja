@@ -13,23 +13,23 @@
   <link rel="stylesheet" href="css/home.css" />
   <link rel="stylesheet" href="css/footer.css" />
 
-  <!-- ANIMAÇÕES DE SLIDE HORIZONTAL (opcional, só se usar hero.js com animação) -->
-<style>
-  @keyframes slideOutToLeft {
-    from { transform: translateX(0); opacity: 1; }
-    to { transform: translateX(-20%); opacity: 0; }
-  }
-  @keyframes slideInFromRight {
-    from { transform: translateX(20%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-  }
-  .slide-out {
-    animation: slideOutToLeft 0.6s ease forwards;
-  }
-  .slide-in {
-    animation: slideInFromRight 0.6s ease forwards;
-  }
-</style>
+  <!-- ANIMAÇÕES DE SLIDE HORIZONTAL -->
+  <style>
+    @keyframes slideOutToLeft {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(-20%); opacity: 0; }
+    }
+    @keyframes slideInFromRight {
+      from { transform: translateX(20%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    .slide-out {
+      animation: slideOutToLeft 0.6s ease forwards;
+    }
+    .slide-in {
+      animation: slideInFromRight 0.6s ease forwards;
+    }
+  </style>
 </head>
 
 <body class="bg-black text-white">
@@ -48,7 +48,7 @@
 
   <div class="navbar-spacer"></div>
 
-  <!-- HERO (estrutura original restaurada) -->
+  <!-- HERO -->
   <section id="hero">
     <div class="hero-bg"></div>
     <div class="hero-face">
@@ -89,7 +89,6 @@
 
   <!-- FUNÇÕES DE APOIO -->
   <script>
-    // Função para obter todos os slugs filhos de um grupo
     function getAllChildSlugs(targetSlug) {
       const slugs = new Set();
       for (const group of categoryGroups) {
@@ -109,7 +108,6 @@
       return null;
     }
 
-    // Função para obter o nome amigável real da categoria
     function getCategoryNameBySlug(slug) {
       for (const group of categoryGroups) {
         for (const col of group.columns || []) {
@@ -157,7 +155,6 @@
 
       if (categorySlug) {
         const isLeaf = PRODUCTS.some(p => p.category === categorySlug);
-
         if (isLeaf) {
           productsToShow = PRODUCTS.filter(p => p.category === categorySlug);
           sectionTitle = getCategoryNameBySlug(categorySlug);
@@ -173,10 +170,8 @@
         }
       }
 
-      // Só mostra destaques e vídeo na home
       if (!categorySlug) {
         renderFeaturedProducts("homeContent", PRODUCTS);
-
         const video = document.createElement("section");
         video.className = "video-section";
         video.innerHTML = `

@@ -1,34 +1,52 @@
 .navbar {
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
   background: black;
-  z-index: 50;
-  padding-top: 12px;
+  z-index: 1000; /* garantir que fique acima de tudo */
+  padding: 0; /* remova o padding-top: 12px */
 }
 
 .navbar-inner {
   max-width: 1600px;
   margin: auto;
   padding: 0 16px;
-  height: 80px;
+  height: 80px; /* mantém a barra com 80px */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
+  position: relative;
+}
+
+/* LOGO MAIOR SEM AUMENTAR A BARRA */
+.logo {
+  position: relative;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  height: 100%; /* ocupa toda a altura, mas a imagem será maior */
 }
 
 .logo img {
-  height: 80px;
+  height: 120px; /* ← LOGO MAIOR que a barra (80px) */
   filter: drop-shadow(0 0 4px rgba(255,94,0,.5));
-  transition: transform .3s;
+  transition: transform 0.3s;
+  /* permite que a imagem ultrapasse a navbar sem cortar */
+  position: relative;
+  z-index: 1002;
 }
 
 .logo img:hover {
   transform: scale(1.05);
 }
 
-/* Desktop */
+/* Espaçador fixo para compensar a navbar fixa */
+.navbar-spacer {
+  height: 80px; /* igual à altura da navbar */
+}
+
+/* Resto do seu CSS (dropdown, mobile, etc.) */
 .nav-desktop {
   display: none;
   gap: 24px;
@@ -60,7 +78,6 @@
   width: 100%;
 }
 
-/* Dropdown */
 .dropdown {
   position: fixed;
   top: 80px;
@@ -76,21 +93,12 @@
   display: block;
 }
 
-/* Mobile */
 .menu-toggle {
   background: none;
   border: none;
   color: white;
   font-size: 26px;
   cursor: pointer;
-}
-
-.nav-mobile {
-  display: none;
-}
-
-.navbar-spacer {
-  height: 80px;
 }
 
 @media (min-width: 1280px) {
