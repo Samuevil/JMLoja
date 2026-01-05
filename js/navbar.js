@@ -6,10 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const navDesktop = document.getElementById('navDesktop');
-  const mobileDropdown = document.getElementById('mobileDropdown'); // ← necessário no HTML
+  const mobileDropdown = document.getElementById('mobileDropdown');
   const menuToggle = document.getElementById('menuToggle');
 
-  // Fecha dropdowns abertos
   function closeAllDropdowns() {
     document.querySelectorAll('.dropdown.open').forEach(d => d.classList.remove('open'));
   }
@@ -24,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const link = document.createElement('a');
       link.className = 'nav-link';
-      link.href = `?category=${encodeURIComponent(group.slug)}`;
+      link.href = `./?category=${encodeURIComponent(group.slug)}`; // ✅ ./ adicionado
       link.textContent = group.title;
       link.style.textDecoration = 'none';
       navItem.appendChild(link);
@@ -43,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         group.columns.forEach((col) => {
           const colDiv = document.createElement('div');
           const titleLink = document.createElement('a');
-          titleLink.href = `?category=${encodeURIComponent(col.slug)}`;
+          titleLink.href = `./?category=${encodeURIComponent(col.slug)}`; // ✅ ./ adicionado
           titleLink.textContent = col.title;
           titleLink.style.display = 'block';
           titleLink.style.marginBottom = '8px';
@@ -56,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           col.items.forEach((item) => {
             const a = document.createElement('a');
-            a.href = `?category=${encodeURIComponent(item.slug)}`;
+            a.href = `./?category=${encodeURIComponent(item.slug)}`; // ✅ ./ adicionado
             a.textContent = item.name;
             a.style.display = 'block';
             a.style.color = '#b0b0b0';
@@ -90,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
     blogItem.className = 'nav-item';
     const blogLink = document.createElement('a');
     blogLink.className = 'nav-link';
-    blogLink.href = 'https://www.josimarsoares.com.br/';
+    blogLink.href = 'https://www.josimarsoares.com.br/'; // ✅ espaços removidos
     blogLink.target = '_blank';
     blogLink.rel = 'noopener noreferrer';
     blogLink.textContent = 'BLOG';
@@ -99,16 +98,15 @@ document.addEventListener('DOMContentLoaded', () => {
     navDesktop.appendChild(blogItem);
   }
 
-  // === ✅ MENU MOBILE: todos os itens clicáveis! ===
+  // === MENU MOBILE: todos os itens clicáveis! ===
   if (mobileDropdown && menuToggle) {
     mobileDropdown.innerHTML = '';
     const mobileMenu = document.createElement('div');
     mobileMenu.style.padding = '24px 16px';
 
     categoryGroups.forEach((group) => {
-      // Categoria principal (ex: "Patins")
       const groupLink = document.createElement('a');
-      groupLink.href = `?category=${encodeURIComponent(group.slug)}`;
+      groupLink.href = `./?category=${encodeURIComponent(group.slug)}`; // ✅ ./ adicionado
       groupLink.textContent = group.title;
       groupLink.style.display = 'block';
       groupLink.style.color = 'white';
@@ -120,9 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (group.columns?.length) {
         group.columns.forEach((col) => {
-          // Subcategoria (ex: "Patins Completos Freestyle")
           const colLink = document.createElement('a');
-          colLink.href = `?category=${encodeURIComponent(col.slug)}`;
+          colLink.href = `./?category=${encodeURIComponent(col.slug)}`; // ✅ ./ adicionado
           colLink.textContent = col.title;
           colLink.style.display = 'block';
           colLink.style.color = '#ddd';
@@ -132,10 +129,9 @@ document.addEventListener('DOMContentLoaded', () => {
           colLink.style.textDecoration = 'none';
           mobileMenu.appendChild(colLink);
 
-          // Itens finais (ex: "Rodas", "Bases", "Rolamentos")
           col.items.forEach((item) => {
             const itemLink = document.createElement('a');
-            itemLink.href = `?category=${encodeURIComponent(item.slug)}`;
+            itemLink.href = `./?category=${encodeURIComponent(item.slug)}`; // ✅ ./ adicionado
             itemLink.textContent = item.name;
             itemLink.style.display = 'block';
             itemLink.style.color = '#b0b0b0';
@@ -150,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Blog no mobile
     const blogLinkMobile = document.createElement('a');
-    blogLinkMobile.href = 'https://www.josimarsoares.com.br/';
+    blogLinkMobile.href = 'https://www.josimarsoares.com.br/'; // ✅ espaços removidos
     blogLinkMobile.textContent = 'Blog';
     blogLinkMobile.style.display = 'block';
     blogLinkMobile.style.color = 'white';
@@ -168,10 +164,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fecha ao clicar em link ou fora
     mobileDropdown.addEventListener('click', (e) => {
-      if (e.target.tagName === 'A') mobileDropdown.classList.remove('open');
+      if (e.target.tagName === 'A') {
+        // Deixa o link funcionar naturalmente
+        // O menu será fechado após a navegação (SPA) ou não importa (hard reload)
+      }
     });
+
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('.navbar')) mobileDropdown.classList.remove('open');
+      if (!e.target.closest('.navbar')) {
+        mobileDropdown.classList.remove('open');
+      }
     });
   }
 });

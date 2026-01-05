@@ -1,3 +1,8 @@
+/* ==================================================
+   NAVBAR – Josimar Soares
+   Minimalista em tudo, exceto em desktops grandes
+================================================== */
+
 /* NAVBAR PRINCIPAL */
 .navbar {
   position: fixed;
@@ -32,7 +37,8 @@
 }
 
 .logo img {
-  height: 110px;
+  /* Ajustado para caber nos 80px sem overflow */
+  height: 72px;
   filter: drop-shadow(0 0 4px rgba(255, 94, 0, 0.5));
   transition: transform 0.3s;
   position: relative;
@@ -50,7 +56,7 @@
 
 /* CONTROLES MOBILE: BLOG + HAMBURGUER */
 .nav-mobile-controls {
-  display: none;
+  display: flex;
   align-items: center;
   gap: 16px;
 }
@@ -133,44 +139,50 @@
 
 /* === RESPONSIVIDADE === */
 
-/* DESKTOP (≥992px) */
-@media (min-width: 992px) {
+/* ✅ APENAS EM DESKTOPS GRANDES (≥1400px) mostra o menu completo */
+@media (min-width: 1400px) {
   .nav-mobile-controls {
-    display: none !important;
-  }
-
-  .menu-toggle {
-    display: none !important;
-  }
-
-  .nav-blog-mobile {
     display: none !important;
   }
 
   .nav-desktop {
     display: flex !important;
   }
+
+  /* Opcional: permite logo maior no desktop */
+  .logo img {
+    height: 90px;
+  }
 }
 
-/* MOBILE E TABLET (<992px) */
-@media (max-width: 991px) {
-  .nav-mobile-controls {
-    display: flex;
-  }
-
+/* TUDO ABAIXO DE 1400px (mobile, tablet, notebook): layout minimalista */
+@media (max-width: 1399px) {
   .nav-desktop {
     display: none !important;
   }
 }
 
-/* AJUSTE EXTRA PARA TELAS MUITO PEQUENAS */
+/* AJUSTE PARA TELAS MUITO PEQUENAS */
 @media (max-width: 480px) {
   .logo img {
-    height: 90px;
+    height: 64px;
   }
 
   .nav-blog-mobile,
   .menu-toggle {
     font-size: 0.9rem;
+  }
+
+  .navbar-inner {
+    height: 72px;
+  }
+
+  .navbar-spacer {
+    height: 72px;
+  }
+
+  .dropdown {
+    top: 72px;
+    max-height: calc(100vh - 72px);
   }
 }

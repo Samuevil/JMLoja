@@ -1,29 +1,40 @@
-/* === ESTILO BASE: SEM padding-top (para mobile) === */
+/* ==================================================
+   HERO – Josimar Soares
+   Imersivo, responsivo e funcional em todos os dispositivos
+================================================== */
+
+/* === ESTILO BASE: OCUPA A TELA INTEIRA NO MOBILE === */
 #hero {
   position: relative;
   width: 100%;
-  min-height: 89vh;
+  height: 100vh;      /* fallback */
+  height: 100dvh;     /* altura real da viewport */
   background: black;
   overflow: hidden;
   display: flex;
-  align-items: center; /* ← volta a ser "center" no mobile, ideal para telas pequenas */
+  align-items: center;
   justify-content: center;
-  padding-top: 0; /* ← zero no mobile */
+  padding-top: 0;
+  min-height: auto;
 }
 
-/* === APENAS EM DESKTOP: aplica padding-top para descer o conteúdo === */
-@media (min-width: 1024px) {
+/* === APENAS EM DESKTOP GRANDE: layout descentralizado === */
+@media (min-width: 1400px) {
   #hero {
-    align-items: flex-start; /* permite controle com padding */
+    height: auto;
+    min-height: 95vh;
+    align-items: flex-start;
     padding-top: 220px;
   }
 }
 
-/* === RESTANTE DO SEU ESTILO (sem alterações) === */
-
+/* === FUNDO DO HERO === */
 .hero-bg {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: url("../assets/images/BannerAtualizado.png") center / cover no-repeat;
   filter: brightness(0.85);
   z-index: 0;
@@ -36,6 +47,7 @@
   background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
 }
 
+/* === CONTEÚDO PRINCIPAL (SLIDE) === */
 .hero-content {
   position: relative;
   z-index: 3;
@@ -72,15 +84,24 @@
   margin-bottom: 24px;
 }
 
-.hero-product img {
-  max-height: 220px;
-  margin: 20px 0;
-  filter: drop-shadow(0 14px 30px rgba(0,0,0,0.6));
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  max-width: 100%;
-  height: auto;
+/* === IMAGEM DO SLIDE (street, fitness, etc.) – ALTURA REDUZIDA === */
+.hero-product {
+  margin: 16px 0;
+  display: flex;
+  justify-content: center;
+  /* ✅ Sem min-height: deixa a imagem definir o espaço */
 }
 
+.hero-product img {
+  max-height: 160px; /* ← reduzido de 220px */
+  height: auto;
+  width: auto;
+  max-width: 100%;
+  filter: drop-shadow(0 12px 24px rgba(0,0,0,0.6));
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* === BOTÃO DO HERO – LARGURA CONTROLADA === */
 .hero-button {
   padding: 14px 28px;
   background: transparent;
@@ -91,6 +112,10 @@
   text-decoration: none;
   transition: all 0.4s ease;
   font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+  display: inline-block;
+  max-width: 280px;
+  width: auto;
+  margin: 0 auto;
 }
 
 .hero-button:hover {
@@ -100,11 +125,11 @@
   transform: translateY(-4px) scale(1.03);
 }
 
-/* FACE IMAGE */
+/* === IMAGEM DE ROSTO FIXA (canto inferior esquerdo) === */
 .hero-face {
   position: absolute;
-  bottom: 12px;
-  left: 12px;
+  bottom: 22px;
+  left: 22px;
   z-index: 2;
   animation: faceIn 1s ease forwards;
 }
@@ -122,7 +147,7 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* AJUSTES PARA MOBILE ESTREITO */
+/* === AJUSTES PARA MOBILE ESTREITO === */
 @media (max-width: 768px) {
   .hero-content {
     padding: 0 1.25rem;
@@ -139,27 +164,54 @@
   }
 }
 
-/* TELAS MUITO BAIXAS (ex: Nest Hub em paisagem) */
+/* ✅ AJUSTE FINAL: TELAS BAIXAS EM PAISAGEM (iPhone SE deitado, etc.) */
 @media (max-height: 500px) and (orientation: landscape) {
   #hero {
-    min-height: 70vh;
-  }
-
-  .hero-face {
-    display: none;
+    height: 100dvh;
+    min-height: auto;
+    align-items: center;
+    padding-top: 0;
   }
 
   #hero-title {
-    font-size: clamp(1.2rem, 6vw, 2.2rem);
+    font-size: clamp(1.1rem, 5.5vw, 1.9rem);
+    line-height: 1.15;
   }
 
   #hero-subtitle {
-    font-size: clamp(0.75rem, 3.2vw, 1rem);
-    margin-top: 8px;
+    font-size: clamp(0.72rem, 3.0vw, 0.95rem);
+    margin-top: 6px;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .hero-product {
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .hero-product img {
-    max-height: 150px;
-    margin: 12px 0;
+    max-height: 90px; /* ← reduzido de 100px */
+    max-width: 85%;
+    height: auto;
+    width: auto;
+    margin: 0;
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.5));
+  }
+
+  .hero-button {
+    padding: 10px 20px;
+    font-size: clamp(0.85rem, 3vw, 0.95rem);
+    border-radius: 12px;
+    max-width: 240px;
+  }
+
+  .hero-content {
+    padding: 0 0.8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 }

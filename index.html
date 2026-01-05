@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Josimar Soares</title>
 
+  <link rel="icon" href="assets/images/LayoutLogo.png" type="image/png" />
+
   <!-- CSS -->
   <link rel="stylesheet" href="css/globals.css" />
   <link rel="stylesheet" href="css/navbar.css" />
@@ -36,20 +38,26 @@
   <!-- ✅ Envolve todo o conteúdo principal, exceto o footer -->
   <div class="page-wrapper">
     <!-- NAVBAR -->
-     
-<nav class="navbar" role="navigation" aria-label="Navegação principal">
-  <div class="navbar-inner">
-    <a href="/" class="logo">
-      <img src="assets/logos/Logo1.png" alt="Logo Josimar Soares">
-    </a>
-    <div class="nav-mobile-controls">
-      <a href="https://www.josimarsoares.com.br/" target="_blank" rel="noopener" class="nav-blog-mobile">BLOG</a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
-    </div>
-    <nav class="nav-desktop" id="navDesktop" aria-label="Menu principal"></nav>
-  </div>
-  <div class="dropdown" id="mobileDropdown"></div>
-</nav>
+    <nav class="navbar" role="navigation" aria-label="Navegação principal">
+      <div class="navbar-inner">
+        <!-- ✅ Logo com caminho relativo seguro -->
+        <a href="./" class="logo">
+          <img src="assets/logos/Logo1.png" alt="Logo Josimar Soares">
+        </a>
+
+        <!-- Controles móveis: Blog + Hamburguer -->
+        <div class="nav-mobile-controls">
+          <a href="https://www.josimarsoares.com.br/" target="_blank" rel="noopener" class="nav-blog-mobile">BLOG</a>
+          <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+        </div>
+
+        <!-- Menu desktop -->
+        <nav class="nav-desktop" id="navDesktop" aria-label="Menu principal"></nav>
+      </div>
+
+      <!-- ✅ Container do menu mobile (compatível com JS e CSS) -->
+      <div class="dropdown" id="mobileDropdown"></div>
+    </nav>
 
     <div class="navbar-spacer"></div>
 
@@ -73,7 +81,7 @@
     <main id="homeContent" aria-live="polite"></main>
   </div> <!-- ✅ .page-wrapper fecha aqui -->
 
-  <!-- FOOTER (fora do .page-wrapper, para fixar na base) -->
+  <!-- FOOTER -->
   <footer id="footerContainer" role="contentinfo"></footer>
 
   <!-- UTILS -->
