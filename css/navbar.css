@@ -4,52 +4,49 @@
   left: 0;
   width: 100%;
   background: black;
-  z-index: 1000; /* garantir que fique acima de tudo */
-  padding: 0; /* remova o padding-top: 12px */
+  z-index: 1000;
+  padding: 0;
 }
 
 .navbar-inner {
   max-width: 1600px;
   margin: auto;
   padding: 0 16px;
-  height: 80px; /* mantém a barra com 80px */
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
 }
 
-/* LOGO MAIOR SEM AUMENTAR A BARRA */
 .logo {
   position: relative;
   z-index: 1001;
+  height: 100%;
   display: flex;
   align-items: center;
-  height: 100%; /* ocupa toda a altura, mas a imagem será maior */
 }
 
 .logo img {
-  height: 120px; /* ← LOGO MAIOR que a barra (80px) */
-  filter: drop-shadow(0 0 4px rgba(255,94,0,.5));
+  height: 110px;
+  filter: drop-shadow(0 0 4px rgba(255,94,0,0.5));
   transition: transform 0.3s;
-  /* permite que a imagem ultrapasse a navbar sem cortar */
   position: relative;
   z-index: 1002;
 }
 
 .logo img:hover {
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 
-/* Espaçador fixo para compensar a navbar fixa */
 .navbar-spacer {
-  height: 80px; /* igual à altura da navbar */
+  height: 80px;
 }
 
-/* Resto do seu CSS (dropdown, mobile, etc.) */
 .nav-desktop {
   display: none;
   gap: 24px;
+  align-items: center;
 }
 
 .nav-item {
@@ -58,9 +55,11 @@
 
 .nav-link {
   color: #d0d0d0;
-  font-weight: bold;
+  font-weight: 600;
   padding: 4px 0;
   text-decoration: none;
+  font-size: 0.95rem;
+  white-space: nowrap;
 }
 
 .nav-link::after {
@@ -83,10 +82,11 @@
   top: 80px;
   left: 0;
   width: 100%;
-  background: rgba(0,0,0,.9);
+  background: rgba(0,0,0,0.92);
   backdrop-filter: blur(8px);
   display: none;
   padding: 0 16px;
+  z-index: 999;
 }
 
 .dropdown.open {
@@ -97,11 +97,21 @@
   background: none;
   border: none;
   color: white;
-  font-size: 26px;
+  font-size: 24px;
   cursor: pointer;
 }
 
-@media (min-width: 1280px) {
-  .menu-toggle { display: none; }
-  .nav-desktop { display: flex; }
+@media (min-width: 992px) {
+  .menu-toggle {
+    display: none !important;
+  }
+  .nav-desktop {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo img {
+    height: 90px;
+  }
 }

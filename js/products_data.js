@@ -1,17 +1,90 @@
 const PRODUCTS = [
   // ================= PATINS =================
-  { id: 1, title: "Patins Infanto Juvenil", price: 499.9, image: "assets/products/patins-completos-infantil.jpg", link: "#", featured: true, category: "patins-completos-infantil" },
+  { id: 1, title: "Patins Traxart Mesh Branco/pink - 80mm Abec-9 Cromo", price: 1199.00, image: "https://http2.mlstatic.com/D_NQ_NP_2X_687067-MLB94037453248_102025-F-patins-traxart-mesh-brancopink-80mm-abec-9-cromo.webp", link: "https://mercadolivre.com/sec/28jiJje", featured: true, category: "patins-completos-infantil" },
+
+
+
+//Recreação
+
   { id: 2, title: "Patins Recreação", price: 599.9, image: "assets/products/patins-completos-recreacao.jpg", link: "#", featured: false, category: "patins-completos-recreacao" },
+
+
+
+//Fitness
+
   { id: 3, title: "Patins Fitness", price: 699.9, image: "assets/products/patins-completos-fitness.jpg", link: "#", featured: false, category: "patins-completos-fitness" },
-  { id: 4, title: "Patins Freestyle", price: 799.9, image: "assets/products/patins-completos-freestyle.jpg", link: "#", featured: true, category: "patins-completos-freestyle" },
+
+
+
+
+//Freestyle
+
+{ id: 4, title: "Patins Rollerblade Lightning 90 (36 Ao 37)", price: 2799.00, image: "https://http2.mlstatic.com/D_Q_NP_890123-MLB94959033641_102025-F-patins-rollerblade-lightning-90-36-ao-37.webp", link: "https://mercadolivre.com/sec/19bYiNT", featured: false, category: "patins-completos-freestyle" },
+{ id: 1, title: "Patins Traxart Mesh Branco/pink - 80mm Abec-9 Cromo", price: 1199.00, image: "https://http2.mlstatic.com/D_NQ_NP_2X_687067-MLB94037453248_102025-F-patins-traxart-mesh-brancopink-80mm-abec-9-cromo.webp", link: "https://mercadolivre.com/sec/28jiJje", featured: false, category: "patins-completos-freestyle" },
+{ id: 1, title: "Patins Seba E3 80", price: 1800.00, image: "https://http2.mlstatic.com/D_NQ_NP_2X_955578-MLB96143396092_102025-F-patins-seba-e3-80.webp", link: "https://mercadolivre.com/sec/2bfau5q", featured: false, category: "patins-completos-freestyle" },
+{ id: 1, title: "Patins Traxart Volt+3 Preto - Freestyle - 110mm Abec-9 Cromo", price: 1199.00, image: "https://http2.mlstatic.com/D_Q_NP_775013-MLB75191233458_032024-F-patins-traxart-volt3-preto-freestyle-110mm-abec-9-cromo.webp", link: "https://mercadolivre.com/sec/1K5zPp3", featured: false, category: "patins-completos-freestyle" },
+{ id: 1, title: "Patins Traxart Freestyle Revolt Preto - Abec-9", price: 799.00, image: "https://http2.mlstatic.com/D_Q_NP_878667-MLB81068217684_122024-F-patins-traxart-freestyle-revolt-preto-abec-9.webp", link: "https://mercadolivre.com/sec/2b5FpLt", featured: false, category: "patins-completos-freestyle" },
+{ id: 1, title: "Patins Traxart Freestyle Volt + 2.0 Preto - Abec-9", price: 899.00, image: "https://http2.mlstatic.com/D_Q_NP_715271-MLB76323203552_052024-F-patins-traxart-freestyle-volt-20-preto-abec-9.webp", link: "https://mercadolivre.com/sec/1GeMxPA", featured: false, category: "patins-completos-freestyle" },
+{ id: 1, title: "Patins Traxart Dynamix Freestyle V2 Com Freio - 80mm Abec-7", price: 828.00, image: "https://http2.mlstatic.com/D_Q_NP_995443-MLB75191273042_032024-F-patins-traxart-dynamix-freestyle-v2-com-freio-80mm-abec-7.webp", link: "https://mercadolivre.com/sec/28E3vEm", featured: false, category: "patins-completos-freestyle" },
+{ id: 1, title: "Patins Rollerblade Lightning 80 W (36 Ao 38)", price: 1999.00, image: "https://http2.mlstatic.com/D_Q_NP_752882-MLB90560545161_082025-F-patins-rollerblade-lightning-80-w-36-ao-38.webp", link: "https://mercadolivre.com/sec/1ZDt1Ei", featured: false, category: "patins-completos-freestyle" },
+{ id: 1, title: "Patins Hd Inline - Xt - Cinza - Hdxtc", price: 799.80, image: "https://http2.mlstatic.com/D_Q_NP_647892-MLB74628007089_022024-F-patins-hd-inline-xt-cinza-hdxtc.webp", link: "https://mercadolivre.com/sec/1YeJXDG", featured: false, category: "patins-completos-freestyle" },
+{ id: 1, title: "Patins Hd Inline - Xt - Lilas - Hdxtl", price: 799.80, image: "https://http2.mlstatic.com/D_Q_NP_905995-MLB91912253836_092025-F-patins-hd-inline-xt-lilas-hdxtl.webp", link: "https://mercadolivre.com/sec/1Gpj4GF", featured: false, category: "patins-completos-freestyle" },
+{ id: 1, title: "Patins Hd Inline - Xt", price: 799.80, image: "https://http2.mlstatic.com/D_Q_NP_717362-MLB83133829841_032025-F-patins-hd-inline-xt.webp", link: "https://mercadolivre.com/sec/2d7yvuj", featured: false, category: "patins-completos-freestyle" },
+{ id: 1, title: "Patins Traxart Revolt 80mm Verde Freestyle/urbano + Brinde", price: 799.00, image: "https://http2.mlstatic.com/D_Q_NP_865551-MLB78897396019_092024-F-patins-traxart-revolt-80mm-verde-freestyleurbano-brinde.webp", link: "https://mercadolivre.com/sec/2Qacejg", featured: false, category: "patins-completos-freestyle" },
+{ id: 1, title: "Patins Traxart Freestyle Revolt Azul Claro - Abec-9", price: 799.00, image: "https://http2.mlstatic.com/D_Q_NP_799754-MLB75191232190_032024-F-patins-traxart-freestyle-revolt-azul-claro-abec-9.webp", link: "https://mercadolivre.com/sec/1UuyfjL", featured: false, category: "patins-completos-freestyle" },
+{ id: 1, title: "Patins Revolt Rose Traxart 80mm Freestyle/urbano + Brinde", price: 799.00, image: "https://http2.mlstatic.com/D_Q_NP_718844-MLB96854593671_102025-F-patins-revolt-rose-traxart-80mm-freestyleurbano-brinde.webp", link: "https://mercadolivre.com/sec/2Zscows", featured: false, category: "patins-completos-freestyle" },
+{ id: 1, title: "Patins Inline Traxart Revolt Turbo Black Gold Abec-9 +brinde", price: 1199.00, image: "https://http2.mlstatic.com/D_Q_NP_632259-MLB90758294807_082025-F-patins-inline-traxart-revolt-turbo-black-gold-abec-9-brinde.webp", link: "https://mercadolivre.com/sec/2nGvW4J", featured: false, category: "patins-completos-freestyle" },
+
+
+
+ //Quad Tradicional 
+
   { id: 5, title: "Patins Quad Tradicional", price: 849.9, image: "assets/products/patins-completos-quad.jpg", link: "#", featured: false, category: "patins-completos-quad" },
+
+
+
+
+
+ //Street Aggressive 
   { id: 6, title: "Patins Street Aggressive", price: 899.9, image: "assets/products/patins-completos-street.jpg", link: "#", featured: false, category: "patins-completos-street" },
+
+
+
+
+ //Velocidade
   { id: 7, title: "Patins Velocidade", price: 1199.9, image: "assets/products/patins-completos-velocidade.jpg", link: "#", featured: true, category: "patins-completos-velocidade" },
-  { id: 8, title: "Patins 3 Rodas", price: 1099.9, image: "assets/products/patins-completos-3rodas.jpg", link: "#", featured: false, category: "patins-completos-3rodas" },
+
+
+
+
+  
+ //3 Rodas
+  { id: 8, title: "Patins Hd Inline - Evolution Ii - 3 Rodas 110mm", price: 1329.90, image: "https://http2.mlstatic.com/D_Q_NP_768626-MLB92102896854_092025-F-patins-hd-inline-evolution-ii-3-rodas-110mm.webp", link: "https://mercadolivre.com/sec/11FKDeW", featured: false, category: "patins-completos-3rodas" },
+
+
+
+
+ // Costumize
   { id: 9, title: "Patins Customize", price: 1299.9, image: "assets/products/patins-completos-customize.jpg", link: "#", featured: false, category: "patins-completos-customize" },
+
+
+
+
+
+// Com rodas de Led
   { id: 10, title: "Patins com Rodas de LED", price: 1399.9, image: "assets/products/patins-completos-led.jpg", link: "#", featured: true, category: "patins-completos-led" },
+
+
+
+
+// KIT patins + protetor
   { id: 11, title: "Kit Patins + Protetor", price: 1499.9, image: "assets/products/patins-completos-kit.jpg", link: "#", featured: false, category: "patins-completos-kit-patins-protetor" },
 
+
+
+
+
+  
   // RODAS, BASES E ROLAMENTOS
   { id: 12, title: "Rodas Patins Inline", price: 149.9, image: "assets/products/rodas-inline.jpg", link: "#", featured: false, category: "rodas-bases-rolamentos-inline" },
   { id: 13, title: "Rodas Patins Quad", price: 159.9, image: "assets/products/rodas-quad.jpg", link: "#", featured: false, category: "rodas-bases-rolamentos-quad" },

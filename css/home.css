@@ -1,14 +1,14 @@
-/* ================= HOME ================= */
-
 body {
   background: #000;
   color: #fff;
   margin: 0;
-  font-family: sans-serif;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
 }
 
 /* ===== VÍDEO ===== */
 .video-section {
+  width: 100%;
   max-width: 1200px;
   margin: 2rem auto;
   padding: 0 1rem;
@@ -20,20 +20,20 @@ body {
   font-weight: 900;
   line-height: 1.2;
   margin-bottom: 1.2rem;
-  text-shadow: 0 4px 18px rgba(0,0,0,.85);
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.85);
 }
 
 .video-title .orange {
-  color: #FF5E00;
+  color: #ff5e00;
 }
 
 .video-container {
   position: relative;
   width: 100%;
-  padding-top: 56.15%;
+  padding-top: 56.25%;
   border-radius: 14px;
-  overflow: hidden;    
-  background: #000;     
+  overflow: hidden;
+  background: #000;
 }
 
 .video-container iframe {
@@ -41,10 +41,9 @@ body {
   inset: 0;
   width: 100%;
   height: 100%;
-  border: 0;         
+  border: 0;
   display: block;
 }
-
 
 .video-hint {
   margin-top: 8px;
@@ -53,6 +52,7 @@ body {
 }
 
 .featured-container {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
@@ -63,69 +63,112 @@ body {
   font-size: 1.5rem;
   font-weight: 800;
   color: #fff;
+  text-align: center;
 }
 
-/* ===== DESTAQUES ===== */
+/* ===== CARROSSEL DE DESTAQUES ===== */
 .carousel-wrapper {
   position: relative;
+  width: 100%;
   max-width: 1200px;
   margin: 2rem auto;
-  padding: 0 64px; /* espaço EXCLUSIVO para botões */
+  padding: 0 8px;
 }
 
-/* A JANELA REAL DO CARROSSEL */
+@media (min-width: 768px) {
+  .carousel-wrapper {
+    padding: 0 60px;
+  }
+}
+
 .carousel-viewport {
   width: 100%;
-  overflow: hidden; /* 🔥 AQUI resolve o problema */
+  overflow: hidden;
+  border-radius: 8px;
 }
 
-/* TRILHO QUE SE MOVE */
 .carousel-grid {
   display: flex;
-  gap: 1rem;
+  gap: 17px;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 12px 0; /* ✅ espaço extra para o efeito hover */
   transition: transform 0.45s ease;
+  overflow: visible !important; /* ✅ permite que o card escape sem corte */
 }
 
-/* CARD */
-.carousel-card {
-  flex: 0 0 calc((100% - 3rem) / 4); 
-  /* 4 cards exatos considerando 3 gaps */
-  background: #0a0a0a;
-  border: 1px solid #333;
-  border-radius: 8px;
-  overflow: hidden;
+/* Mobile: 2 cards */
+@media (max-width: 767px) {
+  .carousel-card {
+    width: calc((92vw - 48px) / 2);
+    background: #0a0a0a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    flex: none;
+    transition: all 0.3s ease; /* ✅ hover suave */
+  }
+
+  .carousel-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 8px rgba(255, 94, 0, 0.3);
+    border-color: #ff5e00;
+  }
 }
 
-/* IMAGEM */
+/* Desktop: 4 cards — REDUZIDO PARA 240px */
+@media (min-width: 768px) {
+  .carousel-card {
+    width: 248px; /* ✅ menor que 250px */
+    background: #0a0a0a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    flex: none;
+    transition: all 0.3s ease; /* ✅ efeito hover */
+  }
+
+  .carousel-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 8px rgba(255, 94, 0, 0.3);
+    border-color: #ff5e00;
+  }
+}
+
 .carousel-image-wrapper {
   width: 100%;
-  padding-top: 135%;
-  position: relative;
+  aspect-ratio: 20 / 27;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #111;
 }
 
 .carousel-image {
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: fill;
+  display: block;
 }
 
-/* TEXTO */
 .carousel-title {
   font-size: 0.85rem;
   padding: 0.5rem 0.75rem;
   color: #e0e0e0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .carousel-price {
   font-size: 0.85rem;
   font-weight: bold;
-  color: #06F272;
+  color: #06f272;
   padding: 0 0.75rem 0.75rem;
 }
 
-/* ===== BOTÕES ===== */
+/* ===== BOTÕES: SÓ SETAS, ÁREA DE CLIQUE AMPLIADA ===== */
 .carousel-btn-prev,
 .carousel-btn-next {
   position: absolute;
@@ -134,33 +177,69 @@ body {
   background: transparent;
   border: none;
   color: #fff;
-  font-size: 2.8rem;
+  font-size: 4.8rem;
   cursor: pointer;
   z-index: 10;
-
-  width: 56px;
-  height: 140px;
-
+  width: 60px;
+  height: 100%;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0.85;
 }
 
 .carousel-btn-prev {
   left: 0;
+  padding-left: 12px;
 }
 
 .carousel-btn-next {
   right: 0;
+  padding-right: 12px;
 }
 
 .carousel-btn-prev:hover,
 .carousel-btn-next:hover {
-  color: #FF5E00;
+  color: #ff5e00;
+  opacity: 1;
+}
+
+/* Esconde botões em mobile */
+@media (max-width: 767px) {
+  .carousel-btn-prev,
+  .carousel-btn-next {
+    display: none !important;
+  }
+}
+
+/* ===== INDICADORES EM MOBILE ===== */
+.carousel-indicators {
+  display: none;
+  margin-top: 12px;
+  justify-content: center;
+  gap: 8px;
+}
+
+@media (max-width: 767px) {
+  .carousel-indicators {
+    display: flex;
+  }
+
+  .carousel-indicators button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid #ff5e00;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+  }
 }
 
 /* ===== GRID DE PRODUTOS ===== */
 .grid-products-container {
+  width: 100%;
   max-width: 1200px;
   margin: 2rem auto;
   padding: 0 1rem;
@@ -168,14 +247,14 @@ body {
 
 .grid-products {
   display: grid;
+  gap: 0.6rem;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem;
 }
 
 @media (min-width: 640px) {
   .grid-products {
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
+    gap: 0.8rem;
   }
 }
 
@@ -205,22 +284,27 @@ body {
 .product-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 0 8px rgba(255, 94, 0, 0.3);
-  border-color: #FF5E00;
+  border-color: #ff5e00;
 }
 
+/* FORÇA TODAS AS IMAGENS DE PRODUTO A TEREM O MESMO TAMANHO EXATO */
 .product-image-wrapper {
-  position: relative;
-  width: 100%;
-  padding-top: 135%;
-  overflow: hidden;
+  width: 100% !important;
+  height: 220px !important; /* ← AJUSTE ESTE VALOR SE PRECISAR */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
 }
 
 .product-image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: fill !important; /* ← ESTICA/COMPRIME SEM CORTAR */
+  object-position: center !important;
+  display: block !important;
+  background: #f5f5f5; /* opcional: fundo cinza se a imagem falhar */
 }
 
 .product-content {
@@ -242,29 +326,33 @@ body {
 .product-price {
   font-size: 0.75rem;
   font-weight: bold;
-  color: #06F272;
+  color: #06f272;
+  margin-top: 0.25rem;
 }
 
 .load-more-button {
-  display: flex;
+  display: block;
   margin: 2rem auto;
-  padding: 0.6rem 1.4rem;
-  border: 1px solid #FF5E00;
+  padding: 0.7rem 1.5rem;
+  border: 1px solid #ff5e00;
   background: transparent;
-  color: #FF5E00;
-  border-radius: 0.5rem;
+  color: #ff5e00;
+  border-radius: 0.6rem;
   cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.25s;
+  width: fit-content;
 }
 
 .load-more-button:hover {
-  background: #FF5E00;
+  background: #ff5e00;
   color: #000;
 }
 
-
-/* ===== FILTRO (estilo igual ao React) ===== */
-
+/* ===== FILTRO ===== */
 .filter-wrapper {
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto 1.5rem;
   padding: 0 1rem;
@@ -281,18 +369,16 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem;
-
-  padding: 0.55rem 0.75rem;
-  font-size: 0.75rem;
-
+  padding: 0.55rem 0.85rem;
+  font-size: 0.8rem;
   color: #d0d0d0;
   background: rgba(20, 20, 20, 0.7);
   border: 1px solid #2a2a2a;
   border-radius: 0.6rem;
-
   backdrop-filter: blur(6px);
   cursor: pointer;
   transition: all 0.2s ease;
+  min-width: 140px;
 }
 
 .filter-button:hover {
@@ -311,13 +397,13 @@ body {
   width: 16px;
   height: 16px;
   fill: none;
-  stroke: #FF5E00;
+  stroke: #ff5e00;
   stroke-width: 2;
   flex-shrink: 0;
 }
 
 .filter-arrow {
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   color: #888;
   transition: transform 0.2s ease;
 }
@@ -326,20 +412,15 @@ body {
   transform: rotate(180deg);
 }
 
-/* MENU */
-
 .filter-menu {
   position: absolute;
   right: 0;
   top: calc(100% + 0.5rem);
-
   width: 200px;
   padding: 0.4rem;
-
   background: rgba(18, 18, 18, 0.95);
   border: 1px solid #333;
   border-radius: 0.75rem;
-
   display: none;
   z-index: 30;
   backdrop-filter: blur(8px);
@@ -352,20 +433,33 @@ body {
 .filter-menu button {
   width: 100%;
   text-align: left;
-  padding: 0.45rem 0.6rem;
-
-  font-size: 0.75rem;
+  padding: 0.5rem 0.7rem;
+  font-size: 0.85rem;
   color: #e0e0e0;
-
   background: transparent;
   border: none;
   border-radius: 0.5rem;
-
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease;
 }
 
 .filter-menu button:hover {
   background: rgba(255, 255, 255, 0.06);
-  color: #FF5E00;
+  color: #ff5e00;
+}
+
+/* PAISAGEM EM DISPOSITIVOS BAIXOS */
+@media (max-height: 500px) and (orientation: landscape) {
+  .carousel-wrapper,
+  .grid-products-container,
+  .video-section,
+  .featured-container {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .load-more-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
 }

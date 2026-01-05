@@ -22,12 +22,12 @@ function renderFooter(containerId) {
           <div class="footer-col">
             <h4>Categorias</h4>
             <ul>
-              <li><a href="#">Patins</a></li>
-              <li><a href="#">Skates e Longboards</a></li>
-              <li><a href="#">Capacetes e Protetores</a></li>
-              <li><a href="#">Mochilas</a></li>
-              <li><a href="#">Moda</a></li>
-              <li><a href="#">Kids</a></li>
+              <li><a href="?category=patins">Patins</a></li>
+              <li><a href="?category=skates">Skates e Longboards</a></li>
+              <li><a href="?category=capacetes-e-protetores">Capacetes e Protetores</a></li>
+              <li><a href="?category=mochilas">Mochilas</a></li>
+              <li><a href="?category=moda">Moda</a></li>
+              <li><a href="?category=kids">Kids</a></li>
             </ul>
           </div>
 
