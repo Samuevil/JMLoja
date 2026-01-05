@@ -33,56 +33,61 @@
 </head>
 
 <body class="bg-black text-white">
+  <!-- ✅ Envolve todo o conteúdo principal, exceto o footer -->
+  <div class="page-wrapper">
+    <!-- NAVBAR -->
+    <nav class="navbar" role="navigation" aria-label="Navegação principal">
+      <div class="navbar-inner">
+        <a href="/" class="logo">
+          <img src="assets/logos/Logo1.png" alt="Logo Josimar Soares">
+        </a>
 
-  <!-- NAVBAR -->
-  <header class="navbar">
-    <div class="navbar-inner">
-      <a href="/" class="logo">
-        <img src="assets/logos/Logo1.png" alt="Logo Josimar Soares">
-      </a>
-      <nav class="nav-desktop" id="navDesktop"></nav>
-      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
-    </div>
-    <div class="menu-mobile" id="menuMobile"></div>
-  </header>
+        <!-- Controles móveis: Blog + Hamburguer -->
+        <div class="nav-mobile-controls">
+          <a href="https://www.josimarsoares.com.br/" target="_blank" rel="noopener" class="nav-blog-mobile">BLOG</a>
+          <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+        </div>
 
-  <div class="navbar-spacer"></div>
-
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-face">
-      <img src="assets/images/Rosto.png" alt="Josimar Soares">
-    </div>
-    <div class="hero-content">
-      <h1 id="hero-title"></h1>
-      <p id="hero-subtitle"></p>
-      <div class="hero-product">
-        <img id="hero-image" src="" alt="">
+        <!-- Menu desktop (gerado via JS) -->
+        <nav class="nav-desktop" id="navDesktop" aria-label="Menu principal"></nav>
       </div>
-      <a id="hero-button" class="hero-button" href="#">Veja Mais</a>
-    </div>
-  </section>
 
-  <!-- CONTEÚDO -->
-  <main id="homeContent"></main>
+      <!-- Dropdown mobile (gerado via JS) -->
+      <div class="menu-mobile" id="menuMobile"></div>
+    </nav>
 
-  <!-- FOOTER -->
-  <div id="footerContainer"></div>
+    <div class="navbar-spacer"></div>
+
+    <!-- HERO -->
+    <section id="hero" aria-hidden="true">
+      <div class="hero-bg"></div>
+      <div class="hero-face">
+        <img src="assets/images/Rosto.png" alt="Josimar Soares">
+      </div>
+      <div class="hero-content">
+        <h1 id="hero-title"></h1>
+        <p id="hero-subtitle"></p>
+        <div class="hero-product">
+          <img id="hero-image" src="" alt="">
+        </div>
+        <a id="hero-button" class="hero-button" href="#">Veja Mais</a>
+      </div>
+    </section>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main id="homeContent" aria-live="polite"></main>
+  </div> <!-- ✅ .page-wrapper fecha aqui -->
+
+  <!-- FOOTER (fora do .page-wrapper, para fixar na base) -->
+  <footer id="footerContainer" role="contentinfo"></footer>
 
   <!-- UTILS -->
   <script src="js/utils.js" defer></script>
-
-  <!-- DADOS -->
   <script src="js/categories.js" defer></script>
   <script src="js/products_data.js" defer></script>
-
-  <!-- COMPORTAMENTO -->
   <script src="js/navbar.js" defer></script>
   <script src="js/main.js" defer></script>
   <script src="js/hero.js" defer></script>
-
-  <!-- RENDERIZAÇÃO -->
   <script src="js/render.carousel.js" defer></script>
   <script src="js/render.products.js" defer></script>
   <script src="js/render.footer.js" defer></script>
@@ -148,6 +153,7 @@
 
       if (hero) {
         hero.style.display = categorySlug ? "none" : "block";
+        hero.setAttribute("aria-hidden", categorySlug ? "true" : "false");
       }
 
       let productsToShow = PRODUCTS;
@@ -181,7 +187,7 @@
             <span class="orange">R$ 1500</span>
           </h2>
           <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/Dgm-0HwMKK4?autoplay=1&mute=1&rel=0" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/Dgm-0HwMKK4?autoplay=1&mute=1&rel=0" allow="autoplay" allowfullscreen></iframe>
           </div>
           <p class="video-hint">🔊 Clique no vídeo para ativar o som</p>
         `;
@@ -192,6 +198,5 @@
       renderFooter("footerContainer");
     });
   </script>
-
 </body>
 </html>

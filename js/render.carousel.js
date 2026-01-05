@@ -64,10 +64,11 @@ function renderFeaturedProducts(containerId, products) {
     const clonesAfter = featured.slice(0, VISIBLE);
     const all = [...clonesBefore, ...featured, ...clonesAfter];
 
-    // Renderiza
     all.forEach(p => {
       const card = document.createElement("div");
       card.className = "carousel-card";
+      card.style.cursor = "pointer";
+
       card.innerHTML = `
         <div class="carousel-image-wrapper">
           <img class="carousel-image" src="${p.image}" alt="${p.title}">
@@ -75,8 +76,15 @@ function renderFeaturedProducts(containerId, products) {
         <div class="carousel-title">${p.title}</div>
         <div class="carousel-price">R$ ${p.price.toFixed(2)}</div>
       `;
+
+      card.addEventListener("click", () => {
+        window.open(p.link, "_blank", "noopener,noreferrer");
+      });
+
+
       grid.appendChild(card);
     });
+
 
     index = VISIBLE;
 

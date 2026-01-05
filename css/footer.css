@@ -1,35 +1,103 @@
+/* ==================================================
+   FOOTER – Josimar Soares
+   Versão final: "Sobre mim" com espaço digno do seu rolê raiz
+================================================== */
+
 .footer {
   background: #000;
   border-top: 1px solid #333;
-  color: #e0e0e0;
+  color: #b0b0b0;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  width: 100%;
+  padding: 0;
 }
 
 .footer-inner {
-  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2.5rem 1.25rem;
+  padding: 1.2rem 1rem;
+  box-sizing: border-box;
 }
 
-/* ===== GRID RESPONSIVA ===== */
 .footer-grid {
   display: grid;
-  gap: 2rem;
-  justify-items: start;
+  gap: 1.2rem;
 }
 
+/* Desktop */
+@media (min-width: 992px) {
+  .footer-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 991px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ✅ MOBILE: mais espaço para "Sobre mim" */
+@media (max-width: 767px) {
+  .footer-grid {
+    grid-template-areas:
+      "sobre categorias"
+      "contato comunidade";
+    grid-template-columns: 1.75fr 1fr; /* Aumentado para 1.75fr */
+    gap: 0.95rem;
+  }
+
+  .footer-col:nth-child(1) { grid-area: sobre; }
+  .footer-col:nth-child(2) { grid-area: categorias; }
+  .footer-col:nth-child(3) { grid-area: contato; }
+  .footer-col:nth-child(4) { grid-area: comunidade; }
+
+  .footer-inner {
+    padding: 1rem 0.9rem;
+  }
+
+  /* "Sobre mim" com mais ar */
+  .footer-text {
+    font-size: 0.78rem;
+    line-height: 1.52; /* mais espaçado */
+    margin-top: 0.35rem;
+  }
+
+  .footer-col h4 {
+    font-size: 0.86rem;
+    margin-bottom: 0.42rem;
+  }
+
+  /* Direita mais compacta */
+  .footer-col:nth-child(2) ul li,
+  .footer-col:nth-child(4) .footer-social,
+  .footer-col:nth-child(3) .footer-link {
+    font-size: 0.75rem;
+  }
+
+  .footer-col:nth-child(2) ul li {
+    margin-bottom: 0.28rem;
+  }
+}
+
+/* Estilos gerais */
 .footer-col h4 {
-  font-size: 1rem;
+  font-size: 0.86rem;
   color: #fff;
-  margin-bottom: 0.75rem;
-  white-space: nowrap;
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+  line-height: 1.3;
 }
 
 .footer-logo {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 800;
   color: #fff;
   text-decoration: none;
+  display: inline-block;
+  line-height: 1.2;
 }
 
 .footer-logo:hover {
@@ -37,11 +105,10 @@
 }
 
 .footer-text {
-  margin-top: 0.6rem;
-  font-size: 0.85rem;
-  color: #b0b0b0;
-  line-height: 1.6;
-  max-width: 280px;
+  margin-top: 0.4rem;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: #aaa;
 }
 
 .footer-col ul {
@@ -51,73 +118,82 @@
 }
 
 .footer-col ul li {
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.32rem;
 }
 
-.footer-col ul li a,
-.footer-link {
-  font-size: 0.85rem;
+.footer-col ul li:last-child {
+  margin-bottom: 0;
+}
+
+.footer-col ul li a {
   color: #b0b0b0;
   text-decoration: none;
+  font-size: 0.78rem;
+  transition: color 0.15s;
 }
 
-.footer-col ul li a:hover,
-.footer-link:hover {
+.footer-col ul li a:hover {
   color: #FF5E00;
 }
 
-/* ===== SOCIAL ===== */
+.footer-link,
 .footer-social {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
+  gap: 0.4rem;
   color: #b0b0b0;
   text-decoration: none;
-  margin-bottom: 0.5rem;
-  position: relative;
+  margin-bottom: 0.35rem;
+  font-size: 0.78rem;
+  transition: color 0.15s;
 }
 
+.footer-link:hover,
 .footer-social:hover {
   color: #FF5E00;
 }
 
-.external {
-  opacity: 0;
-  transition: opacity 0.2s;
-  margin-left: 0.3rem;
-}
-
-.footer-social:hover .external {
-  opacity: 1;
-}
-
 .footer-icon {
-  width: 18px;
-  height: 18px;
-  stroke: #b0b0b0;
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
   fill: none;
   stroke-width: 2;
   flex-shrink: 0;
-  transition: stroke 0.2s;
 }
 
-.footer-social:hover .footer-icon {
-  stroke: #FF5E00;
+.footer-letter-icon {
+  width: 14px;
+  height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #b0b0b0;
+  border: 1px solid #b0b0b0;
+  border-radius: 3px;
+  flex-shrink: 0;
+  transition: color 0.15s, border-color 0.15s;
 }
 
-/* ===== BOTTOM ===== */
+.footer-link:hover .footer-letter-icon,
+.footer-social:hover .footer-letter-icon {
+  color: #FF5E00;
+  border-color: #FF5E00;
+}
+
 .footer-bottom {
-  margin-top: 2rem;
-  padding-top: 1.5rem;
+  margin-top: 1rem;
+  padding-top: 0.9rem;
   border-top: 1px solid #333;
   text-align: center;
-  width: 100%;
+  font-size: 0.75rem;
 }
 
 .footer-bottom p {
-  font-size: 0.85rem;
   margin: 0;
+  color: #aaa;
 }
 
 .footer-bottom-link {
@@ -132,73 +208,27 @@
 
 .footer-bottom span {
   display: block;
-  margin-top: 0.4rem;
-  font-size: 0.75rem;
-  color: #888;
+  margin-top: 0.25rem;
+  color: #777;
+  font-size: 0.7rem;
 }
 
-/* ===== MOBILE ===== */
-.footer-mobile {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.2rem;
-  padding: 0 1rem;
-}
-
-.footer-mobile-text {
-  font-size: 0.8rem;
-  color: #9a9a9a;
-  text-align: center;
-  max-width: 300px;
-  line-height: 1.5;
-}
-
-.footer-mobile-icons {
-  display: flex;
-  gap: 1.2rem;
-}
-
-.footer-mobile-icons a {
-  color: #b0b0b0;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.2s;
-}
-
-.footer-mobile-icons a:hover {
-  color: #FF5E00;
-}
-
-/* ===== RESPONSIVIDADE ===== */
-@media (min-width: 769px) {
-  .footer-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .footer-grid {
-    display: none;
-  }
-
-  .footer-mobile {
-    display: flex;
-  }
-}
-
-/* ===== PAISAGEM EM PEQUENOS DISPOSITIVOS ===== */
+/* Modo paisagem */
 @media (max-height: 500px) and (orientation: landscape) {
   .footer-inner {
-    padding: 1.5rem 1rem;
+    padding: 0.8rem 0.7rem;
   }
+  .footer-grid {
+    gap: 0.8rem;
+  }
+  .footer-col h4 {
+    font-size: 0.83rem;
+  }
+}
 
-  .footer-bottom {
-    margin-top: 1.2rem;
-    padding-top: 1rem;
-  }
-
-  .footer-mobile-text {
-    font-size: 0.75rem;
-  }
+.footer,
+.footer-inner,
+.footer-grid,
+.footer-col {
+  overflow-x: hidden;
 }

@@ -1,13 +1,25 @@
+/* === ESTILO BASE: SEM padding-top (para mobile) === */
 #hero {
   position: relative;
   width: 100%;
-  min-height: 85vh;
+  min-height: 89vh;
   background: black;
   overflow: hidden;
   display: flex;
-  align-items: center;
+  align-items: center; /* ← volta a ser "center" no mobile, ideal para telas pequenas */
   justify-content: center;
+  padding-top: 0; /* ← zero no mobile */
 }
+
+/* === APENAS EM DESKTOP: aplica padding-top para descer o conteúdo === */
+@media (min-width: 1024px) {
+  #hero {
+    align-items: flex-start; /* permite controle com padding */
+    padding-top: 220px;
+  }
+}
+
+/* === RESTANTE DO SEU ESTILO (sem alterações) === */
 
 .hero-bg {
   position: absolute;
@@ -110,14 +122,31 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* AJUSTES PARA TELAS BAIXAS EM PAISAGEM */
+/* AJUSTES PARA MOBILE ESTREITO */
+@media (max-width: 768px) {
+  .hero-content {
+    padding: 0 1.25rem;
+  }
+
+  .hero-face {
+    bottom: 6px;
+    left: 6px;
+  }
+
+  .hero-face img {
+    height: clamp(80px, 25vh, 320px);
+    border-radius: 12px;
+  }
+}
+
+/* TELAS MUITO BAIXAS (ex: Nest Hub em paisagem) */
 @media (max-height: 500px) and (orientation: landscape) {
   #hero {
     min-height: 70vh;
   }
 
-  .hero-content {
-    padding: 0 1rem;
+  .hero-face {
+    display: none;
   }
 
   #hero-title {
@@ -130,23 +159,7 @@
   }
 
   .hero-product img {
-    max-height: 160px;
-    margin: 16px 0;
-  }
-
-  .hero-face {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-face {
-    bottom: 6px;
-    left: 6px;
-  }
-
-  .hero-face img {
-    height: clamp(90px, 28vh, 360px);
-    border-radius: 12px;
+    max-height: 150px;
+    margin: 12px 0;
   }
 }

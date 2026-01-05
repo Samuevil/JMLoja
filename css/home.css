@@ -1,22 +1,32 @@
-body {
-  background: #000;
-  color: #fff;
+/* ===== RESET BÁSICO + ALTURA TOTAL ===== */
+html, body {
+  height: 100%;
   margin: 0;
-  font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
+  padding: 0;
+  /* Se você usa classes como bg-black/text-white, defina-as aqui ou no style.css */
 }
 
+/* ===== LAYOUT PRINCIPAL COM FOOTER FIXO NA BASE ===== */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.page-wrapper main {
+  flex: 1; /* ocupa todo o espaço disponível entre o topo e o footer */
+}
 /* ===== VÍDEO ===== */
 .video-section {
   width: 100%;
-  max-width: 1200px;
+  max-width: 900px;
   margin: 2rem auto;
   padding: 0 1rem;
   text-align: center;
 }
 
 .video-title {
-  font-size: clamp(1.8rem, 6vw, 3.2rem);
+  font-size: clamp(1.3rem, 4vw, 2.2rem);
   font-weight: 900;
   line-height: 1.2;
   margin-bottom: 1.2rem;
@@ -63,7 +73,7 @@ body {
   font-size: 1.5rem;
   font-weight: 800;
   color: #fff;
-  text-align: center;
+  text-align: left;
 }
 
 /* ===== CARROSSEL DE DESTAQUES ===== */

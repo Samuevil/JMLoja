@@ -51,20 +51,22 @@ function renderFooter(containerId) {
             <h4>Comunidade</h4>
 
             <a href="https://www.instagram.com/josimarssoares/" target="_blank" class="footer-social">
-              ${instagramIcon()} <span>Instagram</span> ${externalIcon()}
+              ${instagramIcon()} <span>Instagram</span> 
             </a>
 
             <a href="https://www.facebook.com/chocolatemegastyle" target="_blank" class="footer-social">
-              ${facebookIcon()} <span>Facebook</span> ${externalIcon()}
+              ${facebookIcon()} <span>Facebook</span> 
             </a>
 
             <a href="https://www.threads.net/@josimarssoares" target="_blank" class="footer-social">
-              ${linkIcon()} <span>Threads</span> ${externalIcon()}
+              ${linkIcon()} <span>Threads</span>
             </a>
 
-            <a href="https://www.josimarsoares.com.br/" target="_blank" class="footer-social">
-              ${penIcon()} <span>Blog</span> ${externalIcon()}
-            </a>
+          <a href="https://www.josimarsoares.com.br/" target="_blank" class="footer-social">
+          <span class="footer-letter-icon">B</span>
+          <span>Blog</span>
+          </a>
+
           </div>
 
         </div>

@@ -1,3 +1,4 @@
+/* NAVBAR PRINCIPAL */
 .navbar {
   position: fixed;
   top: 0;
@@ -6,6 +7,7 @@
   background: black;
   z-index: 1000;
   padding: 0;
+  box-sizing: border-box;
 }
 
 .navbar-inner {
@@ -17,8 +19,10 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
+  width: 100%;
 }
 
+/* LOGO */
 .logo {
   position: relative;
   z-index: 1001;
@@ -29,7 +33,7 @@
 
 .logo img {
   height: 110px;
-  filter: drop-shadow(0 0 4px rgba(255,94,0,0.5));
+  filter: drop-shadow(0 0 4px rgba(255, 94, 0, 0.5));
   transition: transform 0.3s;
   position: relative;
   z-index: 1002;
@@ -39,10 +43,40 @@
   transform: scale(1.04);
 }
 
+/* ESPAÇADOR */
 .navbar-spacer {
   height: 80px;
 }
 
+/* CONTROLES MOBILE: BLOG + HAMBURGUER */
+.nav-mobile-controls {
+  display: none;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-blog-mobile {
+  color: #d0d0d0;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.nav-blog-mobile:hover {
+  color: #FF5E00;
+}
+
+/* BOTÃO HAMBURGUER */
+.menu-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* MENU DESKTOP */
 .nav-desktop {
   display: none;
   gap: 24px;
@@ -60,6 +94,7 @@
   text-decoration: none;
   font-size: 0.95rem;
   white-space: nowrap;
+  position: relative;
 }
 
 .nav-link::after {
@@ -77,41 +112,65 @@
   width: 100%;
 }
 
+/* DROPDOWN (MOBILE E DESKTOP) */
 .dropdown {
   position: fixed;
   top: 80px;
   left: 0;
   width: 100%;
-  background: rgba(0,0,0,0.92);
+  background: rgba(0, 0, 0, 0.92);
   backdrop-filter: blur(8px);
   display: none;
   padding: 0 16px;
   z-index: 999;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
 }
 
 .dropdown.open {
   display: block;
 }
 
-.menu-toggle {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 24px;
-  cursor: pointer;
-}
+/* === RESPONSIVIDADE === */
 
+/* DESKTOP (≥992px) */
 @media (min-width: 992px) {
+  .nav-mobile-controls {
+    display: none !important;
+  }
+
   .menu-toggle {
     display: none !important;
   }
+
+  .nav-blog-mobile {
+    display: none !important;
+  }
+
   .nav-desktop {
     display: flex !important;
   }
 }
 
+/* MOBILE E TABLET (<992px) */
+@media (max-width: 991px) {
+  .nav-mobile-controls {
+    display: flex;
+  }
+
+  .nav-desktop {
+    display: none !important;
+  }
+}
+
+/* AJUSTE EXTRA PARA TELAS MUITO PEQUENAS */
 @media (max-width: 480px) {
   .logo img {
     height: 90px;
+  }
+
+  .nav-blog-mobile,
+  .menu-toggle {
+    font-size: 0.9rem;
   }
 }
