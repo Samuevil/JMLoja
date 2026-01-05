@@ -36,25 +36,20 @@
   <!-- ✅ Envolve todo o conteúdo principal, exceto o footer -->
   <div class="page-wrapper">
     <!-- NAVBAR -->
-    <nav class="navbar" role="navigation" aria-label="Navegação principal">
-      <div class="navbar-inner">
-        <a href="/" class="logo">
-          <img src="assets/logos/Logo1.png" alt="Logo Josimar Soares">
-        </a>
-
-        <!-- Controles móveis: Blog + Hamburguer -->
-        <div class="nav-mobile-controls">
-          <a href="https://www.josimarsoares.com.br/" target="_blank" rel="noopener" class="nav-blog-mobile">BLOG</a>
-          <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
-        </div>
-
-        <!-- Menu desktop (gerado via JS) -->
-        <nav class="nav-desktop" id="navDesktop" aria-label="Menu principal"></nav>
-      </div>
-
-      <!-- Dropdown mobile (gerado via JS) -->
-      <div class="menu-mobile" id="menuMobile"></div>
-    </nav>
+     
+<nav class="navbar" role="navigation" aria-label="Navegação principal">
+  <div class="navbar-inner">
+    <a href="/" class="logo">
+      <img src="assets/logos/Logo1.png" alt="Logo Josimar Soares">
+    </a>
+    <div class="nav-mobile-controls">
+      <a href="https://www.josimarsoares.com.br/" target="_blank" rel="noopener" class="nav-blog-mobile">BLOG</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+    </div>
+    <nav class="nav-desktop" id="navDesktop" aria-label="Menu principal"></nav>
+  </div>
+  <div class="dropdown" id="mobileDropdown"></div>
+</nav>
 
     <div class="navbar-spacer"></div>
 
