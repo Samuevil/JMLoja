@@ -74,6 +74,17 @@
   color: white;
   font-size: 24px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  transition: color 0.2s;
+}
+
+.menu-toggle:hover {
+  color: #FF5E00;
 }
 
 /* MENU DESKTOP */
