@@ -28,7 +28,6 @@ function renderFeaturedProducts(containerId, products) {
   const indicators = section.querySelector(".carousel-indicators");
   const viewport = section.querySelector(".carousel-viewport");
 
-  // ✅ Detecção universal de touch
   const isTouchDevice = () => {
     return (
       'ontouchstart' in window ||
@@ -41,25 +40,49 @@ function renderFeaturedProducts(containerId, products) {
   let index = 0;
   let isAnimating = false;
 
+  let isDragging = false;
+  let startPos = 0;
+  let currentX = 0;
+  let translateX = 0;
+  let dragStartTime = 0;
+
+  // ✅ Função para atualizar indicadores com base em índice real
+  function updateIndicators(realIndex) {
+    if (!isTouchDevice()) return;
+    const dots = indicators.querySelectorAll("button");
+    dots.forEach((dot, i) => {
+      dot.style.backgroundColor = i === realIndex ? "#ff5e00" : "transparent";
+    });
+  }
+
+  function cardStep() {
+    return grid.children[0] ? grid.children[0].offsetWidth + 17 : 0;
+  }
+
+  function move(withAnimation = true) {
+    const step = cardStep();
+    grid.style.transition = withAnimation ? "transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1)" : "none";
+    grid.style.transform = `translateX(-${index * step}px)`;
+    const realIndex = ((index - VISIBLE) % featured.length + featured.length) % featured.length;
+    updateIndicators(realIndex);
+  }
+
   function setupCarousel() {
     const isTouch = isTouchDevice();
     const viewportWidth = viewport.clientWidth;
 
-    // Define cards visíveis com base na largura REAL (sempre inteiro)
     if (isTouch) {
       if (viewportWidth < 550) VISIBLE = 2;
       else if (viewportWidth < 900) VISIBLE = 3;
       else VISIBLE = 4;
     } else {
-      VISIBLE = 4; // desktop
+      VISIBLE = 4;
     }
     VISIBLE = Math.min(VISIBLE, featured.length);
 
-    // Limpa
     grid.innerHTML = "";
     indicators.innerHTML = "";
 
-    // Clones
     const clonesBefore = featured.slice(-VISIBLE);
     const clonesAfter = featured.slice(0, VISIBLE);
     const all = [...clonesBefore, ...featured, ...clonesAfter];
@@ -68,7 +91,6 @@ function renderFeaturedProducts(containerId, products) {
       const card = document.createElement("div");
       card.className = "carousel-card";
       card.style.cursor = "pointer";
-
       card.innerHTML = `
         <div class="carousel-image-wrapper">
           <img class="carousel-image" src="${p.image}" alt="${p.title}">
@@ -76,19 +98,15 @@ function renderFeaturedProducts(containerId, products) {
         <div class="carousel-title">${p.title}</div>
         <div class="carousel-price">R$ ${p.price.toFixed(2)}</div>
       `;
-
       card.addEventListener("click", () => {
         window.open(p.link, "_blank", "noopener,noreferrer");
       });
-
-
       grid.appendChild(card);
     });
 
-
     index = VISIBLE;
+    move(false);
 
-    // ✅ Controle de UI pelo JS
     if (isTouch) {
       indicators.style.display = "flex";
       for (let i = 0; i < featured.length; i++) {
@@ -106,32 +124,14 @@ function renderFeaturedProducts(containerId, products) {
         `;
         indicators.appendChild(dot);
       }
+      // Garante que o primeiro esteja ativo
+      updateIndicators(0);
     } else {
       indicators.style.display = "none";
     }
 
     prev.style.display = isTouch ? "none" : "flex";
     next.style.display = isTouch ? "none" : "flex";
-
-    move(false);
-  }
-
-  function cardStep() {
-    return grid.children[0] ? grid.children[0].offsetWidth + 17 : 0;
-  }
-
-  function move(withAnimation = true) {
-    const step = cardStep();
-    grid.style.transition = withAnimation ? "transform 0.45s ease" : "none";
-    grid.style.transform = `translateX(-${index * step}px)`;
-
-    if (isTouchDevice()) {
-      const realIndex = ((index - VISIBLE) % featured.length + featured.length) % featured.length;
-      const dots = indicators.querySelectorAll("button");
-      dots.forEach((dot, i) => {
-        dot.style.backgroundColor = i === realIndex ? "#ff5e00" : "transparent";
-      });
-    }
   }
 
   function nextSlide() {
@@ -148,51 +148,144 @@ function renderFeaturedProducts(containerId, products) {
     move(true);
   }
 
-  next.onclick = () => { if (!isTouchDevice()) nextSlide(); };
   prev.onclick = () => { if (!isTouchDevice()) prevSlide(); };
+  next.onclick = () => { if (!isTouchDevice()) nextSlide(); };
 
   grid.addEventListener("transitionend", () => {
     if (!isAnimating) return;
     if (index >= featured.length + VISIBLE) {
-      setTimeout(() => { index = VISIBLE; move(false); isAnimating = false; }, 50);
+      setTimeout(() => {
+        index = VISIBLE;
+        move(false);
+        isAnimating = false;
+      }, 50);
       return;
     }
     if (index < VISIBLE) {
-      setTimeout(() => { index = featured.length + VISIBLE - 1; move(false); isAnimating = false; }, 50);
+      setTimeout(() => {
+        index = featured.length + VISIBLE - 1;
+        move(false);
+        isAnimating = false;
+      }, 50);
       return;
     }
     isAnimating = false;
   });
 
-  // Swipe
-  let touchStartX = 0;
-  viewport.addEventListener("touchstart", (e) => {
+  // ✅ Anima os indicadores progressivamente durante a transição
+  function animateIndicators(fromIndex, toIndex, duration = 400) {
     if (!isTouchDevice()) return;
-    touchStartX = e.touches[0].clientX;
-  });
+    const startTime = Date.now();
+    const fromLogical = ((fromIndex - VISIBLE) % featured.length + featured.length) % featured.length;
+    const toLogical = ((toIndex - VISIBLE) % featured.length + featured.length) % featured.length;
 
-  viewport.addEventListener("touchend", (e) => {
-    if (!isTouchDevice()) return;
-    const touchEndX = e.changedTouches[0].clientX;
-    const diff = touchStartX - touchEndX;
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) nextSlide();
-      else prevSlide();
+    function update() {
+      const elapsed = Date.now() - startTime;
+      if (elapsed >= duration) {
+        updateIndicators(toLogical);
+        return;
+      }
+
+      const progress = elapsed / duration;
+      // Interpolação linear entre fromLogical e toLogical
+      // Lidar com wrap (ex: 3 → 0)
+      let logicalDiff = toLogical - fromLogical;
+      if (Math.abs(logicalDiff) > featured.length / 2) {
+        if (logicalDiff > 0) logicalDiff -= featured.length;
+        else logicalDiff += featured.length;
+      }
+      const currentLogical = (fromLogical + logicalDiff * progress + featured.length) % featured.length;
+      updateIndicators(Math.round(currentLogical));
+
+      requestAnimationFrame(update);
     }
+
+    requestAnimationFrame(update);
+  }
+
+  viewport.addEventListener("touchstart", (e) => {
+    if (VISIBLE >= featured.length || !isTouchDevice()) return;
+    isDragging = true;
+    isAnimating = false;
+    startPos = e.touches[0].clientX;
+    currentX = startPos;
+    translateX = 0;
+    dragStartTime = Date.now();
+    grid.style.transition = "none";
   }, { passive: true });
 
-  // Indicadores
+  viewport.addEventListener("touchmove", (e) => {
+    if (!isDragging || VISIBLE >= featured.length || !isTouchDevice()) return;
+    currentX = e.touches[0].clientX;
+    const deltaX = currentX - startPos;
+    translateX = deltaX;
+    const step = cardStep();
+    const baseOffset = -index * step;
+    grid.style.transform = `translateX(${baseOffset + translateX}px)`;
+    e.preventDefault();
+  }, { passive: false });
+
+  viewport.addEventListener("touchend", (e) => {
+    if (!isDragging || VISIBLE >= featured.length || !isTouchDevice()) return;
+    isDragging = false;
+
+    const deltaX = currentX - startPos;
+    const timeElapsed = Date.now() - dragStartTime;
+    const velocity = timeElapsed > 0 ? deltaX / timeElapsed : 0;
+
+    const step = cardStep();
+    const baseOffset = -index * step;
+    const totalOffset = baseOffset + translateX;
+    const offsetFromIndex = -totalOffset / step;
+    let targetIndex = Math.round(offsetFromIndex);
+
+    if (Math.abs(velocity) > 0.8) {
+      const direction = velocity > 0 ? -1 : 1;
+      targetIndex += direction;
+    }
+
+    const minIndex = 0;
+    const maxIndex = featured.length + 2 * VISIBLE - 1;
+    targetIndex = Math.max(minIndex, Math.min(maxIndex, targetIndex));
+
+    const startIndex = index;
+    index = targetIndex;
+
+    // ✅ Anima indicadores progressivamente
+    animateIndicators(startIndex, index, 400);
+
+    // Move o grid
+    grid.style.transition = "transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1)";
+    grid.style.transform = `translateX(-${index * step}px)`;
+
+    setTimeout(() => {
+      if (index >= featured.length + VISIBLE) {
+        index = VISIBLE;
+        grid.style.transition = "none";
+        grid.style.transform = `translateX(-${index * step}px)`;
+      } else if (index < VISIBLE) {
+        index = featured.length + VISIBLE - 1;
+        grid.style.transition = "none";
+        grid.style.transform = `translateX(-${index * step}px)`;
+      }
+      // Garante estado final
+      const realIndex = ((index - VISIBLE) % featured.length + featured.length) % featured.length;
+      updateIndicators(realIndex);
+    }, 400);
+  }, { passive: true });
+
   indicators.addEventListener("click", (e) => {
     if (!isTouchDevice() || !e.target.matches("button")) return;
     const dots = Array.from(indicators.querySelectorAll("button"));
     const clickedIndex = dots.indexOf(e.target);
     if (clickedIndex >= 0) {
+      const startIndex = index;
       index = VISIBLE + clickedIndex;
+      animateIndicators(startIndex, index, 400);
       move(true);
     }
   });
 
-  // Inicializa
   setupCarousel();
 
   let resizeTimer;

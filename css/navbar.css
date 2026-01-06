@@ -32,7 +32,8 @@
 }
 
 .logo img {
-  height: 110px;
+  height: 110px; /* ✅ Tamanho no desktop */
+  width: auto;
   filter: drop-shadow(0 0 4px rgba(255, 94, 0, 0.5));
   transition: transform 0.3s;
   position: relative;
@@ -67,24 +68,29 @@
   color: #FF5E00;
 }
 
-/* BOTÃO HAMBURGUER */
+/* BOTÃO HAMBURGUER – responsivo e escalável */
 .menu-toggle {
   background: none;
   border: none;
   color: white;
-  font-size:32px;
+  font-size: 2.2rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  width:52px;
-  height:52px;
-  border-radius:8px;
+  width: 3.2em;
+  height: 3.2em;
+  min-width: 52px;
+  min-height: 52px;
+  border-radius: 8px;
   transition: color 0.2s;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.menu-toggle:hover {
+.menu-toggle:hover,
+.menu-toggle:focus {
   color: #FF5E00;
+  outline: none;
 }
 
 /* MENU DESKTOP */
@@ -172,16 +178,16 @@
   .nav-desktop {
     display: none !important;
   }
+
+  /* ✅ Logo ligeiramente maior no mobile */
+  .logo img {
+    height: 120px;
+  }
 }
 
-/* AJUSTE EXTRA PARA TELAS MUITO PEQUENAS */
-@media (max-width: 480px) {
+/* AJUSTE PARA TELAS MUITO PEQUENAS */
+@media (max-width: 375px) {
   .logo img {
-    height: 90px;
-  }
-
-  .nav-blog-mobile,
-  .menu-toggle {
-    font-size: 0.9rem;
+    height: 115px; /* Um toque menor em telas estreitas */
   }
 }
