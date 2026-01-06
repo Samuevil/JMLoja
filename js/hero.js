@@ -12,19 +12,19 @@ document.addEventListener("DOMContentLoaded", () => {
       title: "PATINS STREET AGGRESSIVE",
       subtitle: "Domine corrimãos, escadarias e concreto. Patins feitos para quem transforma a cidade em playground.",
       image: "assets/images/street10.png",
-      link: "/?category=patins-completos-street"
+      link: "./?category=patins-completos-street"
     },
     {
       title: "FITNESS PRA QUEM NÃO PARA",
       subtitle: "Deslize por quilômetros com conforto, estabilidade e estilo. O seu corpo agradece — a cidade inteira é sua pista.",
       image: "assets/images/Fitness10.png",
-      link: "/?category=patins-completos-fitness"
+      link: "./?category=patins-completos-fitness"
     },
     {
       title: "PROTEÇÃO COM ATITUDE",
       subtitle: "Capacetes e protetores que não escondem seu estilo — só garantem que você continue mandando bem amanhã.",
       image: "assets/images/capacete11.png",
-      link: "/?category=capacetes-e-protetores"
+      link: "./?category=capacetes-e-protetores"
     }
   ];
 
