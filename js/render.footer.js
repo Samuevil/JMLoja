@@ -33,17 +33,25 @@ function renderFooter(containerId) {
 
           <div class="footer-col">
             <h4>Contato</h4>
-            <a href="mailto:josimarsilvasoares2015@gmail.com" class="footer-link">
+            
+            <!-- Email com versão mobile e desktop -->
+            <a href="mailto:josimarsilvasoares2015@gmail.com" class="footer-link footer-email-full">
               ${mailIcon()}
-              josimarsilvasoares2015@gmail.com
+              <span class="email-text">josimarsilvasoares2015@gmail.com</span>
             </a>
+            
+            <a href="mailto:josimarsilvasoares2015@gmail.com" class="footer-link footer-email-mobile">
+              ${mailIcon()}
+              <span class="email-text">Email</span>
+            </a>
+            
             <a
               href="https://www.google.com/maps/place/Montes+Claros,+MG,+Brasil"
               target="_blank"
               class="footer-link"
             >
               ${mapIcon()}
-              Montes Claros, MG – Brasil
+              <span class="location-text">Montes Claros, MG – Brasil</span>
             </a>
           </div>
 
@@ -62,10 +70,10 @@ function renderFooter(containerId) {
               ${linkIcon()} <span>Threads</span>
             </a>
 
-          <a href="https://www.josimarsoares.com.br/" target="_blank" class="footer-social">
-          <span class="footer-letter-icon">B</span>
-          <span>Blog</span>
-          </a>
+            <a href="https://www.josimarsoares.com.br/" target="_blank" class="footer-social">
+              <span class="footer-letter-icon">B</span>
+              <span>Blog</span>
+            </a>
 
           </div>
 
@@ -123,13 +131,6 @@ function linkIcon() {
   return baseSvg(`
     <path d="M10 13a5 5 0 0 1 0-7l2-2a5 5 0 0 1 7 7l-1 1"/>
     <path d="M14 11a5 5 0 0 1 0 7l-2 2a5 5 0 0 1-7-7l1-1"/>
-  `);
-}
-
-function penIcon() {
-  return baseSvg(`
-    <path d="M12 20h9"/>
-    <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>
   `);
 }
 
