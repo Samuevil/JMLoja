@@ -10,6 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const navDesktop = document.getElementById('navDesktop');
   const mobileDropdown = document.getElementById('mobileDropdown');
   const menuToggle = document.getElementById('menuToggle');
+  
+  // Variáveis para controlar cliques pendentes
+  let pendingClick = null;
+  let clickHandlers = new WeakMap(); // Para armazenar handlers originais
+  let isMenuOpen = false;
 
   function closeAllDropdowns() {
     document.querySelectorAll('.dropdown.open').forEach(d => d.classList.remove('open'));
@@ -27,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const link = document.createElement('a');
       link.className = 'nav-link';
-      // ✅ CORREÇÃO: uso seguro de template string
       link.href = './?category=' + encodeURIComponent(group.slug);
       link.textContent = group.title;
       link.style.textDecoration = 'none';
@@ -213,29 +217,257 @@ document.addEventListener('DOMContentLoaded', () => {
 
     mobileDropdown.appendChild(mobileMenu);
 
-    // Controle do botão hamburguer
+    // Função para fechar o menu mobile
+    function closeMobileMenu() {
+      mobileDropdown.classList.remove('open');
+      isMenuOpen = false;
+      if (menuToggle) menuToggle.textContent = '☰';
+      
+      // Remove overlay se existir
+      const overlay = document.getElementById('mobileMenuOverlay');
+      if (overlay) overlay.remove();
+    }
+
+    // Função para abrir o menu mobile
+    function openMobileMenu() {
+      mobileDropdown.classList.add('open');
+      isMenuOpen = true;
+      if (menuToggle) menuToggle.textContent = '✕';
+      
+      // Adiciona overlay para capturar cliques em iframes
+      addOverlayForIframes();
+    }
+
+    // Adiciona overlay semi-transparente sobre iframes quando menu está aberto
+    function addOverlayForIframes() {
+      // Remove overlay anterior se existir
+      const existingOverlay = document.getElementById('mobileMenuOverlay');
+      if (existingOverlay) existingOverlay.remove();
+      
+      // Cria novo overlay
+      const overlay = document.createElement('div');
+      overlay.id = 'mobileMenuOverlay';
+      overlay.style.position = 'fixed';
+      overlay.style.top = '80px'; // Altura da navbar
+      overlay.style.left = '0';
+      overlay.style.width = '100%';
+      overlay.style.height = 'calc(100vh - 80px)';
+      overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.01)'; // Quase transparente
+      overlay.style.zIndex = '998'; // Abaixo do dropdown (999) mas acima de tudo
+      overlay.style.cursor = 'pointer';
+      
+      // Fecha menu ao clicar no overlay
+      overlay.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        closeMobileMenu();
+      });
+      
+      // Adiciona ao body
+      document.body.appendChild(overlay);
+    }
+
+    // Controle do botão hambúrguer
     menuToggle.addEventListener('click', (e) => {
       e.stopPropagation();
-      const isOpen = mobileDropdown.classList.contains('open');
-      if (isOpen) {
-        mobileDropdown.classList.remove('open');
-        menuToggle.textContent = '☰';
+      if (isMenuOpen) {
+        closeMobileMenu();
       } else {
-        mobileDropdown.classList.add('open');
-        menuToggle.textContent = '✕';
+        openMobileMenu();
       }
     });
 
-    // Fecha ao clicar fora
+    // Função para capturar informações do elemento clicado
+    function getElementInfo(element) {
+      if (!element) return null;
+      
+      // Verifica se é um iframe ou está dentro de um iframe
+      const iframe = element.closest('iframe');
+      const isInIframe = iframe !== null;
+      
+      return {
+        element: element,
+        tagName: element.tagName,
+        href: element.getAttribute('href'),
+        onclick: element.onclick,
+        hasClickListener: element.hasAttribute('onclick') || element.onclick,
+        isButton: element.tagName === 'BUTTON' || element.getAttribute('role') === 'button',
+        isVideo: element.tagName === 'VIDEO' || 
+                 element.closest('video') || 
+                 element.classList.contains('video-player') ||
+                 element.closest('.video-player') ||
+                 element.closest('.youtube-video') ||
+                 element.closest('.video-container') ||
+                 iframe?.src?.includes('youtube.com') ||
+                 iframe?.src?.includes('youtu.be'),
+        isIframe: element.tagName === 'IFRAME' || isInIframe,
+        iframe: iframe,
+        isImage: element.tagName === 'IMG' || element.closest('img'),
+        isLink: element.tagName === 'A',
+        className: element.className,
+        id: element.id,
+        dataset: { ...element.dataset }
+      };
+    }
+
+    // Função para executar a ação do elemento
+    function executeElementAction(elementInfo) {
+      if (!elementInfo) return;
+      
+      const { element, href, onclick, isLink, isButton, isVideo, isIframe } = elementInfo;
+      
+      try {
+        if (isLink && href) {
+          // É um link
+          if (element.target === '_blank') {
+            window.open(href, '_blank');
+          } else {
+            window.location.href = href;
+          }
+        } else if (onclick) {
+          // Tem onclick handler
+          onclick.call(element);
+        } else if (isButton) {
+          // É um botão - simula clique normal
+          element.click();
+        } else if (isVideo || isIframe) {
+          // Para vídeos ou iframes, tentamos dar play/pause
+          // ou simulamos um clique no container
+          const videoElement = element.closest('video') || 
+                              element.closest('.video-player') ||
+                              element.closest('.youtube-video') ||
+                              element.closest('.video-container') ||
+                              element;
+          
+          if (videoElement.tagName === 'VIDEO') {
+            // Video HTML5 nativo
+            if (videoElement.paused) {
+              videoElement.play();
+            } else {
+              videoElement.pause();
+            }
+          } else if (videoElement.click) {
+            // Outros elementos de vídeo
+            videoElement.click();
+          }
+        } else if (element.click) {
+          // Elemento tem método click
+          element.click();
+        }
+      } catch (err) {
+        console.error('Erro ao executar ação:', err);
+      }
+    }
+
+    // Lógica inteligente para TODOS os cliques quando menu está aberto
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('.navbar')) {
-        mobileDropdown.classList.remove('open');
-        if (menuToggle) menuToggle.textContent = '☰';
+      // Se menu está aberto
+      if (isMenuOpen) {
+        // Verifica se o clique foi dentro do menu dropdown
+        const isClickInDropdown = e.target.closest('#mobileDropdown');
+        const isClickOnToggle = e.target.closest('.menu-toggle');
+        const isClickOnOverlay = e.target.id === 'mobileMenuOverlay';
+        
+        if (isClickInDropdown || isClickOnToggle || isClickOnOverlay) {
+          // Clique dentro do menu, no botão ou no overlay
+          if (isClickInDropdown && e.target.closest('a')) {
+            // Link dentro do menu - fecha menu E permite seguir link
+            closeMobileMenu();
+            // Permite comportamento normal
+            return;
+          }
+          // Para outros cliques dentro do menu, permite comportamento normal
+          return;
+        } else {
+          // Clique FORA do menu (em qualquer lugar do site)
+          
+          // 1. Previne TODAS as ações
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          
+          // 2. Fecha o menu
+          closeMobileMenu();
+          
+          // 3. Captura informações do elemento clicado
+          const elementInfo = getElementInfo(e.target);
+          
+          // 4. Marca como clique pendente
+          pendingClick = {
+            element: e.target,
+            elementInfo: elementInfo,
+            originalEvent: { 
+              x: e.clientX, 
+              y: e.clientY,
+              timeStamp: e.timeStamp
+            },
+            timestamp: Date.now()
+          };
+          
+          // 5. Remove o clique pendente após 1 segundo
+          setTimeout(() => {
+            pendingClick = null;
+          }, 1000);
+          
+          return false;
+        }
+      } else {
+        // Menu está fechado - verifica se há clique pendente
+        if (pendingClick) {
+          // Calcula distância e tempo desde o clique anterior
+          const timeDiff = Date.now() - pendingClick.timestamp;
+          
+          // Verifica se é o mesmo elemento ou um elemento relacionado
+          const isSameElement = e.target === pendingClick.element || 
+                               e.target.contains(pendingClick.element) || 
+                               pendingClick.element.contains(e.target) ||
+                               // Para vídeos, considera o container como mesmo elemento
+                               (pendingClick.elementInfo?.isVideo && 
+                                (e.target.closest('video') || 
+                                 e.target.closest('.video-player') || 
+                                 e.target.closest('.youtube-video') || 
+                                 e.target.closest('.video-container')));
+          
+          // Se foi no mesmo elemento dentro de 1 segundo
+          if (isSameElement && timeDiff < 1000) {
+            // É o segundo clique - executa a ação original
+            
+            // Previne o clique normal
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Executa a ação do elemento
+            executeElementAction(pendingClick.elementInfo);
+            
+            // Limpa o clique pendente
+            pendingClick = null;
+            
+            return false;
+          } else {
+            // Não é o mesmo elemento ou passou muito tempo
+            pendingClick = null;
+          }
+        }
       }
-    });
+    }, true); // Use capture phase para interceptar antes de outros listeners
 
+    // Previne propagação de cliques dentro do dropdown
     mobileDropdown.addEventListener('click', (e) => {
       e.stopPropagation();
     });
+    
+    // Também fecha ao pressionar ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isMenuOpen) {
+        closeMobileMenu();
+      }
+    });
+    
+    // Fecha menu ao rolar (opcional)
+    window.addEventListener('scroll', () => {
+      if (isMenuOpen) {
+        closeMobileMenu();
+      }
+    }, { passive: true });
   }
 });

@@ -1,6 +1,6 @@
 /* ==================================================
    FOOTER – Josimar Soares
-   Versão final: "Sobre mim" com espaço digno do seu rolê raiz
+   Versão final com email inteligente para mobile
 ================================================== */
 
 .footer {
@@ -79,6 +79,71 @@
 
   .footer-col:nth-child(2) ul li {
     margin-bottom: 0.28rem;
+  }
+}
+
+/* ========== EMAIL INTELIGENTE ========== */
+/* Email completo em telas maiores */
+.footer-email-full {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Email simplificado para mobile */
+.footer-email-mobile {
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  color: #b0b0b0;
+  text-decoration: none;
+  font-size: 0.78rem;
+  transition: color 0.15s;
+}
+
+.footer-email-mobile:hover {
+  color: #FF5E00;
+}
+
+/* Mostra email simplificado apenas em mobile */
+@media (max-width: 767px) {
+  .footer-email-full {
+    display: none !important;
+  }
+  
+  .footer-email-mobile {
+    display: inline-flex !important;
+  }
+  
+  /* Ajusta a coluna de contato para o novo layout */
+  .footer-col:nth-child(3) {
+    min-width: 0;
+    overflow: hidden;
+  }
+  
+  .footer-col:nth-child(3) .footer-link {
+    margin-bottom: 0.3rem;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Email mobile ocupa menos espaço */
+  .footer-email-mobile {
+    font-size: 0.75rem;
+    margin-bottom: 0.3rem;
+  }
+}
+
+/* Email completo reaparece em telas maiores */
+@media (min-width: 768px) {
+  .footer-email-full {
+    display: inline-flex !important;
+  }
+  
+  .footer-email-mobile {
+    display: none !important;
   }
 }
 
