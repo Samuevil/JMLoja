@@ -9,7 +9,7 @@ function renderFeaturedProducts(containerId, products) {
   section.innerHTML = `
     <div class="featured-container">
       <h2 class="featured-title">Destaques</h2>
-      <div class="carousel-wrapper">
+      <div class="carousel-wrapper" id="carousel-${containerId}">
         <button class="carousel-btn-prev" aria-label="Anterior">&#8249;</button>
         <div class="carousel-viewport">
           <div class="carousel-grid"></div>
@@ -203,6 +203,18 @@ function renderFeaturedProducts(containerId, products) {
     requestAnimationFrame(update);
   }
 
+  // ✅ Adiciona evento para permitir scroll vertical no carrossel
+  function enableVerticalScroll() {
+    const carouselWrapper = document.getElementById(`carousel-${containerId}`);
+    if (carouselWrapper) {
+      // Adiciona propriedade CSS para permitir scroll vertical
+      carouselWrapper.style.touchAction = 'pan-y';
+    }
+  }
+
+  // Chama a função para permitir scroll vertical
+  enableVerticalScroll();
+
   viewport.addEventListener("touchstart", (e) => {
     if (VISIBLE >= featured.length || !isTouchDevice()) return;
     isDragging = true;
@@ -222,7 +234,8 @@ function renderFeaturedProducts(containerId, products) {
     const step = cardStep();
     const baseOffset = -index * step;
     grid.style.transform = `translateX(${baseOffset + translateX}px)`;
-    e.preventDefault();
+    // Não usar preventDefault para permitir scroll vertical
+    // e.preventDefault();
   }, { passive: false });
 
   viewport.addEventListener("touchend", (e) => {
