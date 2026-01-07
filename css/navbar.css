@@ -22,17 +22,19 @@
   width: 100%;
 }
 
-/* LOGO */
+/* LOGO - fixada à esquerda */
 .logo {
   position: relative;
   z-index: 1001;
   height: 100%;
   display: flex;
   align-items: center;
+  /* Força ficar no canto esquerdo */
+  flex: 0 0 auto;
 }
 
 .logo img {
-  height: 110px; /* ✅ Tamanho no desktop */
+  height: 110px;
   width: auto;
   filter: drop-shadow(0 0 4px rgba(255, 94, 0, 0.5));
   transition: transform 0.3s;
@@ -49,26 +51,37 @@
   height: 80px;
 }
 
-/* CONTROLES MOBILE: BLOG + HAMBURGUER */
+/* CONTROLES MOBILE: BLOG + HAMBURGUER - CORRIGIDO */
 .nav-mobile-controls {
   display: none;
   align-items: center;
-  gap: 16px;
+  /* Remove qualquer gap que possa separar os botões */
+  gap: 0;
+  /* Força ficar no canto direito */
+  margin-left: auto;
+  justify-content: flex-end;
 }
 
+/* BLOG MOBILE - ajustado */
 .nav-blog-mobile {
   color: #d0d0d0;
   font-weight: 600;
   text-decoration: none;
   font-size: 0.95rem;
   white-space: nowrap;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  /* Remove qualquer margem */
+  margin: 0;
 }
 
 .nav-blog-mobile:hover {
   color: #FF5E00;
 }
 
-/* BOTÃO HAMBURGUER – responsivo e escalável */
+
 .menu-toggle {
   background: none;
   border: none;
@@ -78,11 +91,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3.2em;
-  height: 3.2em;
-  min-width: 52px;
-  min-height: 52px;
-  border-radius: 8px;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  margin: 0;
   transition: color 0.2s;
   -webkit-tap-highlight-color: transparent;
 }
@@ -129,7 +141,7 @@
   width: 100%;
 }
 
-/* DROPDOWN (MOBILE E DESKTOP) */
+/* DROPDOWN */
 .dropdown {
   position: fixed;
   top: 80px;
@@ -148,46 +160,120 @@
   display: block;
 }
 
-/* === RESPONSIVIDADE === */
+/* === LÓGICA POR TIPO DE DISPOSITIVO === */
 
-/* DESKTOP (≥992px) */
-@media (min-width: 992px) {
+/* 1. PARA DISPOSITIVOS TOUCH (celulares, tablets com touch) */
+@media (hover: none) and (pointer: coarse) {
+  /* SEMPRE mostrar layout mobile em dispositivos touch */
   .nav-mobile-controls {
-    display: none !important;
-  }
-
-  .menu-toggle {
-    display: none !important;
-  }
-
-  .nav-blog-mobile {
-    display: none !important;
-  }
-
-  .nav-desktop {
     display: flex !important;
+  }
+  
+  .nav-desktop {
+    display: none !important;
+  }
+  
+  .menu-toggle {
+    display: flex !important;
+  }
+  
+  .nav-blog-mobile {
+    display: flex !important;
+  }
+  
+  /* Logo um pouco maior em touch */
+  .logo img {
+    height: 120px;
+  }
+  
+  /* Garante que os botões fiquem juntos no canto direito */
+  .navbar-inner {
+    justify-content: space-between;
+  }
+  
+  .nav-mobile-controls {
+    flex: 0 0 auto;
   }
 }
 
-/* MOBILE E TABLET (<992px) */
-@media (max-width: 991px) {
-  .nav-mobile-controls {
-    display: flex;
+/* 2. PARA DISPOSITIVOS COM MOUSE (desktop, laptops) */
+@media (hover: hover) and (pointer: fine) {
+  /* Em telas grandes com mouse, mostrar desktop */
+  @media (min-width: 992px) {
+    .nav-mobile-controls {
+      display: none !important;
+    }
+    
+    .menu-toggle {
+      display: none !important;
+    }
+    
+    .nav-blog-mobile {
+      display: none !important;
+    }
+    
+    .nav-desktop {
+      display: flex !important;
+    }
+    
+    .logo img {
+      height: 110px;
+    }
   }
-
-  .nav-desktop {
-    display: none !important;
+  
+  /* Em telas pequenas com mouse (raros) */
+  @media (max-width: 991px) {
+    .nav-mobile-controls {
+      display: flex !important;
+    }
+    
+    .nav-desktop {
+      display: none !important;
+    }
+    
+    .logo img {
+      height: 120px;
+    }
   }
+}
 
-  /* ✅ Logo ligeiramente maior no mobile */
+/* AJUSTES PARA CELULARES PEQUENOS */
+@media (max-width: 480px) {
   .logo img {
-    height: 120px;
+    height: 110px; /* Reduz um pouco em telas muito pequenas */
+  }
+  
+  .nav-blog-mobile {
+    padding: 12px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .menu-toggle {
+    width: 56px;
+    height: 56px;
+    font-size: 2rem;
+  }
+  
+  /* Remove qualquer espaço extra */
+  .navbar-inner {
+    padding: 0 12px;
   }
 }
 
 /* AJUSTE PARA TELAS MUITO PEQUENAS */
 @media (max-width: 375px) {
   .logo img {
-    height: 115px; /* Um toque menor em telas estreitas */
+    height: 105px;
+  }
+  
+  .nav-blog-mobile {
+    padding: 12px 10px;
+    font-size: 0.85rem;
+  }
+  
+  .menu-toggle {
+    width: 52px;
+    height: 52px;
+    font-size: 1.8rem;
   }
 }
