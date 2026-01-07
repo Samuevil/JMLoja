@@ -46,7 +46,6 @@ function renderFeaturedProducts(containerId, products) {
   let translateX = 0;
   let dragStartTime = 0;
 
-  // ✅ Função para atualizar indicadores com base em índice real
   function updateIndicators(realIndex) {
     if (!isTouchDevice()) return;
     const dots = indicators.querySelectorAll("button");
@@ -95,8 +94,10 @@ function renderFeaturedProducts(containerId, products) {
         <div class="carousel-image-wrapper">
           <img class="carousel-image" src="${p.image}" alt="${p.title}">
         </div>
-        <div class="carousel-title">${p.title}</div>
-        <div class="carousel-price">R$ ${p.price.toFixed(2)}</div>
+        <div class="carousel-content">
+          <div class="carousel-title">${p.title}</div>
+          <div class="carousel-price">R$ ${p.price.toFixed(2)}</div>
+        </div>
       `;
       card.addEventListener("click", () => {
         window.open(p.link, "_blank", "noopener,noreferrer");
@@ -124,7 +125,6 @@ function renderFeaturedProducts(containerId, products) {
         `;
         indicators.appendChild(dot);
       }
-      // Garante que o primeiro esteja ativo
       updateIndicators(0);
     } else {
       indicators.style.display = "none";
@@ -172,7 +172,6 @@ function renderFeaturedProducts(containerId, products) {
     isAnimating = false;
   });
 
-  // ✅ Anima os indicadores progressivamente durante a transição
   function animateIndicators(fromIndex, toIndex, duration = 400) {
     if (!isTouchDevice()) return;
     const startTime = Date.now();
@@ -187,8 +186,6 @@ function renderFeaturedProducts(containerId, products) {
       }
 
       const progress = elapsed / duration;
-      // Interpolação linear entre fromLogical e toLogical
-      // Lidar com wrap (ex: 3 → 0)
       let logicalDiff = toLogical - fromLogical;
       if (Math.abs(logicalDiff) > featured.length / 2) {
         if (logicalDiff > 0) logicalDiff -= featured.length;
@@ -203,16 +200,13 @@ function renderFeaturedProducts(containerId, products) {
     requestAnimationFrame(update);
   }
 
-  // ✅ Adiciona evento para permitir scroll vertical no carrossel
   function enableVerticalScroll() {
     const carouselWrapper = document.getElementById(`carousel-${containerId}`);
     if (carouselWrapper) {
-      // Adiciona propriedade CSS para permitir scroll vertical
       carouselWrapper.style.touchAction = 'pan-y';
     }
   }
 
-  // Chama a função para permitir scroll vertical
   enableVerticalScroll();
 
   viewport.addEventListener("touchstart", (e) => {
@@ -234,8 +228,6 @@ function renderFeaturedProducts(containerId, products) {
     const step = cardStep();
     const baseOffset = -index * step;
     grid.style.transform = `translateX(${baseOffset + translateX}px)`;
-    // Não usar preventDefault para permitir scroll vertical
-    // e.preventDefault();
   }, { passive: false });
 
   viewport.addEventListener("touchend", (e) => {
@@ -264,10 +256,8 @@ function renderFeaturedProducts(containerId, products) {
     const startIndex = index;
     index = targetIndex;
 
-    // ✅ Anima indicadores progressivamente
     animateIndicators(startIndex, index, 400);
 
-    // Move o grid
     grid.style.transition = "transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1)";
     grid.style.transform = `translateX(-${index * step}px)`;
 
@@ -281,7 +271,6 @@ function renderFeaturedProducts(containerId, products) {
         grid.style.transition = "none";
         grid.style.transform = `translateX(-${index * step}px)`;
       }
-      // Garante estado final
       const realIndex = ((index - VISIBLE) % featured.length + featured.length) % featured.length;
       updateIndicators(realIndex);
     }, 400);
