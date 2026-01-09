@@ -805,3 +805,113 @@ html, body {
 .carousel-indicators button.active {
   background: #ff5e00;
 }
+
+/* ===== AJUSTE MAIS COMPACTO DO VÍDEO EM ORIENTAÇÃO HORIZONTAL (MOBILE/TABLET) ===== */
+@media (max-width: 1024px) and (orientation: landscape) and (hover: none) and (pointer: coarse) {
+  .video-section {
+    margin: 0.8rem auto;
+    padding: 0 0.7rem;
+  }
+
+  .video-title {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    margin-bottom: 0.6rem;
+  }
+
+  .video-container {
+    padding-top: 0;
+    height: auto;
+    max-height: calc(100vh - 160px); /* ↑ mais espaço reservado = vídeo menor */
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+  }
+
+  .video-container iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .video-hint {
+    font-size: 0.75rem;
+    margin-top: 4px;
+  }
+}
+
+/* ===== AJUSTE COMPACTO DOS PRODUCT CARDS EM ORIENTAÇÃO HORIZONTAL (MOBILE/TABLET) ===== */
+@media (max-width: 1024px) and (orientation: landscape) and (hover: none) and (pointer: coarse) {
+  .grid-products {
+    gap: 0.35rem !important;
+  }
+
+  .product-card {
+    border: 0.5px solid #333 !important;
+  }
+
+  .product-image-wrapper {
+    height: 90px !important; /* ↓ reduzido de 100px */
+  }
+
+  .product-content {
+    padding: 0.18rem 0.25rem !important; /* ↓ mais compacto */
+    min-height: 46px !important; /* ajustado para caber título + preço */
+  }
+
+  .product-title {
+    font-size: 0.62rem !important; /* ↓ ligeiramente menor */
+    line-height: 1.15 !important;
+    min-height: 1.5em !important;
+    max-height: 2.3em !important;
+  }
+
+  .product-price {
+    font-size: 0.62rem !important; /* ↓ mais sutil */
+    padding-top: 0.08rem !important;
+    border-top: 0.5px solid #333 !important;
+  }
+}
+
+/* Para telas muito baixas em paisagem (ex: iPhone SE) */
+@media (max-width: 1024px) and (orientation: landscape) and (max-height: 400px) and (hover: none) and (pointer: coarse) {
+  .product-image-wrapper {
+    height: 75px !important;
+  }
+
+  .product-content {
+    padding: 0.15rem 0.2rem !important;
+    min-height: 42px !important;
+  }
+/* ===== TÍTULOS DOS PRODUTOS - VISIBILIDADE COMPLETA EM PAISAGEM MOBILE/TABLET ===== */
+@media (max-width: 1024px) and (orientation: landscape) and (hover: none) and (pointer: coarse) {
+  .product-title {
+    font-size: 0.64rem !important;
+    line-height: 1.25 !important; /* ↑ ligeiramente aumentado para evitar colisão */
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important; /* máximo de 2 linhas claras */
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    word-break: break-word !important;
+    hyphens: auto !important;
+    min-height: 1.5em !important; /* = 1 linha */
+    max-height: 2.5em !important; /* = ~2 linhas com folga */
+    height: auto !important;
+  }
+}
+
+/* Para telas muito baixas (ex: iPhone SE em paisagem) */
+@media (max-width: 1024px) and (orientation: landscape) and (max-height: 400px) and (hover: none) and (pointer: coarse) {
+  .product-title {
+    font-size: 0.6rem !important;
+    line-height: 1.2 !important;
+    -webkit-line-clamp: 2 !important;
+    min-height: 1.4em !important;
+    max-height: 2.4em !important;
+  }
+}
+
+  .product-price {
+    font-size: 0.58rem !important;
+  }
+}

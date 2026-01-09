@@ -13,7 +13,11 @@ function getSortedProducts(products) {
   return arr;
 }
 
-function renderAllProducts(containerId, products = PRODUCTS, sectionTitle = "Todos os produtos") {
+function renderAllProducts(
+  containerId,
+  products = PRODUCTS,
+  sectionTitle = "Todos os produtos"
+) {
   const container = document.getElementById(containerId);
   if (!container) return;
 
@@ -23,10 +27,10 @@ function renderAllProducts(containerId, products = PRODUCTS, sectionTitle = "Tod
   const section = document.createElement("section");
   section.className = "grid-products-container";
 
-  /* ===== TÍTULO DINÂMICO ===== */
+  /* ===== TÍTULO ===== */
   const title = document.createElement("h2");
   title.className = "section-title";
-  title.textContent = sectionTitle; // ← Usa o título passado
+  title.textContent = sectionTitle;
   section.appendChild(title);
 
   /* ===== FILTRO ===== */
@@ -68,7 +72,7 @@ function renderAllProducts(containerId, products = PRODUCTS, sectionTitle = "Tod
     </div>
   `;
 
-  /* ===== GRID DE PRODUTOS ===== */
+  /* ===== GRID ===== */
   const grid = document.createElement("div");
   grid.className = "grid-products";
 
@@ -80,8 +84,8 @@ function renderAllProducts(containerId, products = PRODUCTS, sectionTitle = "Tod
             <img
               src="${product.image}"
               alt="${product.title}"
-              class="product-image"
-              onerror="this.src='assets/images/placeholder.jpg'"
+              class="product-image product-img"
+              loading="lazy"
             />
           </div>
           <div class="product-content">
@@ -114,6 +118,13 @@ function renderAllProducts(containerId, products = PRODUCTS, sectionTitle = "Tod
 
   container.appendChild(section);
 
+  /* ===== FALLBACK DE IMAGEM (CSP SAFE) ===== */
+  section.querySelectorAll(".product-img").forEach((img) => {
+    img.addEventListener("error", () => {
+      img.src = "assets/images/placeholder.jpg";
+    });
+  });
+
   /* ===== EVENTOS ===== */
   const dropdown = section.querySelector("#filterDropdown");
   const filterButton = section.querySelector("#filterButton");
@@ -132,7 +143,7 @@ function renderAllProducts(containerId, products = PRODUCTS, sectionTitle = "Tod
       filterLabel.textContent = btn.textContent;
 
       container.querySelector("section:last-of-type")?.remove();
-      renderAllProducts(containerId, products, sectionTitle); // ← passa o título novamente
+      renderAllProducts(containerId, products, sectionTitle);
     });
   });
 
@@ -145,7 +156,7 @@ function renderAllProducts(containerId, products = PRODUCTS, sectionTitle = "Tod
     loadMoreBtn.onclick = () => {
       visibleCount += 15;
       container.querySelector("section:last-of-type")?.remove();
-      renderAllProducts(containerId, products, sectionTitle); // ← passa o título novamente
+      renderAllProducts(containerId, products, sectionTitle);
     };
   }
 }
