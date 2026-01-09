@@ -30,10 +30,6 @@ function renderFeaturedProducts(containerId, products) {
 
   const isTouchDevice = () => 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   
-  const isMobileOrTablet = () => {
-    return isTouchDevice();
-  };
-
   let VISIBLE = 4;
   let index = 0;
   let isAnimating = false;
@@ -42,6 +38,10 @@ function renderFeaturedProducts(containerId, products) {
   let currentX = 0;
   let translateX = 0;
   let dragStartTime = 0;
+  
+  // 🔧 NOVO: Contador real de posição (para loop infinito)
+  let realPosition = 0;
+  let totalItems = 0;
 
   function createProductCard(p) {
     const card = document.createElement("div");
@@ -74,13 +74,21 @@ function renderFeaturedProducts(containerId, products) {
     return grid.children[0] ? grid.children[0].offsetWidth + 17 : 0;
   }
 
+  // 🔧 CORREÇÃO: Função move() melhorada para loop infinito suave
   function move(withAnimation = true) {
     if (grid.children.length === 0) return;
     
     const step = cardStep();
-    grid.style.transition = withAnimation ? "transform 0.45s ease" : "none";
-    grid.style.transform = `translateX(-${index * step}px)`;
     
+    if (withAnimation) {
+      grid.style.transition = "transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)";
+    } else {
+      grid.style.transition = "none";
+    }
+    
+    grid.style.transform = `translateX(-${realPosition * step}px)`;
+    
+    // Atualizar indicadores
     if (featured.length > VISIBLE) {
       let realIndex = ((index - VISIBLE) % featured.length + featured.length) % featured.length;
       updateIndicators(realIndex);
@@ -89,57 +97,69 @@ function renderFeaturedProducts(containerId, products) {
 
   function setupCarousel() {
     const isTouch = isTouchDevice();
-    const mobileTablet = isMobileOrTablet();
     const viewportWidth = viewport.clientWidth;
 
-    // ✅ CORREÇÃO: LIMITAR A NO MÁXIMO 4 PRODUTOS VISÍVEIS EM QUALQUER CENÁRIO
-    if (mobileTablet) {
+    // Cálculo de VISIBLE
+    if (isTouch) {
       if (viewportWidth < 400) {
         VISIBLE = 2;
       } else if (viewportWidth < 600) {
         VISIBLE = 3;
       } else {
-        VISIBLE = 4; // ← isso inclui celulares e tablets em paisagem
+        VISIBLE = 4;
       }
     } else {
-      VISIBLE = 4; // desktop
+      VISIBLE = 4;
     }
 
     // Garantir limites
     VISIBLE = Math.min(VISIBLE, featured.length);
     VISIBLE = Math.max(1, VISIBLE);
-    VISIBLE = Math.min(4, VISIBLE); // ← linha-chave: nunca mais que 4
+    VISIBLE = Math.min(4, VISIBLE);
 
     grid.innerHTML = "";
     indicators.innerHTML = "";
 
-    // Agora, com VISIBLE <= 4 e featured.length = 10, isso sempre será verdade:
+    // 🔧 CORREÇÃO: Criar loop infinito verdadeiro
     if (featured.length > VISIBLE) {
-      const clonesBefore = featured.slice(-VISIBLE);
-      const clonesAfter = featured.slice(0, VISIBLE);
-      const all = [...clonesBefore, ...featured, ...clonesAfter];
-
+      // Para um loop infinito suave, precisamos de clones extras
+      // Criamos 3 cópias: original + clones antes + clones depois
+      const clonesBefore = featured.slice(-VISIBLE * 2); // 🔧 Mais clones antes
+      const clonesAfter = featured.slice(0, VISIBLE * 2); // 🔧 Mais clones depois
+      const all = [...clonesBefore, ...featured, ...clonesAfter, ...featured.slice(0, VISIBLE)]; // 🔧 Extra clone no final
+      
+      totalItems = all.length;
+      
       all.forEach(p => {
         const card = createProductCard(p);
         grid.appendChild(card);
       });
 
-      index = VISIBLE;
+      // 🔧 CORREÇÃO: Começar no meio dos clones antes
+      index = VISIBLE * 2;
+      realPosition = index;
+      
+      // 🔧 CORREÇÃO: Aguardar renderização completa
       setTimeout(() => {
         move(false);
-      }, 10);
+      }, 50);
     } else {
-      // Caso tenha <= 4 produtos (pouco provável no seu caso)
+      // Menos produtos que VISIBLE
       featured.forEach(p => {
         const card = createProductCard(p);
         grid.appendChild(card);
       });
       index = 0;
+      realPosition = 0;
+      
+      if (featured.length < VISIBLE) {
+        grid.style.justifyContent = "center";
+      }
       move(false);
     }
 
-    // Indicadores em dispositivos touch
-    if (isTouch) {
+    // Indicadores
+    if (isTouch && featured.length > VISIBLE) {
       indicators.style.display = "flex";
       for (let i = 0; i < featured.length; i++) {
         const dot = document.createElement("button");
@@ -161,7 +181,7 @@ function renderFeaturedProducts(containerId, products) {
       indicators.style.display = "none";
     }
 
-    // Botões só em desktop não-touch
+    // Botões
     if (!isTouch && featured.length > VISIBLE) {
       prev.style.display = "flex";
       next.style.display = "flex";
@@ -171,17 +191,57 @@ function renderFeaturedProducts(containerId, products) {
     }
   }
 
+  // 🔧 CORREÇÃO: nextSlide() com loop infinito suave
   function nextSlide() {
     if (isAnimating || featured.length <= VISIBLE) return;
     isAnimating = true;
+    
+    const step = cardStep();
     index++;
+    realPosition++;
+    
+    // 🔧 CORREÇÃO: Se chegou perto do fim dos clones, reset suave
+    if (index >= featured.length + VISIBLE * 2) {
+      // Reset para posição equivalente nos clones iniciais
+      setTimeout(() => {
+        grid.style.transition = "none";
+        index = VISIBLE * 2;
+        realPosition = index;
+        grid.style.transform = `translateX(-${realPosition * step}px)`;
+        
+        setTimeout(() => {
+          isAnimating = false;
+        }, 50);
+      }, 450); // Aguardar fim da animação
+    }
+    
     move(true);
   }
 
+  // 🔧 CORREÇÃO: prevSlide() com loop infinito suave
   function prevSlide() {
     if (isAnimating || featured.length <= VISIBLE) return;
     isAnimating = true;
+    
+    const step = cardStep();
     index--;
+    realPosition--;
+    
+    // 🔧 CORREÇÃO: Se chegou perto do início dos clones, reset suave
+    if (index < VISIBLE) {
+      // Reset para posição equivalente nos clones finais
+      setTimeout(() => {
+        grid.style.transition = "none";
+        index = featured.length + VISIBLE * 2 - 1;
+        realPosition = index;
+        grid.style.transform = `translateX(-${realPosition * step}px)`;
+        
+        setTimeout(() => {
+          isAnimating = false;
+        }, 50);
+      }, 450); // Aguardar fim da animação
+    }
+    
     move(true);
   }
 
@@ -190,22 +250,11 @@ function renderFeaturedProducts(containerId, products) {
     next.onclick = nextSlide;
   }
 
+  // 🔧 CORREÇÃO: transitionend melhorado
   grid.addEventListener("transitionend", () => {
     if (!isAnimating) return;
     
-    if (featured.length > VISIBLE) {
-      const step = cardStep();
-      if (index >= featured.length + VISIBLE) {
-        grid.style.transition = "none";
-        index = VISIBLE;
-        move(false);
-      }
-      else if (index < VISIBLE) {
-        grid.style.transition = "none";
-        index = featured.length + VISIBLE - 1;
-        move(false);
-      }
-    }
+    // 🔧 CORREÇÃO: Não resetar aqui, já foi feito nas funções nextSlide/prevSlide
     isAnimating = false;
   });
 
@@ -218,26 +267,30 @@ function renderFeaturedProducts(containerId, products) {
 
   enableVerticalScroll();
 
-  // Touch controls
+  // Touch controls com loop infinito
   if (featured.length > VISIBLE) {
+    let touchStartX = 0;
+    let touchStartTime = 0;
+    let isTouchMoving = false;
+
     viewport.addEventListener("touchstart", (e) => {
       if (!isTouchDevice()) return;
       isDragging = true;
       isAnimating = false;
-      startPos = e.touches[0].clientX;
-      currentX = startPos;
-      translateX = 0;
-      dragStartTime = Date.now();
+      touchStartX = e.touches[0].clientX;
+      touchStartTime = Date.now();
       grid.style.transition = "none";
     }, { passive: true });
 
     viewport.addEventListener("touchmove", (e) => {
       if (!isDragging || !isTouchDevice()) return;
-      currentX = e.touches[0].clientX;
-      const deltaX = currentX - startPos;
+      
+      const currentX = e.touches[0].clientX;
+      const deltaX = currentX - touchStartX;
       translateX = deltaX;
+      
       const step = cardStep();
-      const baseOffset = -index * step;
+      const baseOffset = -realPosition * step;
       grid.style.transform = `translateX(${baseOffset + translateX}px)`;
     }, { passive: false });
 
@@ -245,59 +298,80 @@ function renderFeaturedProducts(containerId, products) {
       if (!isDragging || !isTouchDevice()) return;
       isDragging = false;
 
-      const deltaX = currentX - startPos;
-      const timeElapsed = Date.now() - dragStartTime;
-      const velocity = timeElapsed > 0 ? deltaX / timeElapsed : 0;
-
+      const endX = e.changedTouches[0].clientX;
+      const deltaX = endX - touchStartX;
+      const timeElapsed = Date.now() - touchStartTime;
+      
       const step = cardStep();
-      const baseOffset = -index * step;
-      const totalOffset = baseOffset + translateX;
-      const offsetFromIndex = -totalOffset / step;
-      let targetIndex = Math.round(offsetFromIndex);
-
-      if (Math.abs(velocity) > 0.8) {
-        targetIndex += velocity > 0 ? -1 : 1;
-      }
-
-      index = targetIndex;
-
-      grid.style.transition = "transform 0.4s ease";
-      grid.style.transform = `translateX(-${index * step}px)`;
-
-      setTimeout(() => {
-        if (featured.length > VISIBLE) {
-          if (index >= featured.length + VISIBLE) {
-            grid.style.transition = "none";
-            index = VISIBLE;
-            grid.style.transform = `translateX(-${index * step}px)`;
-          } else if (index < VISIBLE) {
-            grid.style.transition = "none";
-            index = featured.length + VISIBLE - 1;
-            grid.style.transform = `translateX(-${index * step}px)`;
-          }
-          const realIndex = ((index - VISIBLE) % featured.length + featured.length) % featured.length;
-          updateIndicators(realIndex);
+      const threshold = step * 0.3; // 30% do card para considerar swipe
+      const velocity = Math.abs(deltaX) / timeElapsed;
+      
+      let moveToNext = false;
+      
+      // Determinar direção baseado no movimento e velocidade
+      if (Math.abs(deltaX) > threshold || velocity > 0.5) {
+        if (deltaX > 0) {
+          // Swipe para direita = anterior
+          prevSlide();
+        } else {
+          // Swipe para esquerda = próximo
+          nextSlide();
         }
-      }, 400);
+      } else {
+        // Voltar para posição atual se swipe muito pequeno
+        move(true);
+      }
     }, { passive: true });
   }
 
+  // Indicadores click
   indicators.addEventListener("click", (e) => {
     if (!isTouchDevice() || !e.target.matches("button") || featured.length <= VISIBLE) return;
     const dots = Array.from(indicators.querySelectorAll("button"));
     const clickedIndex = dots.indexOf(e.target);
     if (clickedIndex >= 0) {
       isAnimating = true;
-      index = VISIBLE + clickedIndex;
+      index = VISIBLE * 2 + clickedIndex; // 🔧 Ajuste para posição correta nos clones
+      realPosition = index;
       move(true);
     }
   });
 
   setupCarousel();
 
+  // 🔧 CORREÇÃO: Resize com recálculo correto
   let resizeTimer;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(setupCarousel, 200);
+    resizeTimer = setTimeout(() => {
+      // Salvar posição atual relativa
+      const currentRealIndex = ((index - VISIBLE * 2) % featured.length + featured.length) % featured.length;
+      setupCarousel();
+      
+      // Restaurar posição após recálculo
+      setTimeout(() => {
+        if (featured.length > VISIBLE) {
+          index = VISIBLE * 2 + currentRealIndex;
+          realPosition = index;
+          move(false);
+        }
+      }, 100);
+    }, 200);
+  });
+  
+  // 🔧 CORREÇÃO: Orientation change
+  window.addEventListener("orientationchange", () => {
+    setTimeout(() => {
+      const currentRealIndex = ((index - VISIBLE * 2) % featured.length + featured.length) % featured.length;
+      setupCarousel();
+      
+      setTimeout(() => {
+        if (featured.length > VISIBLE) {
+          index = VISIBLE * 2 + currentRealIndex;
+          realPosition = index;
+          move(false);
+        }
+      }, 150);
+    }, 300);
   });
 }

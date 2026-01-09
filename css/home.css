@@ -95,62 +95,203 @@ html, body {
   width: 100%;
   overflow: hidden;
   border-radius: 8px;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
 }
 
 .carousel-grid {
   display: flex;
   gap: 17px;
-  width: fit-content;
-  margin: 0 auto;
-  padding: 12px 0;
   transition: transform 0.45s ease;
-  overflow: visible !important;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-/* Mobile: 2 cards */
-@media (max-width: 767px) {
+/* 🔧 CORREÇÃO: Cards com tamanhos consistentes e melhorados */
+.carousel-card {
+  flex: 0 0 auto;
+  background: #0a0a0a;
+  border: 1px solid #333;
+  border-radius: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.carousel-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 8px rgba(255, 94, 0, 0.3);
+  border-color: #ff5e00;
+}
+
+/* ===== TAMANHOS DOS CARDS ===== */
+
+/* Mobile retrato - 2 cards */
+@media (max-width: 767px) and (orientation: portrait) {
   .carousel-card {
-    width: calc((92vw - 48px) / 2);
-    background: #0a0a0a;
-    border: 1px solid #333;
-    border-radius: 0;
-    overflow: hidden;
-    flex: none;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    height: auto;
-  }
-
-  .carousel-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 8px rgba(255, 94, 0, 0.3);
-    border-color: #ff5e00;
+    width: calc((100vw - 48px) / 2) !important;
+    min-width: calc((100vw - 48px) / 2) !important;
+    max-width: calc((100vw - 48px) / 2) !important;
   }
 }
 
-/* Desktop: 4 cards */
+/* Desktop - 4 cards fixos */
 @media (min-width: 768px) {
   .carousel-card {
-    width: 248px;
-    background: #0a0a0a;
-    border: 1px solid #333;
-    border-radius: 0;
-    overflow: hidden;
-    flex: none;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    height: auto;
-  }
-
-  .carousel-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 0 8px rgba(255, 94, 0, 0.3);
-    border-color: #ff5e00;
+    width: 248px !important;
+    min-width: 248px !important;
+    max-width: 248px !important;
   }
 }
 
+/* 🔧 CORREÇÃO ESPECIAL: MODO PAISAGEM MOBILE - IMAGEM COM ESPAÇO EXATO */
+@media (max-width: 1024px) and (orientation: landscape) and (hover: none) and (pointer: coarse) {
+  .carousel-wrapper {
+    margin: 1rem auto !important;
+    padding: 0 4px !important;
+    max-width: 100% !important;
+  }
+  
+  /* 🔧 AJUSTE: Cards ligeiramente maiores para acomodar imagem inteira */
+  .carousel-card {
+    width: calc((100vw - 80px) / 4) !important;
+    min-width: calc((100vw - 80px) / 4) !important;
+    max-width: calc((100vw - 80px) / 4) !important;
+    max-height: 240px !important;
+    border-width: 0.5px !important;
+  }
+  
+  .carousel-grid {
+    gap: 12px !important;
+    padding: 2px 0 !important;
+  }
+  
+  /* 🔧 AJUSTE CRÍTICO: Container da imagem para mostrar toda a imagem */
+  .carousel-image-wrapper {
+    width: 100% !important;
+    height: 140px !important;
+    aspect-ratio: 1 / 1.2 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    background: #111 !important;
+    flex-shrink: 0 !important;
+    position: relative !important;
+  }
+  
+  /* 🔧 AJUSTE CRÍTICO: Imagem ocupando espaço exato */
+  .carousel-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: fill !important; /* Alterado para 'fill' para ocupar espaço exato */
+    object-position: center !important;
+    display: block !important;
+    background: #111 !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+  
+  /* 🔧 CORREÇÃO: Conteúdo do card melhorado */
+  .carousel-content {
+    padding: 0.4rem 0.5rem !important;
+    min-height: 65px !important;
+    max-height: 65px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    overflow: hidden !important;
+  }
+  
+  /* 🔧 CORREÇÃO: Título sem quebra "picotada" */
+  .carousel-title {
+    font-size: 0.7rem !important;
+    -webkit-line-clamp: 2 !important;
+    line-height: 1.2 !important;
+    min-height: 1.8em !important;
+    max-height: 2.4em !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    word-break: break-word !important;
+    hyphens: auto !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    text-rendering: optimizeLegibility !important;
+  }
+  
+  /* 🔧 CORREÇÃO: Preço menor */
+  .carousel-price {
+    font-size: 0.65rem !important;
+    padding-top: 0.15rem !important;
+    border-top: 0.5px solid #333 !important;
+    margin-top: 0.1rem !important;
+    flex-shrink: 0;
+  }
+  
+  /* Indicadores menores */
+  .carousel-indicators {
+    margin-top: 8px !important;
+    gap: 6px !important;
+  }
+  
+  .carousel-indicators button {
+    width: 8px !important;
+    height: 8px !important;
+  }
+  
+  .featured-title {
+    font-size: 1rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+}
+
+/* 🔧 CORREÇÃO ADICIONAL: Para telas de paisagem muito pequenas (altura < 400px) */
+@media (max-width: 1024px) and (orientation: landscape) and (max-height: 400px) and (hover: none) and (pointer: coarse) {
+  .carousel-card {
+    width: calc((100vw - 90px) / 5) !important;
+    min-width: calc((100vw - 90px) / 5) !important;
+    max-width: calc((100vw - 90px) / 5) !important;
+    max-height: 190px !important;
+  }
+  
+  .carousel-image-wrapper {
+    height: 100px !important;
+    aspect-ratio: 1 / 1.2 !important;
+  }
+  
+  /* 🔧 AJUSTE: Imagem ocupando espaço exato também em telas pequenas */
+  .carousel-image {
+    object-fit: fill !important; /* Alterado para 'fill' */
+  }
+  
+  .carousel-content {
+    min-height: 55px !important;
+    max-height: 55px !important;
+    padding: 0.25rem 0.35rem !important;
+  }
+  
+  .carousel-title {
+    font-size: 0.6rem !important;
+    -webkit-line-clamp: 2 !important;
+    line-height: 1.1 !important;
+    min-height: 1.6em !important;
+    max-height: 2.2em !important;
+  }
+  
+  .carousel-price {
+    font-size: 0.6rem !important;
+    padding-top: 0.1rem !important;
+  }
+}
+
+/* ===== ESTILOS GERAIS DA IMAGEM - ESPAÇO EXATO ===== */
 .carousel-image-wrapper {
   width: 100%;
   aspect-ratio: 20 / 27;
@@ -161,17 +302,22 @@ html, body {
   background: #111;
   border-radius: 0;
   flex-shrink: 0;
+  position: relative;
 }
 
+/* 🔥 ALTERAÇÃO PRINCIPAL: Todas as imagens ocupam espaço exato */
 .carousel-image {
   width: 100%;
   height: 100%;
-  object-fit: fill;
+  object-fit: fill !important; /* Estica/espreme para preencher o espaço exato */
   display: block;
   border-radius: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
-/* CONTEÚDO DO CARD - LAYOUT COMPACTO */
+/* CONTEÚDO DO CARD - VERSÃO PADRÃO */
 .carousel-content {
   flex: 1;
   display: flex;
@@ -179,9 +325,10 @@ html, body {
   padding: 0.5rem 0.75rem;
   gap: 0.3rem;
   justify-content: space-between;
+  min-height: 70px;
 }
 
-/* TÍTULO - VERSÃO COMPACTA PARA MOBILE */
+/* TÍTULO - VERSÃO PADRÃO */
 .carousel-title {
   color: #e0e0e0;
   line-height: 1.3;
@@ -192,12 +339,13 @@ html, body {
   word-break: break-word;
   width: 100%;
   flex: 1;
-  min-height: 2.6em;
-  max-height: 5.2em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* Desktop: Mais espaço para título */
-@media (min-width: 768px) {
+/* Desktop: Título com 3 linhas */
+@media (min-width: 768px) and (orientation: portrait) {
   .carousel-title {
     font-size: 0.85rem;
     -webkit-line-clamp: 3;
@@ -206,8 +354,8 @@ html, body {
   }
 }
 
-/* Mobile: Título mais compacto */
-@media (max-width: 767px) {
+/* Mobile retrato: Título compacto */
+@media (max-width: 767px) and (orientation: portrait) {
   .carousel-title {
     font-size: 0.75rem;
     -webkit-line-clamp: 4;
@@ -216,17 +364,7 @@ html, body {
   }
 }
 
-/* Mobile muito pequeno: Título ainda mais compacto */
-@media (max-width: 360px) {
-  .carousel-title {
-    font-size: 0.7rem;
-    -webkit-line-clamp: 3;
-    min-height: 2.6em;
-    max-height: 3.9em;
-  }
-}
-
-/* PREÇO - SEMPRE PRÓXIMO AO TÍTULO */
+/* PREÇO - VERSÃO PADRÃO */
 .carousel-price {
   font-weight: bold;
   color: #06f272;
@@ -236,26 +374,15 @@ html, body {
   margin-top: 0;
 }
 
-/* Desktop: Preço normal */
 @media (min-width: 768px) {
   .carousel-price {
     font-size: 0.85rem;
   }
 }
 
-/* Mobile: Preço menor */
-@media (max-width: 767px) {
+@media (max-width: 767px) and (orientation: portrait) {
   .carousel-price {
     font-size: 0.75rem;
-    padding-top: 0.25rem;
-  }
-}
-
-/* Mobile muito pequeno: Preço ainda menor */
-@media (max-width: 360px) {
-  .carousel-price {
-    font-size: 0.7rem;
-    padding-top: 0.2rem;
   }
 }
 
@@ -296,16 +423,17 @@ html, body {
   opacity: 1;
 }
 
-/* MOSTRA BOTÕES APENAS EM DESKTOP NÃO-TOUCH */
-@media (hover: hover) and (pointer: fine) {
+/* Mostrar botões apenas em desktop não-touch */
+@media (hover: hover) and (pointer: fine) and (min-width: 1025px) {
   .carousel-btn-prev,
   .carousel-btn-next {
     display: flex !important;
   }
 }
 
-/* FORÇA ESCONDER BOTÕES EM TODOS OS DISPOSITIVOS TOUCH */
-@media (hover: none) and (pointer: coarse) {
+/* Esconder botões em dispositivos touch */
+@media (hover: none) and (pointer: coarse),
+       (max-width: 1024px) {
   .carousel-btn-prev,
   .carousel-btn-next {
     display: none !important;
@@ -314,8 +442,6 @@ html, body {
     pointer-events: none !important;
     width: 0 !important;
     height: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
   }
 }
 
@@ -327,12 +453,12 @@ html, body {
   gap: 8px;
 }
 
-/* MOSTRA INDICADORES EM DISPOSITIVOS TOUCH */
+/* Mostrar indicadores apenas em touch */
 @media (hover: none) and (pointer: coarse) {
   .carousel-indicators {
     display: flex !important;
   }
-
+  
   .carousel-indicators button {
     width: 10px;
     height: 10px;
@@ -341,6 +467,7 @@ html, body {
     background: transparent;
     padding: 0;
     cursor: pointer;
+    transition: background-color 0.3s ease;
   }
 }
 
@@ -378,15 +505,59 @@ html, body {
   }
 }
 
-/* Ajuste específico para dispositivos móveis */
-@media (max-width: 767px) {
-  .grid-products-container {
-    margin: 1.5rem auto;
-    padding: 0 0.8rem;
+/* 🔧 CORREÇÃO: Grid em modo paisagem mobile */
+@media (max-width: 1024px) and (orientation: landscape) and (hover: none) and (pointer: coarse) {
+  .grid-products {
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 0.4rem !important;
   }
   
+  .product-image-wrapper {
+    height: 100px !important;
+  }
+  
+  .product-content {
+    padding: 0.2rem 0.3rem !important;
+    min-height: 50px !important;
+  }
+  
+  /* 🔧 CORREÇÃO: Título do grid também melhorado */
+  .product-title {
+    font-size: 0.65rem !important;
+    -webkit-line-clamp: 2 !important;
+    line-height: 1.2 !important;
+    min-height: 1.6em !important;
+    max-height: 2.4em !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+  }
+  
+  .product-price {
+    font-size: 0.65rem !important;
+    padding-top: 0.1rem !important;
+    border-top: 0.5px solid #333 !important;
+  }
+}
+
+/* Para paisagem muito pequena */
+@media (max-width: 1024px) and (orientation: landscape) and (max-height: 400px) and (hover: none) and (pointer: coarse) {
   .grid-products {
-    gap: 0.4rem;
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 0.3rem !important;
+  }
+  
+  .product-image-wrapper {
+    height: 80px !important;
+  }
+  
+  .product-title {
+    font-size: 0.6rem !important;
+    -webkit-line-clamp: 2 !important;
+    line-height: 1.1 !important;
+  }
+  
+  .product-price {
+    font-size: 0.6rem !important;
   }
 }
 
@@ -407,6 +578,7 @@ html, body {
   border-color: #ff5e00;
 }
 
+/* 🔥 ALTERAÇÃO: Produtos do grid também com espaço exato */
 .product-image-wrapper {
   width: 100% !important;
   height: 180px !important;
@@ -416,23 +588,27 @@ html, body {
   overflow: hidden !important;
   flex-shrink: 0 !important;
   border-radius: 0;
+  position: relative;
 }
 
-/* Ajuste específico para dispositivos móveis */
-@media (max-width: 767px) {
+@media (max-width: 767px) and (orientation: portrait) {
   .product-image-wrapper {
     height: 140px !important;
   }
 }
 
+/* 🔥 ALTERAÇÃO: Imagem ocupando espaço exato no grid também */
 .product-image {
   width: 100% !important;
   height: 100% !important;
-  object-fit: fill !important;
+  object-fit: fill !important; /* Alterado para 'fill' */
   object-position: center !important;
   display: block !important;
   background: #f5f5f5;
   border-radius: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .product-content {
@@ -444,14 +620,13 @@ html, body {
   justify-content: space-between;
 }
 
-/* Ajuste específico para dispositivos móveis */
-@media (max-width: 767px) {
+@media (max-width: 767px) and (orientation: portrait) {
   .product-content {
     padding: 0.3rem;
   }
 }
 
-/* TÍTULO DO PRODUTO - COMPACTO */
+/* TÍTULO DO PRODUTO - VERSÃO PADRÃO */
 .product-title {
   font-weight: 600;
   color: #e0e0e0;
@@ -464,33 +639,28 @@ html, body {
   flex: 1;
   min-height: 2.6em;
   max-height: 3.9em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 /* Desktop: Título maior */
-@media (min-width: 768px) {
+@media (min-width: 768px) and (orientation: portrait) {
   .product-title {
     font-size: 0.8rem;
     -webkit-line-clamp: 3;
   }
 }
 
-/* Mobile: Título menor */
-@media (max-width: 767px) {
+/* Mobile retrato: Título menor */
+@media (max-width: 767px) and (orientation: portrait) {
   .product-title {
     font-size: 0.7rem;
     -webkit-line-clamp: 3;
   }
 }
 
-/* Mobile muito pequeno: Título ainda menor */
-@media (max-width: 360px) {
-  .product-title {
-    font-size: 0.65rem;
-    -webkit-line-clamp: 3;
-  }
-}
-
-/* PREÇO DO PRODUTO - PRÓXIMO AO TÍTULO */
+/* PREÇO DO PRODUTO - VERSÃO PADRÃO */
 .product-price {
   font-weight: bold;
   color: #06f272;
@@ -500,23 +670,16 @@ html, body {
 }
 
 /* Desktop: Preço maior */
-@media (min-width: 768px) {
+@media (min-width: 768px) and (orientation: portrait) {
   .product-price {
     font-size: 0.8rem;
   }
 }
 
-/* Mobile: Preço menor */
-@media (max-width: 767px) {
+/* Mobile retrato: Preço menor */
+@media (max-width: 767px) and (orientation: portrait) {
   .product-price {
     font-size: 0.7rem;
-  }
-}
-
-/* Mobile muito pequeno: Preço ainda menor */
-@media (max-width: 360px) {
-  .product-price {
-    font-size: 0.65rem;
   }
 }
 
@@ -638,320 +801,7 @@ html, body {
   color: #ff5e00;
 }
 
-/* =========================================== */
-/* DISPOSITIVOS TOUCH EM PAISAGEM - MÁXIMO 4 PRODUTOS VISÍVEIS */
-/* =========================================== */
-
-@media (hover: none) and (pointer: coarse) and (orientation: landscape) {
-  /* REGRAS GERAIS PARA TODOS OS DISPOSITIVOS TOUCH EM PAISAGEM */
-  .video-section {
-    max-width: 95vw !important;
-    margin: 0.5rem auto !important;
-    padding: 0 0.5rem !important;
-  }
-  
-  .video-title {
-    font-size: 0.9rem !important;
-    margin-bottom: 0.3rem !important;
-    line-height: 1.1 !important;
-  }
-  
-  .video-container {
-    padding-top: 22% !important;
-    border-radius: 4px !important;
-  }
-  
-  .video-hint {
-    font-size: 0.6rem !important;
-    margin-top: 2px !important;
-  }
-  
-  /* CARROSSEL GERAL PARA DISPOSITIVOS TOUCH EM PAISAGEM - MÁXIMO 4 PRODUTOS */
-  .carousel-wrapper {
-    margin: 0.5rem auto !important;
-    padding: 0 4px !important;
-    overflow: visible !important;
-    max-width: 100vw !important;
-  }
-  
-  .carousel-grid {
-    padding: 2px 0 !important;
-    justify-content: center !important;
-    margin: 0 auto !important;
-    overflow: visible !important;
-  }
-  
-  /* FORÇA ESCONDER BOTÕES EM TODOS OS DISPOSITIVOS TOUCH */
-  .carousel-btn-prev,
-  .carousel-btn-next {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-  
-  /* INDICADORES VISÍVEIS EM TODOS OS DISPOSITIVOS TOUCH */
-  .carousel-indicators {
-    display: flex !important;
-    margin-top: 6px !important;
-    gap: 6px !important;
-    justify-content: center !important;
-    width: 100% !important;
-  }
-  
-  .carousel-indicators button {
-    width: 8px !important;
-    height: 8px !important;
-    border-width: 1px !important;
-    min-width: 8px !important;
-    min-height: 8px !important;
-    border-color: #ff5e00 !important;
-  }
-  
-  /* ESPAÇAMENTO GERAL */
-  .featured-container,
-  .grid-products-container {
-    margin-top: 0.5rem !important;
-    margin-bottom: 0.5rem !important;
-    padding: 0 0.5rem !important;
-  }
-  
-  .featured-title {
-    font-size: 0.9rem !important;
-    margin-bottom: 0.2rem !important;
-  }
-  
-  /* FILTRO */
-  .filter-wrapper {
-    margin-bottom: 0.6rem !important;
-    padding: 0 0.5rem !important;
-  }
-  
-  .filter-button {
-    padding: 0.3rem 0.6rem !important;
-    font-size: 0.7rem !important;
-    min-width: 100px !important;
-    border-radius: 0.4rem !important;
-  }
-  
-  .load-more-button {
-    margin: 0.8rem auto !important;
-    padding: 0.4rem 1rem !important;
-    font-size: 0.8rem !important;
-    border-radius: 0.4rem !important;
-  }
-  
-  /* GALAXY S8, IPHONES PEQUENOS (até 740px) - 3 PRODUTOS */
-  @media (max-width: 740px) and (orientation: landscape) {
-    .carousel-card {
-      width: 100px !important;
-      max-width: 100px !important;
-      min-width: 100px !important;
-      max-height: 150px !important;
-      border-width: 0.5px !important;
-    }
-    
-    .carousel-grid {
-      gap: 8px !important;
-    }
-    
-    .carousel-image-wrapper {
-      aspect-ratio: 1 / 1.2 !important;
-      height: 70px !important;
-    }
-    
-    .carousel-content {
-      padding: 0.15rem 0.2rem !important;
-      min-height: 35px !important;
-    }
-    
-    .carousel-title {
-      font-size: 0.55rem !important;
-      -webkit-line-clamp: 2 !important;
-      min-height: 1.3em !important;
-      max-height: 1.3em !important;
-      line-height: 1.1 !important;
-    }
-    
-    .carousel-price {
-      font-size: 0.55rem !important;
-      padding-top: 0.08rem !important;
-    }
-    
-    /* GRID PARA GALAXY S8 */
-    .grid-products {
-      grid-template-columns: repeat(5, 1fr) !important;
-      gap: 0.3rem !important;
-    }
-    
-    .product-image-wrapper {
-      height: 70px !important;
-    }
-    
-    .product-content {
-      padding: 0.1rem !important;
-      min-height: 35px !important;
-    }
-    
-    .product-title {
-      font-size: 0.5rem !important;
-      -webkit-line-clamp: 2 !important;
-      min-height: 1.3em !important;
-      max-height: 1.3em !important;
-    }
-    
-    .product-price {
-      font-size: 0.5rem !important;
-      padding-top: 0.06rem !important;
-    }
-  }
-  
-  /* IPAD AIR, IPAD MINI, IPAD PRO, TABLETS MÉDIOS (741px - 1024px) - 4 PRODUTOS */
-  @media (min-width: 741px) and (max-width: 1024px) and (orientation: landscape) {
-    .carousel-card {
-      width: 130px !important;
-      max-width: 130px !important;
-      min-width: 130px !important;
-      max-height: 180px !important;
-      border-width: 0.5px !important;
-    }
-    
-    .carousel-grid {
-      gap: 10px !important;
-    }
-    
-    .carousel-image-wrapper {
-      aspect-ratio: 1 / 1.2 !important;
-      height: 85px !important;
-    }
-    
-    .carousel-content {
-      padding: 0.2rem 0.25rem !important;
-      min-height: 40px !important;
-    }
-    
-    .carousel-title {
-      font-size: 0.65rem !important;
-      -webkit-line-clamp: 2 !important;
-      min-height: 1.4em !important;
-      max-height: 1.4em !important;
-      line-height: 1.1 !important;
-    }
-    
-    .carousel-price {
-      font-size: 0.65rem !important;
-      padding-top: 0.1rem !important;
-    }
-    
-    /* GRID PARA IPADS */
-    .grid-products {
-      grid-template-columns: repeat(6, 1fr) !important;
-      gap: 0.4rem !important;
-    }
-    
-    .product-image-wrapper {
-      height: 90px !important;
-    }
-    
-    .product-content {
-      padding: 0.12rem !important;
-      min-height: 40px !important;
-    }
-    
-    .product-title {
-      font-size: 0.6rem !important;
-      -webkit-line-clamp: 2 !important;
-      min-height: 1.4em !important;
-      max-height: 1.4em !important;
-    }
-    
-    .product-price {
-      font-size: 0.6rem !important;
-      padding-top: 0.08rem !important;
-    }
-  }
-  
-  /* TABLETS GRANDES, NEST HUB, TELAS MUITO GRANDES (acima de 1024px) - MÁXIMO 4 PRODUTOS */
-  @media (min-width: 1025px) and (hover: none) and (pointer: coarse) and (orientation: landscape) {
-    .carousel-card {
-      width: 150px !important; /* AUMENTA UM POUCO, MAS MANTÉM 4 VISÍVEIS */
-      max-width: 150px !important;
-      min-width: 150px !important;
-      max-height: 200px !important;
-      border-width: 0.5px !important;
-    }
-    
-    .carousel-grid {
-      gap: 12px !important;
-    }
-    
-    .carousel-image-wrapper {
-      aspect-ratio: 1 / 1.2 !important;
-      height: 100px !important;
-    }
-    
-    .carousel-content {
-      padding: 0.25rem 0.3rem !important;
-      min-height: 45px !important;
-    }
-    
-    .carousel-title {
-      font-size: 0.75rem !important;
-      -webkit-line-clamp: 2 !important;
-      min-height: 1.5em !important;
-      max-height: 1.5em !important;
-      line-height: 1.1 !important;
-    }
-    
-    .carousel-price {
-      font-size: 0.75rem !important;
-      padding-top: 0.12rem !important;
-    }
-    
-    /* GRID PARA TABLETS GRANDES */
-    .grid-products {
-      grid-template-columns: repeat(7, 1fr) !important;
-      gap: 0.5rem !important;
-    }
-    
-    .product-image-wrapper {
-      height: 100px !important;
-    }
-    
-    .product-content {
-      padding: 0.15rem !important;
-      min-height: 45px !important;
-    }
-    
-    .product-title {
-      font-size: 0.7rem !important;
-      -webkit-line-clamp: 2 !important;
-      min-height: 1.5em !important;
-      max-height: 1.5em !important;
-    }
-    
-    .product-price {
-      font-size: 0.7rem !important;
-      padding-top: 0.1rem !important;
-    }
-  }
-  
-  /* QUANDO HÁ POUCOS PRODUTOS, CENTRALIZA MELHOR */
-  .carousel-grid:has(> .carousel-card:only-child),
-  .carousel-grid:has(> .carousel-card:nth-child(2)),
-  .carousel-grid:has(> .carousel-card:nth-child(3)),
-  .carousel-grid:has(> .carousel-card:nth-child(4)) {
-    gap: 10px !important;
-    width: 100% !important;
-    justify-content: center !important;
-  }
-  
-  /* CORREÇÃO PARA VIEWPORT */
-  .carousel-viewport {
-    overflow: visible !important;
-  }
+/* ===== INDICADORES ATIVOS ===== */
+.carousel-indicators button.active {
+  background: #ff5e00;
 }
