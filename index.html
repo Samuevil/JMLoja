@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Josimar Soares</title>
 
-  <!-- CSS SIMPLES - sem scripts complexos -->
   <link rel="icon" href="assets/images/LayoutLogo.png" type="image/png" />
+
+  <!-- CSS -->
   <link rel="stylesheet" href="css/globals.css" />
   <link rel="stylesheet" href="css/navbar.css" />
   <link rel="stylesheet" href="css/style.css" />
@@ -14,6 +15,7 @@
   <link rel="stylesheet" href="css/home.css" />
   <link rel="stylesheet" href="css/footer.css" />
 
+  <!-- ANIMAÇÕES DE SLIDE HORIZONTAL -->
   <style>
     @keyframes slideOutToLeft {
       from { transform: translateX(0); opacity: 1; }
@@ -33,26 +35,33 @@
 </head>
 
 <body class="bg-black text-white">
+  <!-- ✅ Envolve todo o conteúdo principal, exceto o footer -->
   <div class="page-wrapper">
+    <!-- NAVBAR -->
     <nav class="navbar" role="navigation" aria-label="Navegação principal">
       <div class="navbar-inner">
-        <!-- 🔥 CORRIJA: href="./" em vez de href="/" -->
+        <!-- ✅ Logo com caminho relativo seguro -->
         <a href="./" class="logo">
           <img src="assets/logos/Logo1.png" alt="Logo Josimar Soares">
         </a>
 
+        <!-- Controles móveis: Blog + Hamburguer -->
         <div class="nav-mobile-controls">
           <a href="https://www.josimarsoares.com.br/" target="_blank" rel="noopener" class="nav-blog-mobile">BLOG</a>
           <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
         </div>
 
+        <!-- Menu desktop -->
         <nav class="nav-desktop" id="navDesktop" aria-label="Menu principal"></nav>
       </div>
+
+      <!-- ✅ Container do menu mobile (compatível com JS e CSS) -->
       <div class="dropdown" id="mobileDropdown"></div>
     </nav>
 
     <div class="navbar-spacer"></div>
 
+    <!-- HERO -->
     <section id="hero" aria-hidden="true">
       <div class="hero-bg"></div>
       <div class="hero-face">
@@ -68,23 +77,25 @@
       </div>
     </section>
 
+    <!-- CONTEÚDO PRINCIPAL -->
     <main id="homeContent" aria-live="polite"></main>
-  </div>
+  </div> <!-- ✅ .page-wrapper fecha aqui -->
 
+  <!-- FOOTER -->
   <footer id="footerContainer" role="contentinfo"></footer>
 
-  <!-- JS SIMPLES - caminhos relativos -->
-  <script src="js/utils.js"></script>
-  <script src="js/categories.js"></script>
-  <script src="js/products_data.js"></script>
-  <script src="js/navbar.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/hero.js"></script>
-  <script src="js/render.carousel.js"></script>
-  <script src="js/render.products.js"></script>
-  <script src="js/render.footer.js"></script>
+  <!-- UTILS -->
+  <script src="js/utils.js" defer></script>
+  <script src="js/categories.js" defer></script>
+  <script src="js/products_data.js" defer></script>
+  <script src="js/navbar.js" defer></script>
+  <script src="js/main.js" defer></script>
+  <script src="js/hero.js" defer></script>
+  <script src="js/render.carousel.js" defer></script>
+  <script src="js/render.products.js" defer></script>
+  <script src="js/render.footer.js" defer></script>
 
-  <!-- FUNÇÕES DE APOIO (sem correção de caminhos) -->
+  <!-- FUNÇÕES DE APOIO -->
   <script>
     function getAllChildSlugs(targetSlug) {
       const slugs = new Set();
@@ -132,7 +143,7 @@
   </script>
 
   <!-- INICIALIZAÇÃO FINAL -->
-  <script>
+  <script defer>
     document.addEventListener("DOMContentLoaded", () => {
       const home = document.getElementById("homeContent");
       const hero = document.getElementById("hero");
