@@ -3,29 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <!-- 🔥 ADICIONE ISSO: Detecta GitHub vs Domínio -->
-  <script>
-    // Detecta automaticamente o caminho base
-    const isGitHub = window.location.hostname.includes('github.io');
-    window.BASE_PATH = isGitHub ? '/JMLoja' : '';
-    
-    // Função para corrigir caminhos
-    function fixPath(path) {
-      return window.BASE_PATH + (path.startsWith('/') ? path : '/' + path);
-    }
-  </script>
-  
   <title>Josimar Soares</title>
 
-  <!-- 🔥 CORRIJA TODOS OS CAMINHOS: Use função fixPath() -->
-  <link rel="icon" href="/assets/images/LayoutLogo.png" type="image/png" />
-  <link rel="stylesheet" href="/css/globals.css" />
-  <link rel="stylesheet" href="/css/navbar.css" />
-  <link rel="stylesheet" href="/css/style.css" />
-  <link rel="stylesheet" href="/css/hero.css" />
-  <link rel="stylesheet" href="/css/home.css" />
-  <link rel="stylesheet" href="/css/footer.css" />
+  <!-- CSS SIMPLES - sem scripts complexos -->
+  <link rel="icon" href="assets/images/LayoutLogo.png" type="image/png" />
+  <link rel="stylesheet" href="css/globals.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="css/footer.css" />
 
   <style>
     @keyframes slideOutToLeft {
@@ -43,40 +30,15 @@
       animation: slideInFromRight 0.6s ease forwards;
     }
   </style>
-  
-  <!-- 🔥 CORRIGE CAMINHOS DINAMICAMENTE -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Corrige todos os links, imagens, scripts
-      const elements = document.querySelectorAll('[href],[src]');
-      elements.forEach(el => {
-        const attr = el.hasAttribute('href') ? 'href' : 'src';
-        let value = el.getAttribute(attr);
-        
-        // Não corrige links externos (http://, https://, //)
-        if (value && 
-            !value.startsWith('http') && 
-            !value.startsWith('//') && 
-            !value.startsWith('#') &&
-            !value.startsWith('mailto:') &&
-            !value.startsWith('tel:')) {
-          
-          // Adiciona / no início se não tiver
-          if (!value.startsWith('/')) value = '/' + value;
-          // Aplica BASE_PATH
-          el.setAttribute(attr, window.BASE_PATH + value);
-        }
-      });
-    });
-  </script>
 </head>
 
 <body class="bg-black text-white">
   <div class="page-wrapper">
     <nav class="navbar" role="navigation" aria-label="Navegação principal">
       <div class="navbar-inner">
-        <a href="/" class="logo">
-          <img src="/assets/logos/Logo1.png" alt="Logo Josimar Soares">
+        <!-- 🔥 CORRIJA: href="./" em vez de href="/" -->
+        <a href="./" class="logo">
+          <img src="assets/logos/Logo1.png" alt="Logo Josimar Soares">
         </a>
 
         <div class="nav-mobile-controls">
@@ -94,7 +56,7 @@
     <section id="hero" aria-hidden="true">
       <div class="hero-bg"></div>
       <div class="hero-face">
-        <img src="/assets/images/Rosto.png" alt="Josimar Soares">
+        <img src="assets/images/Rosto.png" alt="Josimar Soares">
       </div>
       <div class="hero-content">
         <h1 id="hero-title"></h1>
@@ -111,17 +73,18 @@
 
   <footer id="footerContainer" role="contentinfo"></footer>
 
-  <!-- 🔥 SCRIPTS COM CAMINHOS ABSOLUTOS -->
-  <script src="/js/utils.js"></script>
-  <script src="/js/categories.js"></script>
-  <script src="/js/products_data.js"></script>
-  <script src="/js/navbar.js"></script>
-  <script src="/js/main.js"></script>
-  <script src="/js/hero.js"></script>
-  <script src="/js/render.carousel.js"></script>
-  <script src="/js/render.products.js"></script>
-  <script src="/js/render.footer.js"></script>
+  <!-- JS SIMPLES - caminhos relativos -->
+  <script src="js/utils.js"></script>
+  <script src="js/categories.js"></script>
+  <script src="js/products_data.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/hero.js"></script>
+  <script src="js/render.carousel.js"></script>
+  <script src="js/render.products.js"></script>
+  <script src="js/render.footer.js"></script>
 
+  <!-- FUNÇÕES DE APOIO (sem correção de caminhos) -->
   <script>
     function getAllChildSlugs(targetSlug) {
       const slugs = new Set();
@@ -166,21 +129,9 @@
       }
       return slug.replace(/-/g, " ").replace(/\b\w/g, l => l.toUpperCase());
     }
-    
-    // 🔥 CORRIGE LINKS DINAMICAMENTE
-    document.addEventListener('DOMContentLoaded', function() {
-      // Corrige links ?category=
-      document.querySelectorAll('a[href*="?"]').forEach(link => {
-        let href = link.getAttribute('href');
-        if (href.includes('?')) {
-          // Garante que comece com /
-          if (!href.startsWith('/')) href = '/' + href;
-          link.setAttribute('href', window.BASE_PATH + href);
-        }
-      });
-    });
   </script>
 
+  <!-- INICIALIZAÇÃO FINAL -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const home = document.getElementById("homeContent");
