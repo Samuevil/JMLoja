@@ -108,7 +108,7 @@ html, body {
   -webkit-backface-visibility: hidden;
 }
 
-/* 🔧 CORREÇÃO: Cards com tamanhos consistentes e melhorados */
+/* Cards com tamanhos consistentes */
 .carousel-card {
   flex: 0 0 auto;
   background: #0a0a0a;
@@ -148,173 +148,30 @@ html, body {
   }
 }
 
-/* 🔧 CORREÇÃO ESPECIAL: MODO PAISAGEM MOBILE - IMAGEM COM ESPAÇO EXATO */
-@media (max-width: 1024px) and (orientation: landscape) and (hover: none) and (pointer: coarse) {
-  .carousel-wrapper {
-    margin: 1rem auto !important;
-    padding: 0 4px !important;
-    max-width: 100% !important;
-  }
-  
-  /* 🔧 AJUSTE: Cards ligeiramente maiores para acomodar imagem inteira */
-  .carousel-card {
-    width: calc((100vw - 80px) / 4) !important;
-    min-width: calc((100vw - 80px) / 4) !important;
-    max-width: calc((100vw - 80px) / 4) !important;
-    max-height: 240px !important;
-    border-width: 0.5px !important;
-  }
-  
-  .carousel-grid {
-    gap: 12px !important;
-    padding: 2px 0 !important;
-  }
-  
-  /* 🔧 AJUSTE CRÍTICO: Container da imagem para mostrar toda a imagem */
-  .carousel-image-wrapper {
-    width: 100% !important;
-    height: 140px !important;
-    aspect-ratio: 1 / 1.2 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    overflow: hidden !important;
-    background: #111 !important;
-    flex-shrink: 0 !important;
-    position: relative !important;
-  }
-  
-  /* 🔧 AJUSTE CRÍTICO: Imagem ocupando espaço exato */
-  .carousel-image {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: fill !important; /* Alterado para 'fill' para ocupar espaço exato */
-    object-position: center !important;
-    display: block !important;
-    background: #111 !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-  }
-  
-  /* 🔧 CORREÇÃO: Conteúdo do card melhorado */
-  .carousel-content {
-    padding: 0.4rem 0.5rem !important;
-    min-height: 65px !important;
-    max-height: 65px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-    overflow: hidden !important;
-  }
-  
-  /* 🔧 CORREÇÃO: Título sem quebra "picotada" */
-  .carousel-title {
-    font-size: 0.7rem !important;
-    -webkit-line-clamp: 2 !important;
-    line-height: 1.2 !important;
-    min-height: 1.8em !important;
-    max-height: 2.4em !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    display: -webkit-box !important;
-    -webkit-box-orient: vertical !important;
-    word-break: break-word !important;
-    hyphens: auto !important;
-    -webkit-font-smoothing: antialiased !important;
-    -moz-osx-font-smoothing: grayscale !important;
-    text-rendering: optimizeLegibility !important;
-  }
-  
-  /* 🔧 CORREÇÃO: Preço menor */
-  .carousel-price {
-    font-size: 0.65rem !important;
-    padding-top: 0.15rem !important;
-    border-top: 0.5px solid #333 !important;
-    margin-top: 0.1rem !important;
-    flex-shrink: 0;
-  }
-  
-  /* Indicadores menores */
-  .carousel-indicators {
-    margin-top: 8px !important;
-    gap: 6px !important;
-  }
-  
-  .carousel-indicators button {
-    width: 8px !important;
-    height: 8px !important;
-  }
-  
-  .featured-title {
-    font-size: 1rem !important;
-    margin-bottom: 0.5rem !important;
-  }
-}
-
-/* 🔧 CORREÇÃO ADICIONAL: Para telas de paisagem muito pequenas (altura < 400px) */
-@media (max-width: 1024px) and (orientation: landscape) and (max-height: 400px) and (hover: none) and (pointer: coarse) {
-  .carousel-card {
-    width: calc((100vw - 90px) / 5) !important;
-    min-width: calc((100vw - 90px) / 5) !important;
-    max-width: calc((100vw - 90px) / 5) !important;
-    max-height: 190px !important;
-  }
-  
-  .carousel-image-wrapper {
-    height: 100px !important;
-    aspect-ratio: 1 / 1.2 !important;
-  }
-  
-  /* 🔧 AJUSTE: Imagem ocupando espaço exato também em telas pequenas */
-  .carousel-image {
-    object-fit: fill !important; /* Alterado para 'fill' */
-  }
-  
-  .carousel-content {
-    min-height: 55px !important;
-    max-height: 55px !important;
-    padding: 0.25rem 0.35rem !important;
-  }
-  
-  .carousel-title {
-    font-size: 0.6rem !important;
-    -webkit-line-clamp: 2 !important;
-    line-height: 1.1 !important;
-    min-height: 1.6em !important;
-    max-height: 2.2em !important;
-  }
-  
-  .carousel-price {
-    font-size: 0.6rem !important;
-    padding-top: 0.1rem !important;
-  }
-}
-
-/* ===== ESTILOS GERAIS DA IMAGEM - ESPAÇO EXATO ===== */
+/* CONTAINER PARA IMAGENS COM FUNDO BRANCO */
 .carousel-image-wrapper {
-  width: 100%;
-  aspect-ratio: 20 / 27;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background: #111;
+  width: 100% !important;
+  height: 0 !important;
+  padding-top: 135%; /* Proporção 20/27 */
+  position: relative !important;
+  overflow: hidden !important;
+  background: white !important; /* Fundo branco apenas no container */
+  display: block !important;
   border-radius: 0;
   flex-shrink: 0;
-  position: relative;
 }
 
-/* 🔥 ALTERAÇÃO PRINCIPAL: Todas as imagens ocupam espaço exato */
+/* IMAGENS COM OBJECT-FIT: CONTAIN (MANTÉM PROPORÇÃO) */
 .carousel-image {
-  width: 100%;
-  height: 100%;
-  object-fit: fill !important; /* Estica/espreme para preencher o espaço exato */
-  display: block;
-  border-radius: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important; /* Mantém proporção original */
+  object-position: center !important;
+  display: block !important;
+  /* SEM background aqui - deixa transparente */
 }
 
 /* CONTEÚDO DO CARD - VERSÃO PADRÃO */
@@ -505,60 +362,30 @@ html, body {
   }
 }
 
-/* 🔧 CORREÇÃO: Grid em modo paisagem mobile */
-@media (max-width: 1024px) and (orientation: landscape) and (hover: none) and (pointer: coarse) {
-  .grid-products {
-    grid-template-columns: repeat(4, 1fr) !important;
-    gap: 0.4rem !important;
-  }
-  
-  .product-image-wrapper {
-    height: 100px !important;
-  }
-  
-  .product-content {
-    padding: 0.2rem 0.3rem !important;
-    min-height: 50px !important;
-  }
-  
-  /* 🔧 CORREÇÃO: Título do grid também melhorado */
-  .product-title {
-    font-size: 0.65rem !important;
-    -webkit-line-clamp: 2 !important;
-    line-height: 1.2 !important;
-    min-height: 1.6em !important;
-    max-height: 2.4em !important;
-    -webkit-font-smoothing: antialiased !important;
-    -moz-osx-font-smoothing: grayscale !important;
-  }
-  
-  .product-price {
-    font-size: 0.65rem !important;
-    padding-top: 0.1rem !important;
-    border-top: 0.5px solid #333 !important;
-  }
+/* CONTAINER PARA IMAGENS COM FUNDO BRANCO */
+.product-image-wrapper {
+  width: 100% !important;
+  height: 0 !important;
+  padding-top: 135%; /* Mesma proporção do carrossel */
+  position: relative !important;
+  overflow: hidden !important;
+  background: white !important; /* Fundo branco apenas no container */
+  display: block !important;
+  border-radius: 0;
+  flex-shrink: 0;
 }
 
-/* Para paisagem muito pequena */
-@media (max-width: 1024px) and (orientation: landscape) and (max-height: 400px) and (hover: none) and (pointer: coarse) {
-  .grid-products {
-    grid-template-columns: repeat(5, 1fr) !important;
-    gap: 0.3rem !important;
-  }
-  
-  .product-image-wrapper {
-    height: 80px !important;
-  }
-  
-  .product-title {
-    font-size: 0.6rem !important;
-    -webkit-line-clamp: 2 !important;
-    line-height: 1.1 !important;
-  }
-  
-  .product-price {
-    font-size: 0.6rem !important;
-  }
+/* IMAGENS COM OBJECT-FIT: CONTAIN (MANTÉM PROPORÇÃO) */
+.product-image {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important; /* Mantém proporção original */
+  object-position: center !important;
+  display: block !important;
+  /* SEM background aqui - deixa transparente */
 }
 
 .product-card {
@@ -576,39 +403,6 @@ html, body {
   transform: translateY(-2px);
   box-shadow: 0 0 8px rgba(255, 94, 0, 0.3);
   border-color: #ff5e00;
-}
-
-/* 🔥 ALTERAÇÃO: Produtos do grid também com espaço exato */
-.product-image-wrapper {
-  width: 100% !important;
-  height: 180px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  overflow: hidden !important;
-  flex-shrink: 0 !important;
-  border-radius: 0;
-  position: relative;
-}
-
-@media (max-width: 767px) and (orientation: portrait) {
-  .product-image-wrapper {
-    height: 140px !important;
-  }
-}
-
-/* 🔥 ALTERAÇÃO: Imagem ocupando espaço exato no grid também */
-.product-image {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: fill !important; /* Alterado para 'fill' */
-  object-position: center !important;
-  display: block !important;
-  background: #f5f5f5;
-  border-radius: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 
 .product-content {
@@ -821,7 +615,7 @@ html, body {
   .video-container {
     padding-top: 0;
     height: auto;
-    max-height: calc(100vh - 160px); /* ↑ mais espaço reservado = vídeo menor */
+    max-height: calc(100vh - 160px);
     width: 100%;
     aspect-ratio: 16 / 9;
     border-radius: 10px;
@@ -840,78 +634,209 @@ html, body {
 }
 
 /* ===== AJUSTE COMPACTO DOS PRODUCT CARDS EM ORIENTAÇÃO HORIZONTAL (MOBILE/TABLET) ===== */
+
+/* MODO PAISAGEM MOBILE - COM FUNDO BRANCO */
 @media (max-width: 1024px) and (orientation: landscape) and (hover: none) and (pointer: coarse) {
+  .carousel-wrapper {
+    margin: 1rem auto !important;
+    padding: 0 4px !important;
+    max-width: 100% !important;
+  }
+  
+  .carousel-card {
+    width: calc((100vw - 80px) / 4) !important;
+    min-width: calc((100vw - 80px) / 4) !important;
+    max-width: calc((100vw - 80px) / 4) !important;
+    max-height: 240px !important;
+    border-width: 0.5px !important;
+  }
+  
+  .carousel-grid {
+    gap: 12px !important;
+    padding: 2px 0 !important;
+  }
+  
+  .carousel-image-wrapper {
+    width: 100% !important;
+    height: 0 !important;
+    padding-top: 135% !important; /* Mantém proporção */
+    position: relative !important;
+    background: white !important; /* Fundo branco */
+  }
+  
+  .carousel-image {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important; /* Mantém proporção */
+    object-position: center !important;
+    /* SEM background aqui */
+  }
+  
+  .carousel-content {
+    padding: 0.4rem 0.5rem !important;
+    min-height: 65px !important;
+    max-height: 65px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    overflow: hidden !important;
+  }
+  
+  .carousel-title {
+    font-size: 0.7rem !important;
+    -webkit-line-clamp: 2 !important;
+    line-height: 1.2 !important;
+    min-height: 1.8em !important;
+    max-height: 2.4em !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    word-break: break-word !important;
+    hyphens: auto !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    text-rendering: optimizeLegibility !important;
+  }
+  
+  .carousel-price {
+    font-size: 0.65rem !important;
+    padding-top: 0.15rem !important;
+    border-top: 0.5px solid #333 !important;
+    margin-top: 0.1rem !important;
+    flex-shrink: 0;
+  }
+  
+  .carousel-indicators {
+    margin-top: 8px !important;
+    gap: 6px !important;
+  }
+  
+  .carousel-indicators button {
+    width: 8px !important;
+    height: 8px !important;
+  }
+  
+  .featured-title {
+    font-size: 1rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  /* Grid de produtos */
   .grid-products {
-    gap: 0.35rem !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 0.4rem !important;
   }
-
-  .product-card {
-    border: 0.5px solid #333 !important;
-  }
-
+  
   .product-image-wrapper {
-    height: 90px !important; /* ↓ reduzido de 100px */
+    height: 0 !important;
+    padding-top: 120% !important; /* Proporção ajustada para paisagem */
+    background: white !important; /* Fundo branco */
   }
-
+  
+  .product-image {
+    object-fit: contain !important; /* Mantém proporção */
+    /* SEM background aqui */
+  }
+  
   .product-content {
-    padding: 0.18rem 0.25rem !important; /* ↓ mais compacto */
-    min-height: 46px !important; /* ajustado para caber título + preço */
+    padding: 0.2rem 0.3rem !important;
+    min-height: 50px !important;
   }
-
+  
   .product-title {
-    font-size: 0.62rem !important; /* ↓ ligeiramente menor */
-    line-height: 1.15 !important;
-    min-height: 1.5em !important;
-    max-height: 2.3em !important;
+    font-size: 0.65rem !important;
+    -webkit-line-clamp: 2 !important;
+    line-height: 1.2 !important;
+    min-height: 1.6em !important;
+    max-height: 2.4em !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
   }
-
+  
   .product-price {
-    font-size: 0.62rem !important; /* ↓ mais sutil */
-    padding-top: 0.08rem !important;
+    font-size: 0.65rem !important;
+    padding-top: 0.1rem !important;
     border-top: 0.5px solid #333 !important;
   }
 }
 
-/* Para telas muito baixas em paisagem (ex: iPhone SE) */
+/* Para paisagem muito pequenas (altura < 400px) */
 @media (max-width: 1024px) and (orientation: landscape) and (max-height: 400px) and (hover: none) and (pointer: coarse) {
-  .product-image-wrapper {
-    height: 75px !important;
+  .carousel-card {
+    width: calc((100vw - 90px) / 5) !important;
+    min-width: calc((100vw - 90px) / 5) !important;
+    max-width: calc((100vw - 90px) / 5) !important;
+    max-height: 190px !important;
   }
-
+  
+  .carousel-image-wrapper {
+    height: 0 !important;
+    padding-top: 120% !important; /* Proporção ajustada */
+  }
+  
+  .carousel-image {
+    object-fit: contain !important; /* Mantém proporção */
+  }
+  
+  .carousel-content {
+    min-height: 55px !important;
+    max-height: 55px !important;
+    padding: 0.25rem 0.35rem !important;
+  }
+  
+  .carousel-title {
+    font-size: 0.6rem !important;
+    -webkit-line-clamp: 2 !important;
+    line-height: 1.1 !important;
+    min-height: 1.6em !important;
+    max-height: 2.2em !important;
+  }
+  
+  .carousel-price {
+    font-size: 0.6rem !important;
+    padding-top: 0.1rem !important;
+  }
+  
+  .product-image-wrapper {
+    padding-top: 110% !important; /* Proporção ainda mais baixa */
+  }
+  
   .product-content {
     padding: 0.15rem 0.2rem !important;
     min-height: 42px !important;
   }
+  
+  .product-title {
+    font-size: 0.6rem !important;
+    -webkit-line-clamp: 2 !important;
+    line-height: 1.2 !important;
+    min-height: 1.4em !important;
+    max-height: 2.4em !important;
+  }
+  
+  .product-price {
+    font-size: 0.58rem !important;
+  }
+}
+
 /* ===== TÍTULOS DOS PRODUTOS - VISIBILIDADE COMPLETA EM PAISAGEM MOBILE/TABLET ===== */
 @media (max-width: 1024px) and (orientation: landscape) and (hover: none) and (pointer: coarse) {
   .product-title {
     font-size: 0.64rem !important;
-    line-height: 1.25 !important; /* ↑ ligeiramente aumentado para evitar colisão */
+    line-height: 1.25 !important;
     display: -webkit-box !important;
     -webkit-box-orient: vertical !important;
-    -webkit-line-clamp: 2 !important; /* máximo de 2 linhas claras */
+    -webkit-line-clamp: 2 !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     word-break: break-word !important;
     hyphens: auto !important;
-    min-height: 1.5em !important; /* = 1 linha */
-    max-height: 2.5em !important; /* = ~2 linhas com folga */
+    min-height: 1.5em !important;
+    max-height: 2.5em !important;
     height: auto !important;
-  }
-}
-
-/* Para telas muito baixas (ex: iPhone SE em paisagem) */
-@media (max-width: 1024px) and (orientation: landscape) and (max-height: 400px) and (hover: none) and (pointer: coarse) {
-  .product-title {
-    font-size: 0.6rem !important;
-    line-height: 1.2 !important;
-    -webkit-line-clamp: 2 !important;
-    min-height: 1.4em !important;
-    max-height: 2.4em !important;
-  }
-}
-
-  .product-price {
-    font-size: 0.58rem !important;
   }
 }
