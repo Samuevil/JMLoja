@@ -61,6 +61,47 @@ html, body {
   opacity: 0.7;
 }
 
+/* ===== AJUSTE DO VÍDEO EM MOBILE E LANDSCAPE ===== */
+@media (max-width: 767px) and (orientation: portrait) {
+  .video-section {
+    margin: 1.2rem auto;
+    padding: 0 0.8rem;
+  }
+  .video-title {
+    font-size: clamp(1.1rem, 4vw, 1.6rem);
+    margin-bottom: 0.9rem;
+  }
+  .video-container {
+    padding-top: 50%;
+    border-radius: 12px;
+  }
+  .video-hint {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 1024px) and (orientation: landscape) and (hover: none) and (pointer: coarse) {
+  .video-section {
+    margin: 0.6rem auto;
+    padding: 0 0.6rem;
+  }
+  .video-title {
+    font-size: clamp(0.95rem, 2.8vw, 1.3rem);
+    margin-bottom: 0.5rem;
+  }
+  .video-container {
+    padding-top: 0;
+    height: auto;
+    max-height: min(180px, 40vh);
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+  }
+  .video-hint {
+    font-size: 0.72rem;
+    margin-top: 3px;
+  }
+}
+
 .featured-container {
   width: 100%;
   max-width: 1200px;
@@ -94,7 +135,6 @@ html, body {
 .carousel-viewport {
   width: 100%;
   overflow: hidden;
-  border-radius: 8px;
   position: relative;
   -webkit-overflow-scrolling: touch;
 }
@@ -155,23 +195,21 @@ html, body {
   padding-top: 135%; /* Proporção 20/27 */
   position: relative !important;
   overflow: hidden !important;
-  background: white !important; /* Fundo branco apenas no container */
+  background: white !important;
   display: block !important;
   border-radius: 0;
   flex-shrink: 0;
 }
 
-/* IMAGENS COM OBJECT-FIT: CONTAIN (MANTÉM PROPORÇÃO) */
 .carousel-image {
   position: absolute !important;
   top: 0 !important;
   left: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  object-fit: contain !important; /* Mantém proporção original */
+  object-fit: contain !important;
   object-position: center !important;
   display: block !important;
-  /* SEM background aqui - deixa transparente */
 }
 
 /* CONTEÚDO DO CARD - VERSÃO PADRÃO */
@@ -180,12 +218,11 @@ html, body {
   display: flex;
   flex-direction: column;
   padding: 0.5rem 0.75rem;
-  gap: 0.3rem;
+  gap: 0.2rem;
   justify-content: space-between;
   min-height: 70px;
 }
 
-/* TÍTULO - VERSÃO PADRÃO */
 .carousel-title {
   color: #e0e0e0;
   line-height: 1.3;
@@ -204,7 +241,7 @@ html, body {
 /* Desktop: Título com 3 linhas */
 @media (min-width: 768px) and (orientation: portrait) {
   .carousel-title {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     -webkit-line-clamp: 3;
     min-height: 3.9em;
     max-height: 3.9em;
@@ -214,7 +251,7 @@ html, body {
 /* Mobile retrato: Título compacto */
 @media (max-width: 767px) and (orientation: portrait) {
   .carousel-title {
-    font-size: 0.75rem;
+    font-size: 0.82rem;
     -webkit-line-clamp: 4;
     min-height: 2.6em;
     max-height: 5.2em;
@@ -226,20 +263,20 @@ html, body {
   font-weight: bold;
   color: #06f272;
   flex-shrink: 0;
-  padding-top: 0.3rem;
+  padding-top: 0.25rem;
   border-top: 1px solid #222;
   margin-top: 0;
 }
 
 @media (min-width: 768px) {
   .carousel-price {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
   }
 }
 
 @media (max-width: 767px) and (orientation: portrait) {
   .carousel-price {
-    font-size: 0.75rem;
+    font-size: 0.82rem;
   }
 }
 
@@ -310,7 +347,6 @@ html, body {
   gap: 8px;
 }
 
-/* Mostrar indicadores apenas em touch */
 @media (hover: none) and (pointer: coarse) {
   .carousel-indicators {
     display: flex !important;
@@ -326,6 +362,10 @@ html, body {
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
+}
+
+.carousel-indicators button.active {
+  background: #ff5e00;
 }
 
 /* ===== GRID DE PRODUTOS ===== */
@@ -366,26 +406,24 @@ html, body {
 .product-image-wrapper {
   width: 100% !important;
   height: 0 !important;
-  padding-top: 135%; /* Mesma proporção do carrossel */
+  padding-top: 135%;
   position: relative !important;
   overflow: hidden !important;
-  background: white !important; /* Fundo branco apenas no container */
+  background: white !important;
   display: block !important;
   border-radius: 0;
   flex-shrink: 0;
 }
 
-/* IMAGENS COM OBJECT-FIT: CONTAIN (MANTÉM PROPORÇÃO) */
 .product-image {
   position: absolute !important;
   top: 0 !important;
   left: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  object-fit: contain !important; /* Mantém proporção original */
+  object-fit: contain !important;
   object-position: center !important;
   display: block !important;
-  /* SEM background aqui - deixa transparente */
 }
 
 .product-card {
@@ -416,11 +454,10 @@ html, body {
 
 @media (max-width: 767px) and (orientation: portrait) {
   .product-content {
-    padding: 0.3rem;
+    padding: 0.35rem;
   }
 }
 
-/* TÍTULO DO PRODUTO - VERSÃO PADRÃO */
 .product-title {
   font-weight: 600;
   color: #e0e0e0;
@@ -438,23 +475,20 @@ html, body {
   text-rendering: optimizeLegibility;
 }
 
-/* Desktop: Título maior */
 @media (min-width: 768px) and (orientation: portrait) {
   .product-title {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     -webkit-line-clamp: 3;
   }
 }
 
-/* Mobile retrato: Título menor */
 @media (max-width: 767px) and (orientation: portrait) {
   .product-title {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     -webkit-line-clamp: 3;
   }
 }
 
-/* PREÇO DO PRODUTO - VERSÃO PADRÃO */
 .product-price {
   font-weight: bold;
   color: #06f272;
@@ -463,17 +497,15 @@ html, body {
   border-top: 1px solid #222;
 }
 
-/* Desktop: Preço maior */
 @media (min-width: 768px) and (orientation: portrait) {
   .product-price {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
   }
 }
 
-/* Mobile retrato: Preço menor */
 @media (max-width: 767px) and (orientation: portrait) {
   .product-price {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
   }
 }
 
@@ -595,248 +627,188 @@ html, body {
   color: #ff5e00;
 }
 
-/* ===== INDICADORES ATIVOS ===== */
-.carousel-indicators button.active {
-  background: #ff5e00;
-}
-
-/* ===== AJUSTE MAIS COMPACTO DO VÍDEO EM ORIENTAÇÃO HORIZONTAL (MOBILE/TABLET) ===== */
-@media (max-width: 1024px) and (orientation: landscape) and (hover: none) and (pointer: coarse) {
-  .video-section {
-    margin: 0.8rem auto;
-    padding: 0 0.7rem;
-  }
-
-  .video-title {
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    margin-bottom: 0.6rem;
-  }
-
-  .video-container {
-    padding-top: 0;
-    height: auto;
-    max-height: calc(100vh - 160px);
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    border-radius: 10px;
-  }
-
-  .video-container iframe {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-
-  .video-hint {
-    font-size: 0.75rem;
-    margin-top: 4px;
-  }
-}
-
-/* ===== AJUSTE COMPACTO DOS PRODUCT CARDS EM ORIENTAÇÃO HORIZONTAL (MOBILE/TABLET) ===== */
-
-/* MODO PAISAGEM MOBILE - COM FUNDO BRANCO */
+/* ========================================================================== */
+/* AJUSTE FINAL — PREÇO À ESQUERDA + LINHA DIVISÓRIA COMPLETA */
+/* ========================================================================== */
 @media (max-width: 1024px) and (orientation: landscape) and (hover: none) and (pointer: coarse) {
   .carousel-wrapper {
-    margin: 1rem auto !important;
-    padding: 0 4px !important;
+    margin: 0.2rem auto !important;
+    padding: 0 8px !important;
     max-width: 100% !important;
   }
-  
-  .carousel-card {
-    width: calc((100vw - 80px) / 4) !important;
-    min-width: calc((100vw - 80px) / 4) !important;
-    max-width: calc((100vw - 80px) / 4) !important;
-    max-height: 240px !important;
-    border-width: 0.5px !important;
+
+  .carousel-viewport {
+    overflow: visible !important;
+    height: auto !important;
   }
-  
+
   .carousel-grid {
-    gap: 12px !important;
-    padding: 2px 0 !important;
+    gap: 4px !important;
+    padding: 0 !important;
   }
-  
+
+  .carousel-card {
+    width: calc((100vw - 16px - 12px) / 4) !important;
+    min-width: calc((100vw - 28px) / 4) !important;
+    max-width: calc((100vw - 28px) / 4) !important;
+    height: auto !important;
+    border-width: 0.5px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+  }
+
   .carousel-image-wrapper {
     width: 100% !important;
     height: 0 !important;
-    padding-top: 135% !important; /* Mantém proporção */
+    padding-top: 75% !important;
+    background: white !important;
+    overflow: hidden !important;
     position: relative !important;
-    background: white !important; /* Fundo branco */
   }
-  
+
   .carousel-image {
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
     width: 100% !important;
     height: 100% !important;
-    object-fit: contain !important; /* Mantém proporção */
+    object-fit: contain !important;
     object-position: center !important;
-    /* SEM background aqui */
+    display: block !important;
   }
-  
+
   .carousel-content {
-    padding: 0.4rem 0.5rem !important;
-    min-height: 65px !important;
-    max-height: 65px !important;
+    padding: 0.2rem 0.3rem !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
+    gap: 0.05rem !important;
+    font-size: 0.68rem !important;
+    line-height: 1.3 !important;
     overflow: hidden !important;
+    flex: 1 !important;
+    position: relative !important;
   }
-  
+
   .carousel-title {
-    font-size: 0.7rem !important;
-    -webkit-line-clamp: 2 !important;
-    line-height: 1.2 !important;
-    min-height: 1.8em !important;
-    max-height: 2.4em !important;
+    font-size: 0.68rem !important;
+    -webkit-line-clamp: 1 !important;
+    line-height: 1.3 !important;
+    min-height: 1.3em !important;
+    max-height: 1.3em !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
     display: -webkit-box !important;
     -webkit-box-orient: vertical !important;
-    word-break: break-word !important;
-    hyphens: auto !important;
-    -webkit-font-smoothing: antialiased !important;
-    -moz-osx-font-smoothing: grayscale !important;
-    text-rendering: optimizeLegibility !important;
+    text-align: left !important;
   }
-  
+
   .carousel-price {
-    font-size: 0.65rem !important;
-    padding-top: 0.15rem !important;
-    border-top: 0.5px solid #333 !important;
-    margin-top: 0.1rem !important;
+    font-size: 0.68rem !important;
+    padding-top: 0.05rem !important;
+    margin-top: 0.05rem !important;
     flex-shrink: 0;
+    align-self: flex-start !important;
+    text-align: left !important;
+    width: 100% !important;
+    border-top: 0.5px solid #333 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
-  
+
+  .featured-title {
+    font-size: 0.95rem !important;
+    margin-bottom: 0.35rem !important;
+    color: #fff !important;
+  }
+
   .carousel-indicators {
     margin-top: 8px !important;
-    gap: 6px !important;
+    gap: 8px !important;
   }
-  
+
   .carousel-indicators button {
-    width: 8px !important;
-    height: 8px !important;
+    width: 10px !important;
+    height: 10px !important;
   }
-  
-  .featured-title {
-    font-size: 1rem !important;
-    margin-bottom: 0.5rem !important;
-  }
-  
-  /* Grid de produtos */
+
   .grid-products {
     grid-template-columns: repeat(4, 1fr) !important;
-    gap: 0.4rem !important;
+    gap: 0.3rem !important;
   }
-  
+
   .product-image-wrapper {
-    height: 0 !important;
-    padding-top: 120% !important; /* Proporção ajustada para paisagem */
-    background: white !important; /* Fundo branco */
+    padding-top: 75% !important;
   }
-  
-  .product-image {
-    object-fit: contain !important; /* Mantém proporção */
-    /* SEM background aqui */
-  }
-  
+
   .product-content {
     padding: 0.2rem 0.3rem !important;
-    min-height: 50px !important;
-  }
-  
-  .product-title {
-    font-size: 0.65rem !important;
-    -webkit-line-clamp: 2 !important;
-    line-height: 1.2 !important;
-    min-height: 1.6em !important;
-    max-height: 2.4em !important;
-    -webkit-font-smoothing: antialiased !important;
-    -moz-osx-font-smoothing: grayscale !important;
-  }
-  
-  .product-price {
-    font-size: 0.65rem !important;
-    padding-top: 0.1rem !important;
-    border-top: 0.5px solid #333 !important;
-  }
-}
-
-/* Para paisagem muito pequenas (altura < 400px) */
-@media (max-width: 1024px) and (orientation: landscape) and (max-height: 400px) and (hover: none) and (pointer: coarse) {
-  .carousel-card {
-    width: calc((100vw - 90px) / 5) !important;
-    min-width: calc((100vw - 90px) / 5) !important;
-    max-width: calc((100vw - 90px) / 5) !important;
-    max-height: 190px !important;
-  }
-  
-  .carousel-image-wrapper {
-    height: 0 !important;
-    padding-top: 120% !important; /* Proporção ajustada */
-  }
-  
-  .carousel-image {
-    object-fit: contain !important; /* Mantém proporção */
-  }
-  
-  .carousel-content {
-    min-height: 55px !important;
-    max-height: 55px !important;
-    padding: 0.25rem 0.35rem !important;
-  }
-  
-  .carousel-title {
-    font-size: 0.6rem !important;
-    -webkit-line-clamp: 2 !important;
-    line-height: 1.1 !important;
-    min-height: 1.6em !important;
-    max-height: 2.2em !important;
-  }
-  
-  .carousel-price {
-    font-size: 0.6rem !important;
-    padding-top: 0.1rem !important;
-  }
-  
-  .product-image-wrapper {
-    padding-top: 110% !important; /* Proporção ainda mais baixa */
-  }
-  
-  .product-content {
-    padding: 0.15rem 0.2rem !important;
-    min-height: 42px !important;
-  }
-  
-  .product-title {
-    font-size: 0.6rem !important;
-    -webkit-line-clamp: 2 !important;
-    line-height: 1.2 !important;
-    min-height: 1.4em !important;
-    max-height: 2.4em !important;
-  }
-  
-  .product-price {
-    font-size: 0.58rem !important;
-  }
-}
-
-/* ===== TÍTULOS DOS PRODUTOS - VISIBILIDADE COMPLETA EM PAISAGEM MOBILE/TABLET ===== */
-@media (max-width: 1024px) and (orientation: landscape) and (hover: none) and (pointer: coarse) {
-  .product-title {
-    font-size: 0.64rem !important;
-    line-height: 1.25 !important;
-    display: -webkit-box !important;
-    -webkit-box-orient: vertical !important;
-    -webkit-line-clamp: 2 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    gap: 0.05rem !important;
+    font-size: 0.68rem !important;
+    line-height: 1.3 !important;
     overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    word-break: break-word !important;
-    hyphens: auto !important;
-    min-height: 1.5em !important;
-    max-height: 2.5em !important;
+    flex: 1 !important;
+    position: relative !important;
+  }
+
+  .product-title {
+    font-size: 0.68rem !important;
+    -webkit-line-clamp: 1 !important;
+    line-height: 1.3 !important;
+    min-height: 1.3em !important;
+    text-align: left !important;
+  }
+
+  .product-price {
+    font-size: 0.68rem !important;
+    padding-top: 0.05rem !important;
+    margin-top: 0.05rem !important;
+    flex-shrink: 0;
+    align-self: flex-start !important;
+    text-align: left !important;
+    width: 100% !important;
+    border-top: 0.5px solid #333 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+/* Para telas extremamente baixas (altura < 360px) */
+@media (max-width: 1024px) and (orientation: landscape) and (max-height: 360px) and (hover: none) and (pointer: coarse) {
+  .carousel-card {
+    width: calc((100vw - 16px - 16px) / 5) !important;
+    min-width: calc((100vw - 32px) / 5) !important;
+    max-width: calc((100vw - 32px) / 5) !important;
     height: auto !important;
+  }
+
+  .carousel-image-wrapper {
+    padding-top: 70% !important;
+  }
+
+  .carousel-content {
+    padding: 0.18rem 0.28rem !important;
+    gap: 0.05rem !important;
+    font-size: 0.65rem !important;
+  }
+
+  .carousel-title,
+  .carousel-price,
+  .product-title,
+  .product-price {
+    font-size: 0.65rem !important;
+  }
+
+  .grid-products {
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 0.25rem !important;
+  }
+
+  .product-image-wrapper {
+    padding-top: 70% !important;
   }
 }

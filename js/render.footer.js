@@ -34,7 +34,6 @@ function renderFooter(containerId) {
           <div class="footer-col">
             <h4>Contato</h4>
             
-            <!-- Email com versão mobile e desktop -->
             <a href="mailto:josimarsilvasoares2015@gmail.com" class="footer-link footer-email-full">
               ${mailIcon()}
               <span class="email-text">josimarsilvasoares2015@gmail.com</span>
@@ -66,8 +65,16 @@ function renderFooter(containerId) {
               ${facebookIcon()} <span>Facebook</span> 
             </a>
 
+            <!-- THREADS COM SUA IMAGEM LOCAL -->
             <a href="https://www.threads.net/@josimarssoares" target="_blank" class="footer-social">
-              ${linkIcon()} <span>Threads</span>
+              <img
+                src="/assets/logos/instagram%20threads.png"
+                alt="Threads"
+                class="footer-icon custom-logo"
+                width="24"
+                height="24"
+              />
+              <span>Threads</span>
             </a>
 
             <a href="https://www.josimarsoares.com.br/" target="_blank" class="footer-social">
@@ -94,7 +101,7 @@ function renderFooter(containerId) {
   `;
 }
 
-/* ===== SVG ICONS (100% compatível com GitHub Pages) ===== */
+/* ===== SVG ICONS (mantidos para os demais) ===== */
 
 function baseSvg(content) {
   return `
@@ -127,13 +134,6 @@ function facebookIcon() {
   `);
 }
 
-function linkIcon() {
-  return baseSvg(`
-    <path d="M10 13a5 5 0 0 1 0-7l2-2a5 5 0 0 1 7 7l-1 1"/>
-    <path d="M14 11a5 5 0 0 1 0 7l-2 2a5 5 0 0 1-7-7l1-1"/>
-  `);
-}
-
 function mailIcon() {
   return baseSvg(`
     <rect x="2" y="4" width="20" height="16" rx="2"/>
@@ -146,23 +146,4 @@ function mapIcon() {
     <path d="M12 21s8-4.5 8-11a8 8 0 1 0-16 0c0 6.5 8 11 8 11z"/>
     <circle cx="12" cy="10" r="3"/>
   `);
-}
-
-function externalIcon() {
-  return `
-    <svg
-      class="footer-icon small"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <path d="M18 3h3v3"/>
-      <path d="M10 14 21 3"/>
-      <path d="M21 14v7H3V3h7"/>
-    </svg>
-  `;
 }
