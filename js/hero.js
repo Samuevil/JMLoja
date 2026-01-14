@@ -1,15 +1,11 @@
-// hero.js – Josimar Soares
-// Street inline Skater | Policial Penal | Vice-presidente da Associação de Esportes Radicais MG
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Oculta o hero se estiver em uma categoria
   if (new URLSearchParams(window.location.search).has("category")) {
     const hero = document.getElementById("hero");
     if (hero) hero.style.display = "none";
     return;
   }
 
-  // Detecta base path para GitHub Pages (/JMLoja/)
   const basePath = window.location.pathname.includes('/JMLoja/') ? '/JMLoja' : '';
 
   const slides = [
@@ -33,7 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   ];
 
-  // Elementos do DOM
   const titleEl = document.getElementById("hero-title");
   const subtitleEl = document.getElementById("hero-subtitle");
   const imageEl = document.getElementById("hero-image");
@@ -45,7 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // Pré-carrega imagens
   slides.forEach(s => {
     const img = new Image();
     img.src = s.image;
@@ -54,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let current = 0;
   let isAnimating = false;
 
-  // Exibe um slide específico
+
   function showSlide(index) {
     const slide = slides[index];
     titleEl.textContent = slide.title;
@@ -64,20 +58,17 @@ document.addEventListener("DOMContentLoaded", () => {
     buttonEl.href = slide.link;
   }
 
-  // Avança para o próximo slide
   function nextSlide() {
     if (isAnimating) return;
     isAnimating = true;
 
-    // Animação de saída
     contentEl.classList.add("slide-out");
 
     setTimeout(() => {
-      // Avança o índice antes de atualizar
+
       current = (current + 1) % slides.length;
       showSlide(current);
 
-      // Animação de entrada
       contentEl.classList.remove("slide-out");
       contentEl.classList.add("slide-in");
 
@@ -88,9 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 600);
   }
 
-  // Exibe o primeiro slide
   showSlide(0);
 
-  // Inicia o carrossel automático
   setInterval(nextSlide, 4000);
 });

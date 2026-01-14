@@ -26,13 +26,11 @@ function renderAllProducts(
   const section = document.createElement("section");
   section.className = "grid-products-container";
 
-  /* ===== TÍTULO ===== */
   const title = document.createElement("h2");
   title.className = "section-title";
   title.textContent = sectionTitle;
   section.appendChild(title);
 
-  /* ===== FILTRO ===== */
   section.innerHTML += `
     <div class="filter-wrapper">
       <div class="filter-dropdown" id="filterDropdown">
@@ -71,7 +69,6 @@ function renderAllProducts(
     </div>
   `;
 
-  /* ===== GRID ===== */
   const grid = document.createElement("div");
   grid.className = "grid-products";
 
@@ -103,7 +100,6 @@ function renderAllProducts(
 
   section.appendChild(grid);
 
-  /* ===== MOSTRAR MAIS ===== */
   if (visibleCount < sorted.length) {
     const loadMore = document.createElement("div");
     loadMore.className = "load-more-container";
@@ -117,14 +113,12 @@ function renderAllProducts(
 
   container.appendChild(section);
 
-  /* ===== FALLBACK DE IMAGEM (CSP SAFE) ===== */
   section.querySelectorAll(".product-img").forEach((img) => {
     img.addEventListener("error", () => {
       img.src = "assets/images/placeholder.jpg";
     });
   });
 
-  /* ===== EVENTOS ===== */
   const dropdown = section.querySelector("#filterDropdown");
   const filterButton = section.querySelector("#filterButton");
   const filterMenuButtons = section.querySelectorAll(".filter-menu button");

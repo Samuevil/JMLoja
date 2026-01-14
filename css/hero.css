@@ -206,3 +206,18 @@
     justify-content: center;
   }
 }
+
+    @keyframes slideOutToLeft {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(-20%); opacity: 0; }
+    }
+    @keyframes slideInFromRight {
+      from { transform: translateX(20%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    .slide-out {
+      animation: slideOutToLeft 0.6s ease forwards;
+    }
+    .slide-in {
+      animation: slideInFromRight 0.6s ease forwards;
+    }

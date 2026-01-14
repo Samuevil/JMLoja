@@ -1,66 +1,97 @@
-// js/main.js
-const menuToggle = document.getElementById("menuToggle");
-const menuMobile = document.getElementById("menuMobile");
+document.addEventListener('DOMContentLoaded', () => {
+  
+  const menuToggle = document.getElementById("menuToggle");
+  const menuMobile = document.getElementById("menuMobile");
 
-menuToggle.addEventListener("click", () => {
-  menuMobile.classList.toggle("open");
-  menuToggle.textContent = menuMobile.classList.contains("open") ? "✕" : "☰";
-});
+  if (!menuToggle || !menuMobile) {
+    console.warn("⚠️ Elementos do menu mobile não encontrados no HTML.");
+    return; 
+  }
 
-categoryGroups.forEach((group, index) => {
-  const groupDiv = document.createElement("div");
-  groupDiv.className = "mobile-group";
+  const categoryGroups = window.categoryGroups || [
 
-  const header = document.createElement("div");
-  header.className = "mobile-header";
+    {
+      slug: "patins",
+      title: "Patins",
+      columns: [
+        {
+          title: "Freestyle",
+          items: [
+            { slug: "freestyle-pro", name: "Freestyle Pro" },
+            { slug: "freestyle-urban", name: "Freestyle Urban" }
+          ]
+        }
+      ]
+    }
 
-  const link = document.createElement("a");
-  link.href = `/?category=${group.slug}`;
-  link.textContent = group.title;
-  link.addEventListener("click", () => {
-    menuMobile.classList.remove("open");
-    menuToggle.textContent = "☰";
+  ];
+
+
+  menuToggle.addEventListener("click", () => {
+    menuMobile.classList.toggle("open");
+    menuToggle.textContent = menuMobile.classList.contains("open") ? "✕" : "☰";
   });
 
-  const toggle = document.createElement("button");
-  toggle.className = "mobile-toggle";
-  toggle.textContent = "+";
+  categoryGroups.forEach((group) => {
+    const groupDiv = document.createElement("div");
+    groupDiv.className = "mobile-group";
 
-  header.appendChild(link);
-  header.appendChild(toggle);
-  groupDiv.appendChild(header);
+    const header = document.createElement("div");
+    header.className = "mobile-header";
 
-  const content = document.createElement("div");
-  content.className = "mobile-content";
-
-  group.columns.forEach(col => {
-    const colDiv = document.createElement("div");
-    colDiv.className = "mobile-col";
-
-    const h4 = document.createElement("h4");
-    h4.textContent = col.title;
-    colDiv.appendChild(h4);
-
-    col.items.forEach(item => {
-      const a = document.createElement("a");
-      a.href = `/?category=${item.slug}`;
-      a.textContent = item.name;
-      a.addEventListener("click", () => {
-        menuMobile.classList.remove("open");
-        menuToggle.textContent = "☰";
-      });
-      colDiv.appendChild(a);
+    const link = document.createElement("a");
+    link.href = `/?category=${encodeURIComponent(group.slug)}`;
+    link.textContent = group.title;
+    link.addEventListener("click", () => {
+      menuMobile.classList.remove("open");
+      menuToggle.textContent = "☰";
     });
 
-    content.appendChild(colDiv);
-  });
+    const toggle = document.createElement("button");
+    toggle.className = "mobile-toggle";
+    toggle.textContent = "+";
+    toggle.setAttribute("aria-label", "Expandir categoria");
 
-  toggle.addEventListener("click", (e) => {
-    e.preventDefault();
-    content.classList.toggle("open");
-    toggle.textContent = content.classList.contains("open") ? "−" : "+";
-  });
+    header.appendChild(link);
+    header.appendChild(toggle);
+    groupDiv.appendChild(header);
 
-  groupDiv.appendChild(content);
-  menuMobile.appendChild(groupDiv);
+    const content = document.createElement("div");
+    content.className = "mobile-content";
+
+    if (group.columns && Array.isArray(group.columns)) {
+      group.columns.forEach(col => {
+        const colDiv = document.createElement("div");
+        colDiv.className = "mobile-col";
+
+        const h4 = document.createElement("h4");
+        h4.textContent = col.title || "Sem título";
+        colDiv.appendChild(h4);
+
+        if (col.items && Array.isArray(col.items)) {
+          col.items.forEach(item => {
+            const a = document.createElement("a");
+            a.href = `/?category=${encodeURIComponent(item.slug)}`;
+            a.textContent = item.name || "Item sem nome";
+            a.addEventListener("click", () => {
+              menuMobile.classList.remove("open");
+              menuToggle.textContent = "☰";
+            });
+            colDiv.appendChild(a);
+          });
+        }
+
+        content.appendChild(colDiv);
+      });
+    }
+
+    toggle.addEventListener("click", (e) => {
+      e.preventDefault();
+      content.classList.toggle("open");
+      toggle.textContent = content.classList.contains("open") ? "−" : "+";
+    });
+
+    groupDiv.appendChild(content);
+    menuMobile.appendChild(groupDiv); 
+  });
 });

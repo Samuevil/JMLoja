@@ -65,7 +65,7 @@ function renderFooter(containerId) {
               ${facebookIcon()} <span>Facebook</span> 
             </a>
 
-            <!-- THREADS COM SUA IMAGEM LOCAL -->
+            <!-- THREADS: SUA LOGO ORIGINAL, MAS COM SUPORTE A HOVER -->
             <a href="https://www.threads.net/@josimarssoares" target="_blank" class="footer-social">
               <img
                 src="/assets/logos/instagram%20threads.png"
@@ -101,7 +101,7 @@ function renderFooter(containerId) {
   `;
 }
 
-/* ===== SVG ICONS (mantidos para os demais) ===== */
+/* ===== SVG ICONS ===== */
 
 function baseSvg(content) {
   return `

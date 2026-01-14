@@ -39,7 +39,6 @@ function renderFeaturedProducts(containerId, products) {
   let translateX = 0;
   let dragStartTime = 0;
   
-  // 🔧 NOVO: Contador real de posição (para loop infinito)
   let realPosition = 0;
   let totalItems = 0;
 
@@ -74,7 +73,7 @@ function renderFeaturedProducts(containerId, products) {
     return grid.children[0] ? grid.children[0].offsetWidth + 17 : 0;
   }
 
-  // 🔧 CORREÇÃO: Função move() melhorada para loop infinito suave
+
   function move(withAnimation = true) {
     if (grid.children.length === 0) return;
     
@@ -88,7 +87,7 @@ function renderFeaturedProducts(containerId, products) {
     
     grid.style.transform = `translateX(-${realPosition * step}px)`;
     
-    // Atualizar indicadores
+
     if (featured.length > VISIBLE) {
       let realIndex = ((index - VISIBLE) % featured.length + featured.length) % featured.length;
       updateIndicators(realIndex);
@@ -99,7 +98,7 @@ function renderFeaturedProducts(containerId, products) {
     const isTouch = isTouchDevice();
     const viewportWidth = viewport.clientWidth;
 
-    // Cálculo de VISIBLE
+
     if (isTouch) {
       if (viewportWidth < 400) {
         VISIBLE = 2;
@@ -112,7 +111,7 @@ function renderFeaturedProducts(containerId, products) {
       VISIBLE = 4;
     }
 
-    // Garantir limites
+
     VISIBLE = Math.min(VISIBLE, featured.length);
     VISIBLE = Math.max(1, VISIBLE);
     VISIBLE = Math.min(4, VISIBLE);
@@ -120,12 +119,11 @@ function renderFeaturedProducts(containerId, products) {
     grid.innerHTML = "";
     indicators.innerHTML = "";
 
-    // 🔧 CORREÇÃO: Criar loop infinito verdadeiro
+
     if (featured.length > VISIBLE) {
-      // Para um loop infinito suave, precisamos de clones extras
-      // Criamos 3 cópias: original + clones antes + clones depois
-      const clonesBefore = featured.slice(-VISIBLE * 2); // 🔧 Mais clones antes
-      const clonesAfter = featured.slice(0, VISIBLE * 2); // 🔧 Mais clones depois
+
+      const clonesBefore = featured.slice(-VISIBLE * 2); 
+      const clonesAfter = featured.slice(0, VISIBLE * 2); 
       const all = [...clonesBefore, ...featured, ...clonesAfter, ...featured.slice(0, VISIBLE)]; // 🔧 Extra clone no final
       
       totalItems = all.length;
@@ -135,16 +133,16 @@ function renderFeaturedProducts(containerId, products) {
         grid.appendChild(card);
       });
 
-      // 🔧 CORREÇÃO: Começar no meio dos clones antes
+   
       index = VISIBLE * 2;
       realPosition = index;
       
-      // 🔧 CORREÇÃO: Aguardar renderização completa
+ 
       setTimeout(() => {
         move(false);
       }, 50);
     } else {
-      // Menos produtos que VISIBLE
+ 
       featured.forEach(p => {
         const card = createProductCard(p);
         grid.appendChild(card);
@@ -158,7 +156,6 @@ function renderFeaturedProducts(containerId, products) {
       move(false);
     }
 
-    // Indicadores
     if (isTouch && featured.length > VISIBLE) {
       indicators.style.display = "flex";
       for (let i = 0; i < featured.length; i++) {
@@ -181,7 +178,7 @@ function renderFeaturedProducts(containerId, products) {
       indicators.style.display = "none";
     }
 
-    // Botões
+
     if (!isTouch && featured.length > VISIBLE) {
       prev.style.display = "flex";
       next.style.display = "flex";
@@ -191,7 +188,7 @@ function renderFeaturedProducts(containerId, products) {
     }
   }
 
-  // 🔧 CORREÇÃO: nextSlide() com loop infinito suave
+
   function nextSlide() {
     if (isAnimating || featured.length <= VISIBLE) return;
     isAnimating = true;
@@ -200,9 +197,9 @@ function renderFeaturedProducts(containerId, products) {
     index++;
     realPosition++;
     
-    // 🔧 CORREÇÃO: Se chegou perto do fim dos clones, reset suave
+
     if (index >= featured.length + VISIBLE * 2) {
-      // Reset para posição equivalente nos clones iniciais
+
       setTimeout(() => {
         grid.style.transition = "none";
         index = VISIBLE * 2;
@@ -212,13 +209,13 @@ function renderFeaturedProducts(containerId, products) {
         setTimeout(() => {
           isAnimating = false;
         }, 50);
-      }, 450); // Aguardar fim da animação
+      }, 450); 
     }
     
     move(true);
   }
 
-  // 🔧 CORREÇÃO: prevSlide() com loop infinito suave
+
   function prevSlide() {
     if (isAnimating || featured.length <= VISIBLE) return;
     isAnimating = true;
@@ -227,9 +224,9 @@ function renderFeaturedProducts(containerId, products) {
     index--;
     realPosition--;
     
-    // 🔧 CORREÇÃO: Se chegou perto do início dos clones, reset suave
+
     if (index < VISIBLE) {
-      // Reset para posição equivalente nos clones finais
+
       setTimeout(() => {
         grid.style.transition = "none";
         index = featured.length + VISIBLE * 2 - 1;
@@ -239,7 +236,7 @@ function renderFeaturedProducts(containerId, products) {
         setTimeout(() => {
           isAnimating = false;
         }, 50);
-      }, 450); // Aguardar fim da animação
+      }, 450); 
     }
     
     move(true);
@@ -250,11 +247,11 @@ function renderFeaturedProducts(containerId, products) {
     next.onclick = nextSlide;
   }
 
-  // 🔧 CORREÇÃO: transitionend melhorado
+
   grid.addEventListener("transitionend", () => {
     if (!isAnimating) return;
     
-    // 🔧 CORREÇÃO: Não resetar aqui, já foi feito nas funções nextSlide/prevSlide
+
     isAnimating = false;
   });
 
@@ -267,7 +264,7 @@ function renderFeaturedProducts(containerId, products) {
 
   enableVerticalScroll();
 
-  // Touch controls com loop infinito
+
   if (featured.length > VISIBLE) {
     let touchStartX = 0;
     let touchStartTime = 0;
@@ -303,35 +300,34 @@ function renderFeaturedProducts(containerId, products) {
       const timeElapsed = Date.now() - touchStartTime;
       
       const step = cardStep();
-      const threshold = step * 0.3; // 30% do card para considerar swipe
+      const threshold = step * 0.3; 
       const velocity = Math.abs(deltaX) / timeElapsed;
       
       let moveToNext = false;
-      
-      // Determinar direção baseado no movimento e velocidade
+ 
       if (Math.abs(deltaX) > threshold || velocity > 0.5) {
         if (deltaX > 0) {
-          // Swipe para direita = anterior
+  
           prevSlide();
         } else {
-          // Swipe para esquerda = próximo
+
           nextSlide();
         }
       } else {
-        // Voltar para posição atual se swipe muito pequeno
+       
         move(true);
       }
     }, { passive: true });
   }
 
-  // Indicadores click
+
   indicators.addEventListener("click", (e) => {
     if (!isTouchDevice() || !e.target.matches("button") || featured.length <= VISIBLE) return;
     const dots = Array.from(indicators.querySelectorAll("button"));
     const clickedIndex = dots.indexOf(e.target);
     if (clickedIndex >= 0) {
       isAnimating = true;
-      index = VISIBLE * 2 + clickedIndex; // 🔧 Ajuste para posição correta nos clones
+      index = VISIBLE * 2 + clickedIndex; 
       realPosition = index;
       move(true);
     }
@@ -339,16 +335,15 @@ function renderFeaturedProducts(containerId, products) {
 
   setupCarousel();
 
-  // 🔧 CORREÇÃO: Resize com recálculo correto
+  
   let resizeTimer;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
-      // Salvar posição atual relativa
+      
       const currentRealIndex = ((index - VISIBLE * 2) % featured.length + featured.length) % featured.length;
       setupCarousel();
       
-      // Restaurar posição após recálculo
       setTimeout(() => {
         if (featured.length > VISIBLE) {
           index = VISIBLE * 2 + currentRealIndex;
@@ -359,7 +354,6 @@ function renderFeaturedProducts(containerId, products) {
     }, 200);
   });
   
-  // 🔧 CORREÇÃO: Orientation change
   window.addEventListener("orientationchange", () => {
     setTimeout(() => {
       const currentRealIndex = ((index - VISIBLE * 2) % featured.length + featured.length) % featured.length;

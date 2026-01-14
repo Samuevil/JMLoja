@@ -1,9 +1,3 @@
-/* ==================================================
-   FOOTER – Josimar Soares
-   Versão final com email e endereço inteligentes
-   Layout 2 colunas mobile - tudo cabe perfeitamente
-================================================== */
-
 .footer {
   background: #000;
   border-top: 1px solid #333;
@@ -26,21 +20,18 @@
   gap: 1.2rem;
 }
 
-/* Desktop */
 @media (min-width: 992px) {
   .footer-grid {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-/* Tablet */
 @media (min-width: 768px) and (max-width: 991px) {
   .footer-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* ✅ MOBILE: Layout 2 colunas otimizado */
 @media (max-width: 767px) {
   .footer-grid {
     grid-template-areas:
@@ -59,7 +50,6 @@
     padding: 1rem 0.9rem;
   }
 
-  /* "Sobre mim" com mais ar */
   .footer-text {
     font-size: 0.78rem;
     line-height: 1.52;
@@ -72,7 +62,6 @@
     margin-bottom: 0.42rem;
   }
 
-  /* Direita mais compacta */
   .footer-col:nth-child(2) ul li,
   .footer-col:nth-child(4) .footer-social,
   .footer-col:nth-child(3) .footer-link {
@@ -84,30 +73,24 @@
   }
 }
 
-/* ========== EMAIL INTELIGENTE ========== */
-/* Email completo (desktop/tablet) */
 .footer-email-full {
   display: flex;
   align-items: center;
   gap: 0.4rem;
 }
 
-/* Email simplificado (mobile) */
 .footer-email-mobile {
   display: none;
   align-items: center;
   gap: 0.4rem;
 }
 
-/* ========== ENDEREÇO INTELIGENTE ========== */
-/* Endereço completo (desktop/tablet) */
 .footer-location-full {
   display: flex;
   align-items: flex-start;
   gap: 0.4rem;
 }
 
-/* Endereço com quebra (mobile) */
 .footer-location-mobile {
   display: none;
   align-items: flex-start;
@@ -115,14 +98,11 @@
   line-height: 1.3;
 }
 
-/* Endereço mobile - quebra de linha */
 .footer-location-mobile .location-text {
   display: inline-block;
 }
 
-/* Mostra versões mobile apenas em telas pequenas */
 @media (max-width: 767px) {
-  /* Email */
   .footer-email-full {
     display: none !important;
   }
@@ -131,7 +111,6 @@
     display: flex !important;
   }
   
-  /* Endereço */
   .footer-location-full {
     display: none !important;
   }
@@ -140,21 +119,17 @@
     display: flex !important;
   }
   
-  /* Ajustes para caber tudo */
   .footer-col:nth-child(3) .footer-link {
     margin-bottom: 0.4rem;
-    min-width: 0; /* Permite que o conteúdo encolha */
+    min-width: 0;
   }
   
-  /* Localização quebra em duas linhas */
   .footer-location-mobile .location-text {
-    white-space: pre-line; /* Respeita quebras de linha no HTML */
+    white-space: pre-line;
   }
 }
 
-/* Versões desktop/tablet reaparecem em telas maiores */
 @media (min-width: 768px) {
-  /* Email */
   .footer-email-full {
     display: flex !important;
   }
@@ -163,7 +138,6 @@
     display: none !important;
   }
   
-  /* Endereço */
   .footer-location-full {
     display: flex !important;
   }
@@ -173,7 +147,6 @@
   }
 }
 
-/* Estilos gerais */
 .footer-col h4 {
   font-size: 0.86rem;
   color: #fff;
@@ -237,7 +210,7 @@
   margin-bottom: 0.35rem;
   font-size: 0.78rem;
   transition: color 0.15s;
-  min-width: 0; /* Permite encolher */
+  min-width: 0;
 }
 
 .footer-link:hover,
@@ -305,7 +278,6 @@
   font-size: 0.7rem;
 }
 
-/* Modo paisagem */
 @media (max-height: 500px) and (orientation: landscape) and (max-width: 767px) {
   .footer-inner {
     padding: 0.8rem 0.7rem;
@@ -318,7 +290,6 @@
   }
 }
 
-/* Telas muito pequenas (≤360px) */
 @media (max-width: 360px) {
   .footer-inner {
     padding: 0.8rem 0.7rem;
@@ -346,4 +317,12 @@
 .footer-col {
   overflow-x: hidden;
   box-sizing: border-box;
+}
+
+.footer-social .custom-logo {
+  transition: filter 0.2s ease;
+}
+
+.footer-social:hover .custom-logo {
+  filter: brightness(0) saturate(100%) invert(36%) sepia(96%) saturate(4767%) hue-rotate(356deg) brightness(99%) contrast(92%);
 }

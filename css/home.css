@@ -1,12 +1,11 @@
-/* ===== RESET BÁSICO + ALTURA TOTAL ===== */
+
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background: #000000; /* Preto suave inspirado no YouTube */
+  background: #000000; 
 }
 
-/* ===== LAYOUT PRINCIPAL COM FOOTER FIXO NA BASE ===== */
 .page-wrapper {
   display: flex;
   flex-direction: column;
@@ -17,7 +16,7 @@ html, body {
   flex: 1;
 }
 
-/* ===== VÍDEO ===== */
+
 .video-section {
   width: 100%;
   max-width: 900px;
@@ -62,7 +61,6 @@ html, body {
   opacity: 0.7;
 }
 
-/* ===== AJUSTE DO VÍDEO EM MOBILE E LANDSCAPE ===== */
 @media (max-width: 767px) and (orientation: portrait) {
   .video-section {
     margin: 1.2rem auto;
@@ -81,7 +79,7 @@ html, body {
   }
 }
 
-/* ===== AJUSTE DO VÍDEO EM LANDSCAPE — AUMENTADO ===== */
+
 @media (max-width: 1024px) and (orientation: landscape) and (hover: none) and (pointer: coarse) {
   .video-section {
     margin: 0.8rem auto;
@@ -123,7 +121,7 @@ html, body {
   text-align: left;
 }
 
-/* ===== CARROSSEL DE DESTAQUES ===== */
+
 .carousel-wrapper {
   position: relative;
   width: 100%;
@@ -154,7 +152,7 @@ html, body {
   -webkit-backface-visibility: hidden;
 }
 
-/* Cards com tamanhos consistentes */
+
 .carousel-card {
   flex: 0 0 auto;
   background: #0a0a0a;
@@ -179,7 +177,7 @@ html, body {
   height: 100%;
 }
 
-/* ===== HOVER COM EFEITO NEON LARANJA ===== */
+
 .carousel-card:hover,
 .product-card:hover {
   transform: translateY(-3px);
@@ -191,7 +189,7 @@ html, body {
     0 0 24px rgba(255, 94, 0, 0.2);
 }
 
-/* Desativa o efeito neon em dispositivos touch */
+
 @media (hover: none) and (pointer: coarse) {
   .carousel-card:hover,
   .product-card:hover {
@@ -202,9 +200,9 @@ html, body {
   }
 }
 
-/* ===== TAMANHOS DOS CARDS ===== */
 
-/* Mobile retrato - 2 cards */
+
+
 @media (max-width: 767px) and (orientation: portrait) {
   .carousel-card {
     width: calc((100vw - 48px) / 2) !important;
@@ -213,7 +211,7 @@ html, body {
   }
 }
 
-/* Desktop - 4 cards fixos */
+
 @media (min-width: 768px) {
   .carousel-card {
     width: 248px !important;
@@ -222,11 +220,11 @@ html, body {
   }
 }
 
-/* CONTAINER PARA IMAGENS COM FUNDO BRANCO */
+
 .carousel-image-wrapper {
   width: 100% !important;
   height: 0 !important;
-  padding-top: 135%; /* Proporção 20/27 */
+  padding-top: 135%; 
   position: relative !important;
   overflow: hidden !important;
   background: white !important;
@@ -246,7 +244,8 @@ html, body {
   display: block !important;
 }
 
-/* CONTEÚDO DO CARD - VERSÃO PADRÃO */
+
+
 .carousel-content {
   flex: 1;
   display: flex;
@@ -254,7 +253,7 @@ html, body {
   padding: 0.5rem 0.75rem;
   gap: 0.2rem;
   justify-content: space-between;
-  min-height: 60px; /* Ajustado para permitir mais linhas */
+  min-height: 60px; 
 }
 
 .carousel-title {
@@ -266,11 +265,10 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  /* REMOVIDO: -webkit-line-clamp, text-overflow, display: -webkit-box */
-  /* Agora o título cresce conforme o conteúdo */
+ 
 }
 
-/* Tamanhos de fonte mantidos, mas sem truncamento */
+
 @media (min-width: 768px) {
   .carousel-title {
     font-size: 0.9rem;
@@ -283,14 +281,14 @@ html, body {
   }
 }
 
-/* PREÇO - VERSÃO PADRÃO */
+
 .carousel-price {
   font-weight: bold;
   color: #06f272;
   flex-shrink: 0;
   padding-top: 0.25rem;
   border-top: 1px solid #222;
-  margin-top: auto; /* Empurra o preço para baixo, mesmo com título curto */
+  margin-top: auto; 
 }
 
 @media (min-width: 768px) {
@@ -305,7 +303,7 @@ html, body {
   }
 }
 
-/* ===== BOTÕES: APENAS NO DESKTOP NÃO-TOUCH ===== */
+
 .carousel-btn-prev,
 .carousel-btn-next {
   position: absolute;
@@ -342,7 +340,7 @@ html, body {
   opacity: 1;
 }
 
-/* Mostrar botões apenas em desktop não-touch */
+
 @media (hover: hover) and (pointer: fine) and (min-width: 1025px) {
   .carousel-btn-prev,
   .carousel-btn-next {
@@ -350,7 +348,7 @@ html, body {
   }
 }
 
-/* Esconder botões em dispositivos touch */
+
 @media (hover: none) and (pointer: coarse),
        (max-width: 1024px) {
   .carousel-btn-prev,
@@ -364,7 +362,7 @@ html, body {
   }
 }
 
-/* ===== INDICADORES: APENAS EM DISPOSITIVOS TOUCH ===== */
+
 .carousel-indicators {
   display: none;
   margin-top: 12px;
@@ -393,7 +391,7 @@ html, body {
   background: #ff5e00;
 }
 
-/* ===== GRID DE PRODUTOS ===== */
+
 .grid-products-container {
   width: 100%;
   max-width: 1200px;
@@ -427,7 +425,7 @@ html, body {
   }
 }
 
-/* CONTAINER PARA IMAGENS COM FUNDO BRANCO */
+
 .product-image-wrapper {
   width: 100% !important;
   height: 0 !important;
@@ -475,7 +473,7 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  /* REMOVIDO truncamento */
+
 }
 
 @media (min-width: 768px) {
@@ -530,7 +528,7 @@ html, body {
   color: #000;
 }
 
-/* ===== FILTRO ===== */
+
 .filter-wrapper {
   width: 100%;
   max-width: 1200px;
@@ -628,9 +626,7 @@ html, body {
   color: #ff5e00;
 }
 
-/* ========================================================================== */
-/* AJUSTE FINAL — LANDSCAPE MOBILE/TABLET */
-/* ========================================================================== */
+
 @media (max-width: 1024px) and (orientation: landscape) and (hover: none) and (pointer: coarse) {
   .carousel-wrapper {
     margin: 0.2rem auto !important;
@@ -695,7 +691,6 @@ html, body {
   .carousel-title {
     font-size: 0.68rem !important;
     line-height: 1.3 !important;
-    /* REMOVIDO -webkit-line-clamp e max-height */
     overflow: visible !important;
     text-overflow: initial !important;
     display: block !important;
@@ -756,7 +751,6 @@ html, body {
   .product-title {
     font-size: 0.68rem !important;
     line-height: 1.3 !important;
-    /* REMOVIDO truncamento */
     overflow: visible !important;
     display: block !important;
     text-align: left !important;
@@ -776,7 +770,7 @@ html, body {
   }
 }
 
-/* Para telas extremamente baixas (altura < 360px) */
+
 @media (max-width: 1024px) and (orientation: landscape) and (max-height: 360px) and (hover: none) and (pointer: coarse) {
   .carousel-card {
     width: calc((100vw - 16px - 16px) / 5) !important;
@@ -810,4 +804,48 @@ html, body {
   .product-image-wrapper {
     padding-top: 70% !important;
   }
+}
+
+.section-title {
+  position: relative;
+  padding-left: 16px;
+  margin: 2rem 0 1.2rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: white;
+  display: inline-block;
+}
+
+.section-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #FF5E00;
+  border-radius: 2px;
+}
+
+.featured-title,
+.products-title {
+  position: relative;
+  padding-left: 16px;
+  margin: 2rem 0 1.2rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: white;
+  display: inline-block;
+}
+
+.featured-title::before,
+.products-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #FF5E00;
+  border-radius: 2px;
 }

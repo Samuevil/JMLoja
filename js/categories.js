@@ -1,4 +1,3 @@
-// js/categories.js
 const categoryGroups = [
   {
     title: "PATINS",
