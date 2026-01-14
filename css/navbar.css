@@ -1,10 +1,11 @@
-/* NAVBAR PRINCIPAL */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background: black;
+  background: rgba(0, 0, 0, 0.92); /* semi-transparente */
+  backdrop-filter: blur(4px); /* opcional: dá um efeito de vidro suave */
+  -webkit-backdrop-filter: blur(4px); /* compatibilidade Safari */
   z-index: 1000;
   padding: 0;
   box-sizing: border-box;
@@ -105,7 +106,7 @@
   outline: none;
 }
 
-/* MENU DESKTOP */
+
 .nav-desktop {
   display: none;
   gap: 24px;
@@ -141,7 +142,7 @@
   width: 100%;
 }
 
-/* DROPDOWN */
+
 .dropdown {
   position: fixed;
   top: 80px;
