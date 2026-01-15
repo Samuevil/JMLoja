@@ -8,26 +8,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const basePath = window.location.pathname.includes('/JMLoja/') ? '/JMLoja' : '';
 
-  const slides = [
-    {
-      title: "PATINS STREET AGGRESSIVE",
-      subtitle: "Domine corrimãos, escadarias e concreto. Patins feitos para quem transforma a cidade em playground.",
-      image: "assets/images/street10.png",
-      link: basePath + "/?category=patins-completos-street"
-    },
-    {
-      title: "FITNESS PRA QUEM NÃO PARA",
-      subtitle: "Deslize por quilômetros com conforto, estabilidade e estilo. O seu corpo agradece — a cidade inteira é sua pista.",
-      image: "assets/images/Fitness10.png",
-      link: basePath + "/?category=patins-completos-fitness"
-    },
-    {
-      title: "PROTEÇÃO COM ATITUDE",
-      subtitle: "Capacetes e protetores que não escondem seu estilo — só garantem que você continue mandando bem amanhã.",
-      image: "assets/images/capacete11.png",
-      link: basePath + "/?category=capacetes-e-protetores"
-    }
-  ];
+    const slides = [
+      {
+        title: "PATINS STREET AGGRESSIVE",
+        subtitle: "Feitos para corrimãos, escadarias e concreto. Para quem patina no urbano com foco em manobras.",
+        image: "assets/images/street10.png",
+        link: basePath + "/?category=patins-completos-street"
+      },
+      {
+        title: "PATINS FITNESS PARA INICIANTES E USO DIÁRIO",
+        subtitle: "Conforto e estabilidade para longos rolês. Ideal para uso diário na cidade.",
+        image: "assets/images/Fitness10.png",
+        link: basePath + "/?category=patins-completos-fitness"
+      },
+      {
+        title: "CAPACETES E PROTETORES",
+        subtitle: "Proteção leve que não atrapalha o movimento. Recomendado para todos os níveis.",
+        image: "assets/images/capacete11.png",
+        link: basePath + "/?category=capacetes-e-protetores"
+      }
+    ];
 
   const titleEl = document.getElementById("hero-title");
   const subtitleEl = document.getElementById("hero-subtitle");

@@ -13,9 +13,7 @@ function renderFooter(containerId) {
           <div class="footer-col">
             <a href="/" class="footer-logo">Josimar Soares</a>
             <p class="footer-text">
-              Patinador há 25 anos. Vivo o rolê raiz nas ruas: street, urbano e wizard.
-              Compartilho setups reais, cultura sobre rodas e a essência do movimento —
-              sempre com autenticidade.
+              Compartilho links para produtos que uso ou indico.
             </p>
           </div>
 
@@ -39,7 +37,7 @@ function renderFooter(containerId) {
               <span class="email-text">josimarsilvasoares2015@gmail.com</span>
             </a>
             
-            <a href="mailto:josimarsilvasoares2015@gmail.com" class="footer-link footer-email-mobile">
+            <a href="mailto:josimarsilvasoares2015@gmail.com" class="footer-link footer-email-mobile" title="josimarsilvasoares2015@gmail.com">
               ${mailIcon()}
               <span class="email-text">Email</span>
             </a>
@@ -65,7 +63,6 @@ function renderFooter(containerId) {
               ${facebookIcon()} <span>Facebook</span> 
             </a>
 
-            <!-- THREADS: SUA LOGO ORIGINAL, MAS COM SUPORTE A HOVER -->
             <a href="https://www.threads.net/@josimarssoares" target="_blank" class="footer-social">
               <img
                 src="/assets/logos/instagram%20threads.png"
@@ -81,19 +78,17 @@ function renderFooter(containerId) {
               <span class="footer-letter-icon">B</span>
               <span>Blog</span>
             </a>
-
           </div>
 
         </div>
 
         <div class="footer-bottom">
-          <p>
-            © ${year} <a href="/" class="footer-bottom-link">Josimar Soares</a>.
-            Todos os direitos reservados.
+          <p>© ${year} Josimar Soares</p>
+          <p class="footer-legal-links">
+            <a href="/politica-de-privacidade">Privacidade</a> •
+            <a href="/termos-de-uso">Termos</a> •
+            <a href="/aviso-de-afiliado">Afiliado</a>
           </p>
-          <span>
-            Conteúdo autoral voltado à cultura urbana, esportes sobre rodas e lifestyle independente.
-          </span>
         </div>
 
       </div>
@@ -114,6 +109,7 @@ function baseSvg(content) {
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
+      aria-hidden="true"
     >
       ${content}
     </svg>
